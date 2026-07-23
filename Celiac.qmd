@@ -1,0 +1,507 @@
+---
+title: "Survival Analysis — Celiac disease & colorectal cancer"
+subtitle: "Time-to-event analysis of cancer risk in a matched cohort"
+title-block-banner: "#143A5A"
+title-block-banner-color: "white"
+format:
+  html: default
+  pdf: default
+editor: visual
+---
+
+::: project-summary
+**Objective —** Assess whether celiac disease is associated with a higher risk of future colorectal cancer (CRC).
+
+**Design —** Matched cohort study using Swedish register data; each celiac patient matched to up to two non-celiac controls on age and sex.
+
+**Methods —** Survival / time-to-event analysis — Kaplan–Meier estimation and Cox proportional-hazards modelling.
+
+**Tools —** R (survival, tidyverse).
+:::
+
+## Description: Celiac patients with Colorectal Cancer (CRC)
+
+In this project we investigate if patients with celiac disease are at a higher risk of future colorectal cancer (CRC) compared to controls. The start of CRC is defined as the day of the first ICD (International Classification of Diseases) code starting by *C18, C19*, or *C20*. End of follow-up of the study is *2019-12-31*. The study design is a **matched cohort study** , where each celiac patient was matched to maximum 2 non-celiac persons on *age* and *gender* at start of follow-up.
+
+## Definitions
+
+The International Classification of Diseases (ICD) codes used to identify colorectal cancer and celiac disease in patients are as follows:
+
+-   **ICD-10 Codes:**
+
+-   **C18**: Malignant neoplasm of colon
+
+-   **C19**: Malignant neoplasm of rectosigmoid junction
+
+-   **C20**: Malignant neoplasm of rectum
+
+-   **C21**: Malignant neoplasm of anus and anal canal
+
+    ## Data
+
+The data comes in the following three files:
+
+1.  celiac.txt
+
+2.  nonceliac.txt
+
+3.  ICD.txt
+
+## Variables
+
+The file named ***celiac.txt*** consists of even variables as follows:
+
+-   *Id.number:* The number identifying the celiac patient
+
+-   *Start.of.flwp:* Start of follow-up
+
+-   *Gender:* 1= Male, 2= Female
+
+-   *Age:* The person's age
+
+-   *Birthday:* The person's birthday
+
+-   *Date.of.Death:* The day the person died
+
+-   *Date.of.Migration:* The day the person migrated
+
+The file named **nonceliac.txt** contains the following four variables:
+
+-   *Id.number:* The number identifying the non-celiac person
+
+-   *Celiac.number:* The number identifying the celiac patient the person is matched to
+
+-   *Date.of.Death:* The day the person died
+
+-   *Date.of.Migration:* The day the person migrated.
+
+The file named ***ICD.txt*** contains the following three variables:
+
+-   *Id.number:* The number identifying the person
+
+-   *ICD.codes:* The list of ICD codes assigned at a specific date.
+
+-   *Date.of.ICD.codes:* The date the ICD codes were assigned
+
+## Tasks
+
+Estimate the following measures both for cases, i.e. celiac patients and controls, i.e., non-celiac patients
+
+1.  *Number of persons* per group (N)
+
+2.  *Number of person years* per group (PY)
+
+3.  *Number of events* per group (Events)
+
+4.  *Incidence rate* per 1000 person-year 95% confidence intervals
+
+5.  The*Hazard ratio*s (HR) with 95% confidence intervals
+
+    a\. without adjusting for *Age* and *Gender* variables
+
+    b\. adjusting for *Age* and *Gender* variables
+
+6.  Consolidate the above results into a table
+
+    ## Data wrangling and cleaning
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+#| label: load-packages
+library(survival) 
+#library(survminer)
+#library(simstudy) #the package for non-PH models
+library(ggplot2)
+library(dplyr)
+library(tidyverse)
+library(viridis)
+library(ggrepel)
+library(ggthemes)
+library(lubridate) # to handle the dates data
+library(anytime) #handles the dates data in any format
+library(fmsb) # for 95% CI of incidence rate
+library(gt)
+```
+
+1.  Upload the data files
+
+```{r}
+celiac <- read.csv("~/Desktop/Celiac-main/celiac.txt")
+
+nonceliac <- read.csv("~/Desktop/Celiac-main/nonceliac.txt")
+ 
+ICD <- read.csv("~/Desktop/Celiac-main/ICD.txt")
+# peek into the data
+glimpse(celiac)
+glimpse(nonceliac)
+glimpse(ICD)
+```
+
+2.  Dates columns need to be in one format
+
+```{r}
+#| code-copy: true 
+#| code-overflow: wrap
+celiac <- celiac %>% 
+  mutate(across(c(5:7), as.character))%>%
+  mutate(across(c(2,5,6,7),  anydate))
+
+nonceliac <- nonceliac %>% 
+ mutate(across(c(3,4), as.character))%>%
+  mutate(across(c(3,4), anydate))
+
+ICD <-ICD%>%
+  mutate(Date.of.ICD.codes= as.Date(Date.of.ICD.codes))
+
+#check the data sets
+glimpse(celiac)
+glimpse(nonceliac)
+glimpse(ICD)
+```
+
+3\. Extract CRC events data from the ICD file
+
+```{r}
+# Find out the CRC events from ICD file both for celiac and nonceliac 
+ICD_CRC_events <- ICD %>% 
+  filter(grepl('C18', ICD.codes))%>%
+  rbind(
+  ICD %>% filter(grepl('C19', ICD.codes)) )%>%
+  rbind(
+    ICD %>% filter(grepl('C20', ICD.codes)) )%>%
+  mutate(Date.of.ICD.codes= as.Date(Date.of.ICD.codes))
+
+head(ICD_CRC_events)
+
+```
+
+4\. Construct the data frame for celiac patients by following the instructions given in the project description
+
+```{r}
+#| code-copy: true 
+#| code-overflow: wrap
+#| 
+#Find first CRC events both for celiac and nonceliac groups 
+celiac_CRC <- celiac%>%
+  filter(id.number %in% unique(ICD_CRC_events$id.number) ) %>%
+  merge(ICD_CRC_events%>%
+          filter(id.number %in% unique(celiac$id.number))%>%
+          group_by(id.number)%>%  
+          summarise(Date.of.CRC.onset = min(Date.of.ICD.codes) ),
+        by.x = c("id.number"), 
+        by.y =c("id.number"),
+        all.x = TRUE)%>%
+  filter(Start.of.flwp <= Date.of.CRC.onset)%>% 
+  # exclude the CRC cases before the follow-up
+  mutate(Date.of.flwp.end = do.call(pmin, c(select(., c(6:8)), 
+                                    na.rm = TRUE)) )%>% 
+  mutate(person.time.years = 
+           as.numeric(Date.of.CRC.onset-Start.of.flwp)/ 365.25)%>%
+  # calculate person-years time
+  mutate(CRC.status= "Yes")  
+#mutate the variable for the CRC events
+  
+
+celiac_nonCRC <- celiac %>%
+  filter(id.number %in% setdiff(unique(celiac$id.number),unique(ICD_CRC_events$id.number) ))%>%
+  mutate(Date.of.CRC.onset= as.Date(NA))%>%
+  mutate(Date.of.flwp.end = as.Date("2019-12-31") )%>%
+  #filter(Start.of.flwp <= Date.of.CRC.onset)%>%
+  mutate(Date.of.flwp.end = do.call(pmin, c(select(., c(6:9)), 
+                                    na.rm = TRUE)) )%>%
+  #filter(Start.of.flwp>Date.of.flwp.end)%>%
+  mutate(person.time.years = 
+           as.numeric(Date.of.flwp.end-Start.of.flwp)/ 365.25)%>%
+  mutate(CRC.status= "No") 
+#mutate the variable for the CRC events
+
+celiac_final_df <- rbind(celiac_CRC, celiac_nonCRC)%>%
+  filter(Start.of.flwp<Date.of.flwp.end)%>% 
+  # filter out the events with negative follow-up time
+  mutate(CRC.status= as.factor(CRC.status))%>%
+  mutate(exposure.status= "1") 
+#mutate the variable for the exposure status (celiac~1, nonceliac~0)
+
+dim(celiac_CRC)
+dim(celiac_nonCRC)
+dim(celiac_final_df)
+```
+
+# Modelling and analysis
+
+5.Calculate the required estimates ( *events, person years time/1000* and *incidence rates* ) for celiac patients
+
+```{r}
+#| code-copy: true 
+#| code-overflow: wrap
+#| 
+total_cases_celiac = length(celiac_CRC$id.number)
+person_time_celiac = sum(celiac_final_df$person.time.years)
+Incidence_rate_celiac = total_cases_celiac/ person_time_celiac *1000
+
+total_cases_celiac
+person_time_celiac
+
+## 95% CI for incidence rate  using fmsb package
+IRCI(total_cases_celiac*1000, person_time_celiac, conf.level=0.95) 
+# OR using the following lines
+SE_celiac = 1.96 * sqrt((total_cases_celiac*1000)/person_time_celiac^2 )
+CIL_95_celiac_IR <- Incidence_rate_celiac-SE_celiac
+CIU_95_celiac_IR <- Incidence_rate_celiac+SE_celiac
+```
+
+6\. Construct the data frame for non-celiac patients based on the instructions
+
+```{r}
+#| code-copy: true 
+#| code-overflow: wrap
+nonceliac_CRC <-nonceliac %>%
+  merge(celiac[,c(1:5)], 
+        by.x = "Celiac.number" , 
+        by.y = "id.number",
+        all.x = TRUE )%>%
+  filter(id.number %in% unique(ICD_CRC_events$id.number) ) %>%
+  merge( ICD_CRC_events%>%
+           filter(id.number %in% unique(nonceliac$id.number)) %>%
+  group_by(id.number)%>%  
+    summarise(Date.of.CRC.onset = min(Date.of.ICD.codes)),
+  by.x = c("id.number"), 
+  by.y =c("id.number"),
+  all.y = TRUE
+  )%>%
+  select(c(1,5:8,3,4,9))%>%
+  filter(Start.of.flwp <= Date.of.CRC.onset)%>%
+  mutate(
+    Date.of.flwp.end = 
+      do.call(pmin, c(select(., c(6:8)), 
+                                            na.rm = TRUE)) 
+    )%>%
+  filter(Start.of.flwp<Date.of.flwp.end)%>%
+  mutate(person.time.years = as.numeric(Date.of.CRC.onset-Start.of.flwp)/ 365.25)%>%
+  mutate(CRC.status= "Yes")
+
+nonceliac_nonCRC <- nonceliac%>%
+  #match the nonceliac patients with celiac with celiac number
+  merge(celiac[,c(1:5)], 
+        by.x = "Celiac.number" , 
+        by.y = "id.number",
+        all.x = TRUE )%>%
+  #filter the nonceliacs found in the ICD data
+  filter(id.number %in% 
+           setdiff(unique(nonceliac$id.number),
+                   unique(ICD_CRC_events$id.number) )
+         )%>%
+  #mutate 'Date.of.CRC.onset= NA' variable
+  mutate(Date.of.CRC.onset= as.Date(NA))%>%
+  #mutate Followup end date variable with fixed date(2019-12-31)
+  mutate(Date.of.flwp.end = as.Date("2019-12-31") )%>%
+  select(c(2,5:8,3:4,9,10))%>%
+  mutate(Date.of.flwp.end = 
+           do.call(pmin, c(select(., c(6:9)), 
+            na.rm = TRUE)) 
+         )%>%
+  filter( Start.of.flwp < Date.of.flwp.end)%>%
+  mutate( person.time.years = 
+           as.numeric(Date.of.flwp.end-Start.of.flwp)
+          / 365.25)%>%
+  mutate(CRC.status= "No")
+
+
+nonceliac_final_df <- rbind(nonceliac_CRC, nonceliac_nonCRC)%>%
+  filter(Start.of.flwp<Date.of.flwp.end)%>%
+  mutate(CRC.status= as.factor(CRC.status))%>%
+  mutate(exposure.status= "0")
+```
+
+7\. Calculate the required estimates (*events,person years time /1000* and *incidence rate*) for nonceliac controls
+
+```{r}
+#| code-copy: true 
+#| code-overflow: wrap
+total_cases_nonceliac = length(nonceliac_CRC$id.number)
+person_time_nonceliac = sum(nonceliac_final_df$person.time.years)
+Incidence_rate_nonceliac = (total_cases_nonceliac/ person_time_nonceliac *1000)
+
+total_cases_nonceliac
+person_time_nonceliac
+
+## 95% CI for incidence rate  using fmsb package
+IRCI(total_cases_nonceliac*1000, person_time_nonceliac, conf.level=0.95) 
+
+# OR
+SE_nonceliac = 1.96*sqrt(
+  (total_cases_nonceliac*1000)/person_time_nonceliac^2 )
+CIL_95_nonceliac_IR <- Incidence_rate_nonceliac-SE_nonceliac
+CIL_95_nonceliac_IR <- Incidence_rate_nonceliac+SE_nonceliac
+
+```
+
+Construct the final data frame to estimate the ***hazard ratios*** (HR) using *Cox proportional hazard* (Cox-PH) model
+
+```{r}
+#| code-copy: true 
+#| code-overflow: wrap
+df_celiac_nonceliac <- rbind(celiac_final_df,nonceliac_final_df)%>%
+mutate(flwp.time = as.numeric((Date.of.flwp.end-Start.of.flwp))
+       )%>%
+  mutate(exposure.status=as.factor(exposure.status))%>%
+  mutate(Gender= as.factor(Gender))%>%
+  filter(Start.of.flwp < Date.of.flwp.end)%>%
+  select(c(1:10,12,11,13))
+
+head(df_celiac_nonceliac)
+```
+
+# Survival analysis- Cox model
+
+Apply *Cox-PH model* -unadjusted for *Age* and *Gender* variables
+
+```{r}
+#| code-copy: true 
+#| code-overflow: wrap
+HR_CRC_Unadjusted <- coxph(Surv( as.numeric(Start.of.flwp),
+                                 as.numeric(Date.of.flwp.end), 
+                                 as.numeric(CRC.status))
+~exposure.status, data=df_celiac_nonceliac)
+
+summary(HR_CRC_Unadjusted)
+
+#Test PH assumption
+test.ph <- cox.zph(HR_CRC_Unadjusted)
+
+test.ph
+#ggcoxzph(test.ph)
+```
+
+Next, apply the *Cox-PH model* adjusted for *Age* and *Gender* variables
+
+```{r}
+#| code-copy: true 
+#| code-overflow: wrap
+HR_CRC_AgeGender_adjusted <- coxph(
+  Surv(flwp.time,as.numeric(CRC.status) )~exposure.status+Age+Gender,
+                                   data=df_celiac_nonceliac
+                                   )
+ 
+summary(HR_CRC_AgeGender_adjusted)
+ 
+PH_assump_CRC_AgeGender_Adjusted <- cox.zph(HR_CRC_AgeGender_adjusted)
+PH_assump_CRC_AgeGender_Adjusted
+
+#(PH_assump_CRC_AgeGender_Adjusted)
+```
+
+Stratify the followup duration time
+
+```{r}
+#| code-copy: true 
+#| code-overflow: wrap
+
+#Divide the followup duration into 3 intervals [0,200), [200, 1650), [1650, 7302)
+
+#Here, we use 'surveSplit' function from 'simstudy' package
+df_celiac_nonceliac_stratfied <- 
+  survSplit(Surv(flwp.time, as.numeric(CRC.status)) ~., 
+                 data= df_celiac_nonceliac, cut=c(200,1650),
+                 episode= "tgroup")
+
+head(df_celiac_nonceliac_stratfied)
+```
+
+Apply again the *Cox-PH model* on *stratified* followup duration- unadjusted for *Age* and *Gender*
+
+```{r}
+#| code-copy: true 
+#| code-overflow: wrap
+HR_CRC_Unadjusted_stratfied <- survival::coxph(Surv(tstart,flwp.time, event)~
+                             exposure.status*strata(tgroup),
+                           data=df_celiac_nonceliac_stratfied)
+
+
+summary(HR_CRC_Unadjusted_stratfied)
+
+cox.zph(HR_CRC_Unadjusted_stratfied)
+
+#ggcoxzph(HR_CRC_Unadjusted_stratfied)
+```
+
+Apply again the *Cox-PH model* on stratified followup duration- adjusted for *Age* and *Gender* variables
+
+```{r}
+#| code-copy: true 
+#| code-overflow: wrap
+#| 
+HR_CRC_AgeGender_adjusted_stratified <- survival::coxph(Surv(tstart,flwp.time, event)~
+                             exposure.status*strata(tgroup)+Age+Gender,
+                           data=df_celiac_nonceliac_stratfied)
+
+summary(HR_CRC_AgeGender_adjusted_stratified)
+
+cox.zph(HR_CRC_AgeGender_adjusted_stratified)
+
+#ggcoxzph(HR_CRC_AgeGender_adjusted_stratified)
+
+```
+
+## Table
+
+Now, construct the final table of the results
+
+@tbl-results-celiac combines the completed tasks of the project.
+
+```{r}
+#| label: tbl-results-celiac
+#| tbl-cap: Results
+#| code-copy: true 
+#| code-overflow: wrap
+# Data preparation
+
+summary_table <- tibble(
+  Group = c("Celiac Patients", "Non-Celiac Controls"),
+  `Number of Persons` = c(nrow(celiac_final_df), nrow(nonceliac_final_df)),
+  `Number of Person-Years` = c(person_time_celiac, person_time_nonceliac),
+  `Number of Events` = c(total_cases_celiac, total_cases_nonceliac),
+  `Incidence Rate per 1000 PY (95% CI)` = c(
+    paste0(round(Incidence_rate_celiac, 2), " (", round(CIL_95_celiac_IR, 2), " - ", round(CIU_95_celiac_IR, 2), ")"),
+    paste0(round(Incidence_rate_nonceliac, 2), " (", round(CIL_95_nonceliac_IR, 2), " - ", round(CIL_95_nonceliac_IR, 2), ")")
+  ),
+  `Unadjusted HR (95% CI)` = c(
+    paste0(round(summary(HR_CRC_Unadjusted)$coefficients[1, "exp(coef)"], 2), " (", round(summary(HR_CRC_Unadjusted)$conf.int[1, "lower .95"], 2), " - ", round(summary(HR_CRC_Unadjusted)$conf.int[1, "upper .95"], 2), ")"),
+    ""
+  ),
+  `Adjusted HR (95% CI)` = c(
+    paste0(round(summary(HR_CRC_AgeGender_adjusted)$coefficients[1, "exp(coef)"], 2), " (", round(summary(HR_CRC_AgeGender_adjusted)$conf.int[1, "lower .95"], 2), " - ", round(summary(HR_CRC_AgeGender_adjusted)$conf.int[1, "upper .95"], 2), ")"),
+    ""
+  )
+)
+
+# Create the table using gt
+gt_table <- summary_table %>%
+  gt() %>%
+  tab_header(
+    title = "Summary of Colorectal Cancer Risk among Celiac and Non-Celiac Patients",
+    subtitle = "Based on Survival Analysis"
+  ) %>%
+  cols_label(
+    `Number of Persons` = "N",
+    `Number of Person-Years` = "PY",
+    `Number of Events` = "Events",
+    `Incidence Rate per 1000 PY (95% CI)` = "Incidence Rate / 1000 PY (95% CI)",
+    `Unadjusted HR (95% CI)` = "Unadjusted HR (95% CI)",
+    `Adjusted HR (95% CI)` = "Adjusted HR (95% CI)"
+  ) %>%
+  fmt_number(
+    columns = c(`Number of Person-Years`, `Number of Events`, `Unadjusted HR (95% CI)`, `Adjusted HR (95% CI)`),
+    decimals = 2
+  ) %>%
+  cols_align(
+    align = "center",
+    columns = everything()
+  )
+
+# Display the table
+gt_table
+```
+
+# Interpretations and conclusions
+
+Overall, we observed an increased risk of CRC among celiac patients compared to the nonceliac individuals which was statistically non-significant. The unadjusted and adjusted (for age and sex) hazards were approximately *15%* and *16%* higher among celiac patients compared to the non-celiac individuals (@tbl-results-celiac). However, the proportional-hazard (PH) assumptions for the cox regression model were not fulfilled (p\<0.05) when tested with Schoenfeld test. To tackle this, we stratified the follow-up duration into three intervals. Subsequently, the CRC hazards in exposed group increased significantly (p\<0.05) up to 15-times (@tbl-results-celiac) compared to the unexposed group for the first time-interval. In contrast, the CRC hazard in celiac patients was significantly lower (p \<0.05) compared to the unexposed for other time-intervals. Similar findings were observed after adjusting for age and sex (@tbl-results-celiac). The results should be interpreted carefully due to large uncertainties in the estimates.

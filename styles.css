@@ -1,0 +1,13 @@
+/* styles.css — minor layout tweaks.
+   Brand colours and navbar/dropdown styling now live in brand.scss
+   (compiled through the Quarto theme), so no colour overrides are needed here. */
+
+/* Slightly wider, more readable body text column */
+main.content {
+  max-width: 900px;
+}
+
+/* Gentle spacing for section headings in article pages */
+h1, h2 {
+  margin-top: 1.4rem;
+}

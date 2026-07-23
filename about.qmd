@@ -1,0 +1,9 @@
+---
+title: "About"
+format: html
+editor: visual
+---
+
+# Zia Farooq
+
+I am a data scientist and holds a PhD in epidemiology and public health Umeå University, Sweden. I am currently working as a postdoctoral researcher at Umeå University, Sweden.My research focuses on a range of topics including applying advanced data analytics, artificial intelligence and mechanistic modelling in predictive spatio-temporal disease modelling and disease ecology. I apply AI algorithms for predicting disease outbreaks of complex zoonosis such as the West Nile virus and for projecting its expansion risk due to changing climate. I am also developing new mechanistic framework to identify the attribution of climate change and human mobility in the global expansion of dengue. Further, I am developing new methods that could improve the disease severity estimates. As part of the Lancet Countdown Europe team, I've developed West Nile virus indicator for Europe using machine learning. This is my university profile \[University\]( https://www.umu.se/en/staff/zia-farooq/ ), \[Googlscholar\]( https://scholar.google.com/citations?user=bz2GB_cAAAAJ&hl=en ), \[twitter\]( https://twitter.com/Ziafarooq86)

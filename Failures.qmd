@@ -1,0 +1,33 @@
+---
+title: "Failures"
+subtitle: "A CV of setbacks, rejections, and lessons learned"
+title-block-banner: "#143A5A"
+title-block-banner-color: "white"
+---
+
+Most of what appears on a CV is a highlight reel — the papers that were accepted,
+the grants that were funded, the positions that were offered. It hides the far
+longer list of rejections and setbacks behind every success. Inspired by the idea
+of a *"CV of failures,"* this page keeps that longer list visible: the rejected
+manuscripts, the unfunded proposals, the missed opportunities, and what each one
+taught me.
+
+::: {.callout-note appearance="simple"}
+This page is a work in progress — the detailed entries will be added over time.
+:::
+
+## Rejected manuscripts
+
+*To be added.*
+
+## Grants and fellowships not funded
+
+*To be added.*
+
+## Positions and programmes not offered
+
+*To be added.*
+
+## Lessons learned
+
+*To be added.*

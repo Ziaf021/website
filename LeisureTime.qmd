@@ -1,0 +1,70 @@
+---
+title: "Leisure"
+subtitle: "Life beyond the models"
+title-block-banner: "#143A5A"
+title-block-banner-color: "white"
+format:
+  html: default
+editor: visual
+---
+
+## A journey across three countries
+
+My life outside research has been shaped by the places I have called home — the
+cricket grounds of Pakistan, a brief but formative chapter in Poland, and the
+outdoor life of northern Sweden.
+
+```{=html}
+<div class="chip-row">
+  <span class="chip"><img class="flag-svg" src="images/flags/pakistan.svg" alt="Flag of Pakistan"> Pakistan — where it began</span>
+  <span class="chip"><img class="flag-svg" src="images/flags/poland.svg" alt="Flag of Poland"> Poland — a formative chapter</span>
+  <span class="chip"><img class="flag-svg" src="images/flags/sweden.svg" alt="Flag of Sweden"> Sweden — home today</span>
+</div>
+```
+
+## Following Arsenal
+
+Football found me late. Growing up in Pakistan, my sport was **cricket** — but
+after moving to Europe, my younger brother pulled me into the English game as a
+way to unwind from the pressures of PhD life. I followed him to **Arsenal**, and
+what began as a distraction has become one of my great weekend joys: the tension
+of a tight match, the rhythm of a season, and the shared highs and lows that come
+with supporting a club.
+
+The wait for silverware taught its own kind of patience — and in 2025/26 it was
+finally rewarded.
+
+```{=html}
+<div class="arsenal-band">
+  <span class="cup">🏆</span>
+  <div>
+    <div class="a-title">Arsenal — Premier League Champions 2025/26</div>
+    <div class="a-sub">The Gunners' first league title in 22 years, sealed with the meanest defence in the division. Up the Arsenal!</div>
+  </div>
+</div>
+```
+
+## Staying active
+
+Outside of football, I like to keep moving. I **cycle** around Umeå whenever the
+weather allows, spend regular time at the **gym** to stay fit and clear my head,
+and — above all — treasure time outdoors with my family and children. I have found
+that physical activity and time away from the screen are where my best research
+ideas quietly take shape.
+
+```{=html}
+<div class="chip-row">
+  <span class="chip">🏏 Cricket</span>
+  <span class="chip">⚽ Football (Arsenal)</span>
+  <span class="chip">🚴 Cycling</span>
+  <span class="chip">🏋️ Gym &amp; fitness</span>
+  <span class="chip">🌲 Outdoors with family</span>
+  <span class="chip">🎬 Film &amp; series</span>
+</div>
+```
+
+## Downtime
+
+When I do slow down, I enjoy a good film or series — from Bollywood to Hollywood —
+and the occasional long, unhurried conversation over coffee. Balance, I have
+learned, is not a distraction from research; it is part of doing it well.

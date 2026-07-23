@@ -1,0 +1,138 @@
+project:
+  type: website
+  render:
+    - "*.qmd"
+    - "!SurvivalAnalysis_Celiac.Rmd"
+
+website:
+  sidebar:
+    search: true
+    location: navbar
+    type: overlay
+  title: "Zia Farooq"
+  site-url: https://ziafarooq.org
+  favicon: images/ZF_Avatar1.jpeg
+  description: |
+    Zia Farooq's website mainly features about
+    statistics, data science,infectious disease modelling, R and academia.
+ # body-header: |
+ #   **Welcome to My Website!**  
+ #   *Here is a brief introduction or a standard message that will appear on every page.*  
+ #   > This is an important note that will be displayed below the title and author on each page.
+ 
+  page-navigation: true            # Provide next and previous article links in the footer
+  back-to-top-navigation: true     # Provide a ‘back to top’ navigation button
+  bread-crumbs: true               # Show navigation breadcrumbs for pages more than 1 level deep
+  # Image for social sharing (Twitter/Open Graph)
+  image: images/ZF_Avatar1.jpeg
+  image-alt: "Portrait of Dr. Zia Farooq"
+
+  # Social sharing metadata
+  open-graph: true
+  twitter-card: true
+
+  # Page features
+  google-analytics: "G-07SZXPNSJZ"
+  search: true
+  navbar:
+    background: primary
+    foreground: secondary
+    search: true
+    logo: "images/ZF_Avatar1.jpeg"
+    pinned: true  # Always show the navbar (keep it pinned)
+    collapse: true  # Collapse the navbar into a menu on narrow displays
+    collapse-below: lg  # The breakpoint below which the navbar collapses (sm, md, lg, xl, xxl)
+    toggle-position: right  # Position of the collapsed navbar toggle when in responsive mode (left or right)
+    tools-collapse: true  # Collapse tools into the navbar menu when the display becomes narrow
+    left:
+      - text: Home
+        href: index.qmd
+        icon: house-door  # Bootstrap icon
+        aria-label: "Navigate to home page"  # Accessible label
+      - text: About
+        icon: info-circle
+        aria-label: "About Zia Farooq"
+        menu:
+          - text: About Me
+            href: About_Zia.qmd
+          - text: Failures
+            href: Failures.qmd
+      - text: Research Projects
+        href: ResearchProjects.qmd
+        aria-label: "See my projects"
+      - text: Data science
+        menu:
+          - text: Survival Analysis
+            href: Celiac.qmd
+          - text: Risk Mapping 
+            href: Subproject1.qmd
+          #  icon: file-code
+            aria-label: "Go to Subproject 1"
+          - text: Regression
+            href: Subproject2.qmd
+            aria-label: "Go to Subproject 2"
+          - text: Classification
+            href: Subproject3.qmd
+            aria-label: "Go to Subproject 3"
+      - text: Resume
+        href: Resume.qmd
+      - text: Leisure Time
+        href: LeisureTime.qmd
+    right:
+      - icon: google
+        href: https://scholar.google.com/citations?user=bz2GB_cAAAAJ&hl=en
+        aria-label: "Google Scholar profile"
+      - icon: github
+        href: https://github.com/Ziaf021
+        aria-label: "GitHub profile"
+      - icon: linkedin
+        href: https://www.linkedin.com/in/zia-farooq-phd-26a35512b/
+        aria-label: "LinkedIn profile"
+      - icon: twitter
+        href: https://x.com/DrFarooq_writes
+        aria-label: "X / Twitter profile"
+      - icon: envelope
+        href: mailto:zia.farooq@umu.se
+        aria-label: "Email"
+  page-footer:
+    left: |
+      <b>Dr. Zia Farooq</b> <br>
+      Data scientist and modeller<br>
+      Postdoctoral Researcher<br>
+      Umeå University, Sweden<br>
+      © Copyright 2020-2026 Zia Farooq
+    right: |
+      <i class="fab fa-twitter"></i> <a href="https://x.com/DrFarooq_writes">DrFarooq_writes</a> on X <br>
+      <i class="fab fa-github"></i> <a href="https://github.com/Ziaf021">Ziaf021</a> on GitHub <br>
+      <i class="fas fa-envelope"></i> <a href="mailto:zia.farooq@umu.se">zia.farooq@umu.se</a><br>
+      <i class="fas fa-map-marker-alt"></i> Umeå, 907 87, Sweden
+    border: true
+    background: primary
+format:
+  html:
+    code-fold: true
+    code-summary: "Show the code"
+    code-overflow: wrap
+    #code-block-border-left: true
+    code-block-bg: true
+    code-block-border-left: "#31BAE9"
+    highlight-style: github
+    #minimal: true
+    theme:
+      - lumen
+      - brand.scss
+    fontsize: 1.0em
+    linestretch: 1.8
+    css: styles.css
+    include-in-header:
+      text: |
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&display=swap" rel="stylesheet">
+    include-after: |
+      <link rel="stylesheet" href="/assets/syntax-highlight.css">
+      <link rel="stylesheet" href="/assets/fontawesome-free-6.1.1-web/css/all.min.css">
+      <script src="/assets/fontawesome-free-6.1.1-web/js/all.min.js"></script>
+    toc: true
+editor: visual
+

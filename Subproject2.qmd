@@ -1,0 +1,86 @@
+---
+title: "Regression Modelling"
+subtitle: "Regression workflows for epidemiological data"
+title-block-banner: "#143A5A"
+title-block-banner-color: "white"
+format:
+  html: default
+  pdf: default
+css: assets/about.css
+editor: visual
+execute:
+    echo: true
+---
+
+::: project-summary
+**Objective —** Demonstrate reproducible regression-modelling workflows for epidemiological and ecological data.
+
+**Methods —** Exploratory analysis, linear and generalised regression, model diagnostics, and visualisation.
+
+**Tools —** R (tidyverse, tidymodels, ggplot2).
+
+*This page is a methods demonstration and is being expanded.*
+:::
+
+# Introduction
+
+## Data {.larger style="font:bold"}
+
+I start it with the penguins dataset from @palmerpenguins package [@corsi2021]
+
+```{r, echo=FALSE, warning=FALSE}
+#| label: load-package
+#| message: false
+library(tidyverse)
+library(palmerpenguins)
+library(gt)
+glimpse(penguins)
+
+```
+
+## Species
+
+@fig-bill-dims-species is a scatter plot of species of penguins
+
+```{r}
+#| label: fig-bill-dims-species
+#| fig-width: 5
+#| fig-asp: 0.6
+#| fig-alt: |
+#|      A scatter plot
+#| echo: true
+#| fig-cap: | 
+#|    A scatter plot
+#| output-location: slide
+#| code-copy: true 
+#| code-overflow: scroll
+
+ggplot(penguins,
+       aes(x = bill_length_mm, y = bill_depth_mm,
+           color = species, shape = species)
+       )+
+  geom_point()+
+  theme_minimal()+
+  #scale_color_continuous()+
+  labs(x= "Bill length (mm)", y="Bill depth (mm)")
+
+```
+
+## Penguins
+
+@tbl-penguins-top10 below shows first 10 penguins from the dataset.
+
+```{r}
+#| label: tbl-penguins-top10
+#| tbl-cap: First 10 penguins
+penguins|>
+  slice_head(n=10)|>
+  select(species, island, bill_length_mm, bill_depth_mm)|> 
+  gt()
+```
+
+# Analysis
+
+## modelling
+
+## References

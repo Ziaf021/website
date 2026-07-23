@@ -1,0 +1,412 @@
+/*-- scss:defaults --*/
+
+// ---------------------------------------------------------------------------
+// Brand palette — professional teal / navy
+// ---------------------------------------------------------------------------
+$brand-navy:     #143A5A;   // headings, navbar, banners
+$brand-navy-dk:  #0E2A43;
+$brand-teal:     #12868C;   // primary accent: links, buttons
+$brand-teal-dk:  #0C6167;
+$brand-teal-lt:  #E5F2F2;   // soft accent background
+$brand-slate:    #33475B;   // body-adjacent dark
+
+$primary:        $brand-teal;
+$secondary:      $brand-navy;
+
+// Links and interactive accents
+$link-color:        $brand-teal;
+$link-hover-color:  $brand-teal-dk;
+
+// Navbar: navy with white foreground
+$navbar-bg: $brand-navy;
+$navbar-fg: #ffffff;
+
+// ---------------------------------------------------------------------------
+// Typography — Source Serif 4 headings + Inter body
+// (font files are loaded via include-in-header in _quarto.yml)
+// ---------------------------------------------------------------------------
+$font-family-sans-serif: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+$headings-font-family:   "Source Serif 4", Georgia, "Times New Roman", serif;
+$headings-font-weight:   600;
+$headings-color:         $brand-navy;
+$body-color:             #2b2f33;
+
+/*-- scss:rules --*/
+
+body { letter-spacing: 0.1px; }
+
+h1, h2, h3, h4 { letter-spacing: -0.2px; }
+
+// Navbar dropdown consistent with the navy brand
+.navbar .dropdown-menu {
+  background-color: $brand-navy;
+  border: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+}
+.navbar .dropdown-menu .dropdown-item { color: #ffffff; }
+.navbar .dropdown-menu .dropdown-item:hover,
+.navbar .dropdown-menu .dropdown-item:focus,
+.navbar .dropdown-menu .dropdown-item.active {
+  background-color: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+}
+
+// Buttons
+.btn-primary {
+  background-color: $brand-teal;
+  border-color: $brand-teal;
+}
+.btn-primary:hover, .btn-primary:focus {
+  background-color: $brand-teal-dk;
+  border-color: $brand-teal-dk;
+}
+.btn-outline-primary {
+  color: $brand-teal;
+  border-color: $brand-teal;
+}
+.btn-outline-primary:hover {
+  background-color: $brand-teal;
+  border-color: $brand-teal;
+  color: #ffffff;
+}
+p > .btn, .text-center .btn { margin: 0.3rem 0.4rem 0.3rem 0; }
+
+// ---------------------------------------------------------------------------
+// Section heading with a small teal rule
+// ---------------------------------------------------------------------------
+.home-section h2 {
+  border-bottom: 3px solid $brand-teal;
+  display: inline-block;
+  padding-bottom: 0.25rem;
+  margin-bottom: 1.1rem;
+}
+
+// ---------------------------------------------------------------------------
+// Impact metrics
+// ---------------------------------------------------------------------------
+.metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 1.2rem 0 1.8rem;
+}
+.metrics .metric {
+  flex: 1 1 150px;
+  background: $brand-teal-lt;
+  border-radius: 0.6rem;
+  padding: 1.1rem 1rem;
+  text-align: center;
+  border: 1px solid rgba(18, 134, 140, 0.18);
+}
+.metrics .metric .num {
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 2.1rem;
+  font-weight: 700;
+  color: $brand-navy;
+  line-height: 1;
+}
+.metrics .metric .label {
+  display: block;
+  margin-top: 0.4rem;
+  font-size: 0.86rem;
+  color: $brand-slate;
+}
+
+// ---------------------------------------------------------------------------
+// Featured publication cards
+// ---------------------------------------------------------------------------
+.pub-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.1rem;
+  margin: 0.6rem 0 1.4rem;
+}
+.pub-card {
+  border: 1px solid #e3e7eb;
+  border-radius: 0.7rem;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  display: flex;
+  flex-direction: column;
+}
+.pub-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(20, 58, 90, 0.14);
+}
+.pub-card .pub-img {
+  width: 100%;
+  height: 170px;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  background: #f2f5f7;
+  border-bottom: 1px solid #e3e7eb;
+}
+.pub-card .pub-top {
+  background: $brand-navy;
+  color: #fff;
+  padding: 0.55rem 0.9rem;
+  font-size: 0.76rem;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+.pub-card .pub-top.inprep { background: $brand-teal-dk; }
+.pub-card .badge-inprep {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: $brand-teal-dk;
+  background: $brand-teal-lt;
+  border-radius: 0.35rem;
+  padding: 0.1rem 0.45rem;
+  margin-bottom: 0.4rem;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+.pub-card .pub-body { padding: 0.9rem 1rem 1.1rem; flex: 1; }
+.pub-card .pub-title {
+  font-family: "Source Serif 4", Georgia, serif;
+  font-weight: 600;
+  color: $brand-navy;
+  font-size: 1.02rem;
+  line-height: 1.35;
+  margin-bottom: 0.5rem;
+}
+.pub-card .pub-meta { font-size: 0.85rem; color: $brand-slate; margin-bottom: 0.7rem; }
+.pub-card a.pub-link {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: $brand-teal;
+  text-decoration: none;
+}
+.pub-card a.pub-link:hover { color: $brand-teal-dk; text-decoration: underline; }
+
+// ---------------------------------------------------------------------------
+// Funding cards
+// ---------------------------------------------------------------------------
+.funding {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1rem;
+  margin: 0.6rem 0 1.4rem;
+}
+.fund-item {
+  border-left: 4px solid $brand-teal;
+  background: #f7fafb;
+  border-radius: 0.4rem;
+  padding: 0.9rem 1rem;
+}
+.fund-item .fund-name { font-weight: 600; color: $brand-navy; }
+.fund-item .fund-detail { font-size: 0.86rem; color: $brand-slate; margin-top: 0.2rem; }
+.fund-item.pending {
+  border-left-style: dashed;
+  border-left-color: $brand-slate;
+  background: #f6f7f8;
+}
+.fund-item.pending .fund-name::after {
+  content: "under review";
+  font-size: 0.66rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  color: $brand-slate;
+  background: #e7eaed;
+  border-radius: 0.3rem;
+  padding: 0.08rem 0.4rem;
+  margin-left: 0.5rem;
+  vertical-align: middle;
+}
+
+// Project-summary card for the Data Science sub-pages
+.project-summary {
+  border-left: 4px solid $brand-teal;
+  background: $brand-teal-lt;
+  border-radius: 0.5rem;
+  padding: 1rem 1.2rem;
+  margin: 0.4rem 0 1.6rem;
+}
+.project-summary p { margin: 0.25rem 0; }
+.project-summary .ps-label {
+  font-weight: 700;
+  color: $brand-navy;
+  font-family: "Source Serif 4", Georgia, serif;
+}
+
+// ---------------------------------------------------------------------------
+// Clean CV tables (emitanaka-inspired)
+// ---------------------------------------------------------------------------
+.cv table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0.3rem 0 1.6rem;
+  font-size: 0.97rem;
+}
+.cv table th {
+  text-align: left;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: $brand-slate;
+  border-bottom: 2px solid $brand-teal;
+  padding: 0 0.6rem 0.4rem;
+  font-weight: 700;
+}
+.cv table td {
+  border: none;
+  border-top: 1px solid #edf1f3;
+  padding: 0.7rem 0.6rem;
+  vertical-align: top;
+  line-height: 1.5;
+}
+.cv table td:first-child {
+  white-space: nowrap;
+  color: $brand-teal-dk;
+  font-weight: 700;
+  width: 130px;
+  font-family: "Source Serif 4", Georgia, serif;
+}
+.cv h1, .cv h2 { color: $brand-navy; }
+.cv h2 {
+  border-bottom: 2px solid $brand-teal-lt;
+  padding-bottom: 0.25rem;
+  margin-top: 2rem;
+}
+.cv ol li, .cv ul li { margin: 0.4rem 0; line-height: 1.55; }
+.cv .download-btn { margin: 0.4rem 0 1.4rem; }
+
+// SVG flag chips
+.chip .flag-svg {
+  width: 1.5rem;
+  height: 1.05rem;
+  border-radius: 2px;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.08);
+  display: inline-block;
+  vertical-align: middle;
+}
+
+// ---------------------------------------------------------------------------
+// Journals "published in" badges
+// ---------------------------------------------------------------------------
+.journals {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin: 0.6rem 0 1.4rem;
+}
+.journals .jrnl {
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: $brand-navy;
+  background: #fff;
+  border: 1.5px solid $brand-teal;
+  border-radius: 2rem;
+  padding: 0.4rem 1rem;
+  white-space: nowrap;
+}
+.journals .jrnl:hover { background: $brand-teal-lt; }
+.journals .jrnl b { color: $brand-teal-dk; }
+
+// ---------------------------------------------------------------------------
+// Inspirational quotes
+// ---------------------------------------------------------------------------
+.quotes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.1rem;
+  margin: 0.6rem 0 1.4rem;
+}
+.quote {
+  background: $brand-navy;
+  color: #eaf1f5;
+  border-radius: 0.7rem;
+  padding: 1.3rem 1.3rem 1.1rem;
+  position: relative;
+}
+.quote::before {
+  content: "\201C";
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 3.2rem;
+  line-height: 1;
+  color: $brand-teal;
+  position: absolute;
+  top: 0.4rem; left: 0.8rem;
+  opacity: 0.55;
+}
+.quote .q-text {
+  font-family: "Source Serif 4", Georgia, serif;
+  font-style: italic;
+  font-size: 1.02rem;
+  line-height: 1.5;
+  margin: 0.6rem 0 0.7rem;
+  position: relative;
+}
+.quote .q-author { font-size: 0.85rem; color: $brand-teal-lt; font-weight: 600; }
+
+// ---------------------------------------------------------------------------
+// Figure with caption (journey timeline, etc.)
+// ---------------------------------------------------------------------------
+.figure-block { margin: 0.8rem 0 1.4rem; }
+.figure-block img {
+  width: 100%;
+  border: 1px solid #e3e7eb;
+  border-radius: 0.6rem;
+  background: #fff;
+}
+.figure-block figcaption {
+  font-size: 0.85rem;
+  color: $brand-slate;
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+// ---------------------------------------------------------------------------
+// Leisure page graphics
+// ---------------------------------------------------------------------------
+.chip-row { display: flex; flex-wrap: wrap; gap: 0.7rem; margin: 0.8rem 0 1.2rem; }
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: $brand-teal-lt;
+  border: 1px solid rgba(18, 134, 140, 0.25);
+  border-radius: 2rem;
+  padding: 0.4rem 1rem;
+  font-weight: 500;
+  color: $brand-navy;
+  font-size: 0.95rem;
+}
+.chip .flag { font-size: 1.25rem; line-height: 1; }
+.arsenal-band {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: linear-gradient(90deg, #EF0107 0%, #C81018 100%);
+  color: #fff;
+  border-radius: 0.7rem;
+  padding: 1rem 1.3rem;
+  margin: 0.8rem 0 1.2rem;
+}
+.arsenal-band .cup { font-size: 2.2rem; line-height: 1; }
+.arsenal-band .a-title { font-family: "Source Serif 4", Georgia, serif; font-weight: 700; font-size: 1.1rem; }
+.arsenal-band .a-sub { font-size: 0.9rem; opacity: 0.95; }
+
+// ---------------------------------------------------------------------------
+// Highlights timeline
+// ---------------------------------------------------------------------------
+.timeline { border-left: 3px solid $brand-teal-lt; margin: 0.6rem 0 1rem; padding-left: 1.2rem; }
+.timeline .t-item { position: relative; padding: 0.35rem 0 0.9rem; }
+.timeline .t-item::before {
+  content: "";
+  position: absolute;
+  left: -1.63rem;
+  top: 0.6rem;
+  width: 11px; height: 11px;
+  border-radius: 50%;
+  background: $brand-teal;
+  border: 2px solid #fff;
+}
+.timeline .t-year { font-weight: 700; color: $brand-teal-dk; margin-right: 0.5rem; }
+.timeline .t-text { color: #2b2f33; }

@@ -1,0 +1,122 @@
+---
+title: "Curriculum Vitae"
+subtitle: "Zia Farooq, PhD · Data scientist & infectious-disease modeller"
+title-block-banner: "#143A5A"
+title-block-banner-color: "white"
+page-layout: article
+toc: true
+toc-title: "Sections"
+editor: visual
+resources:
+  - Zia-Farooq_CV20260202.pdf
+---
+
+::: cv
+
+[Download full CV (PDF)](Zia-Farooq_CV20260202.pdf){.btn .btn-primary .download-btn role="button"}
+
+## Positions
+
+| Dates | Role |
+|-------|------|
+| 2024 – present | **Postdoctoral Researcher**<br>Umeå University, Sweden · Department of Epidemiology and Global Health · EU-funded IDAlert project |
+| 2020 – 2024 | **Doctoral Researcher**<br>Umeå University, Sweden · Department of Epidemiology and Global Health |
+| 2018 – 2019 | **Early-Career Researcher**<br>Institute of Fundamental Technological Research, Polish Academy of Sciences · Warsaw, Poland |
+
+## Education
+
+| Year | Degree |
+|------|--------|
+| 2024 | **PhD, Epidemiology & Public Health**<br>Umeå University, Sweden — *Navigating epidemics by leveraging data science and data-driven modelling* |
+| 2017 | **MSc, Applied Mathematics**<br>Institute of Space Technology, Islamabad, Pakistan |
+| 2009 | **BSc, Mathematics**<br>University of Gujrat, Pakistan |
+
+## Grants & Awards
+
+| Year | Award |
+|------|-------|
+| 2026–2028 | **Kempe Foundation Postdoctoral Scholarship**<br>Two-year competitive fellowship |
+| 2025 | **MIRAI Japan–Sweden Mobility Grant**<br>Long-term mobility grant for Early-Career Researchers · SEK 130,000 |
+| 2024 | **Medical Faculty Grant for Internationalization**<br>Umeå University · SEK 28,500 |
+| 2022 | **Travel Grant for Research Visit**<br>Awarded during PhD · SEK 18,500 |
+
+### Applications under review (decisions expected 2026)
+
+| Year | Application |
+|------|-------------|
+| 2026 | **FORMAS Early-Career Researcher grant**<br>Submitted · decision expected Oct 2026 |
+| 2026 | **FORMAS Climate & Health call (Sweden)**<br>Application submitted |
+| 2026 | **Horizon Europe**<br>Application submitted |
+| 2026 | **FORTE — abortion research project**<br>Decision expected Oct–Nov 2026 |
+
+## Selected Publications
+
+A complete, continuously updated list is on my
+[Google Scholar profile](https://scholar.google.com/citations?user=bz2GB_cAAAAJ&hl=en)
+and the [Research Projects & Publications](ResearchProjects.qmd) page. Selected
+first-author and contributing work:
+
+1. **Farooq Z**, Rocklöv J, Semenza JC (2025). Northward expansion of *Aedes albopictus*-associated arbovirus transmission risk in Europe. *The Lancet Planetary Health*.
+2. **Farooq Z**, Segelmark L, Rocklöv J, et al. (2025). Impact of climate and *Aedes albopictus* establishment on dengue and chikungunya outbreaks in Europe. *The Lancet Planetary Health*.
+3. **Farooq Z**, Sjödin H, Rocklöv J, Brännström Å (2025). Improving case fatality ratio estimates in ongoing pandemics through case-to-death time distribution analysis. *Scientific Reports*.
+4. **Farooq Z**, Rocklöv J, Wallin J, et al. (2024). Input precision, output excellence: the importance of data quality control and method selection in disease risk mapping — authors' reply. *The Lancet Regional Health – Europe*.
+5. **Farooq Z**, Sjödin H, Semenza JC, et al. (2023). European projections of West Nile virus transmission under climate change scenarios. *One Health*.
+6. **Farooq Z**, Rocklöv J, Wallin J, et al. (2022). Artificial intelligence to predict West Nile virus outbreaks with eco-climatic drivers. *The Lancet Regional Health – Europe*.
+7. van Daalen KR, Tonne C, Semenza JC, …, **Farooq Z**, et al. (2024). The 2024 Europe report of the Lancet Countdown on health and climate change. *The Lancet Public Health*.
+8. van Daalen KR, Romanello M, Rocklöv J, …, **Farooq Z**, et al. (2022). The 2022 Europe report of the Lancet Countdown on health and climate change. *The Lancet Public Health*.
+9. Sjödin H, Johansson AF, Brännström Å, **Farooq Z**, et al. (2020). COVID-19 healthcare demand and mortality in Sweden. *International Journal of Epidemiology*.
+10. Sjödin H, Wilder-Smith A, Osman S, **Farooq Z**, Rocklöv J (2020). Only strict quarantine measures can curb the COVID-19 outbreak in Italy, 2020. *Eurosurveillance*.
+
+## Teaching & Supervision
+
+| Years | Activity |
+|-------|----------|
+| 2022–2025 | **Teaching (MSc level), Umeå University**<br>Modelling and Simulations; Epidemiology; Climate Change and Health |
+| 2024 – present | **Co-supervisor of a PhD scholar**<br>University of Management and Technology, Lahore, Pakistan |
+| 2025 | **Supervisor of a master's student**<br>Umeå University, Sweden |
+
+## Conferences & Seminars
+
+| Year | Presentation |
+|------|--------------|
+| 2025 | **Nobel Petite Day** — presenter · Umeå University, Sweden |
+| 2025 | **Dealing with the polycrisis (UTRI)** — session coordinator & presenter · Umeå University |
+| 2025 | **Modelling dengue importations** — research seminar · University of Trento, Italy |
+| 2024 | **Department Day, Umeå University** — Young Researcher talk |
+| 2023 | **ESCAIDE 2023** — poster · Barcelona, Spain |
+| 2023 | **Connecting Health and Climate Change** — oral presentation · Stockholm, Sweden |
+| 2023 | **Urban spaces and mosquitoes on a changing planet** — oral presentation · Barcelona, Spain |
+| 2022 | **Polish Scientific Network conference** — oral presentation · Wrocław, Poland |
+| 2022 | **One Health PACT modelling seminar** — invited talk · Leiden University, Netherlands |
+| 2022 | **Mathematical modelling and its applications** — keynote · University of Gujrat, Pakistan |
+
+## Peer Review
+
+Reviewer (since 2021) for *Environmental Health Perspectives*, *PLOS Climate*,
+*Scientific Reports*, *Vaccines*, *PLOS Computational Biology*, and
+*The Lancet Regional Health – Europe*.
+
+## Research Visits
+
+**Fondazione Edmund Mach**, Applied Ecology Unit, Trento, Italy — research
+collaboration and networking (May 2025).
+
+## Technical Skills
+
+- **Programming:** R, MATLAB, Python, Stata, SPSS, shell scripting.
+- **Machine learning & AI:** classification, regression, clustering, PCA,
+  explainable AI, boosting/bagging, neural networks.
+- **Biostatistics:** survival and time-to-event analysis, hypothesis testing,
+  multivariate analysis.
+- **Data science:** data wrangling and feature engineering, web scraping and APIs,
+  spatial data science, reproducible workflows with Git and Quarto.
+- **Languages:** English, Urdu, Punjabi.
+
+## Contact
+
+- **Email** — [zia.farooq@umu.se](mailto:zia.farooq@umu.se)
+- **Google Scholar** — [scholar.google.com](https://scholar.google.com/citations?user=bz2GB_cAAAAJ&hl=en)
+- **GitHub** — [github.com/Ziaf021](https://github.com/Ziaf021)
+- **Address** — Department of Epidemiology and Global Health, Umeå University, 901 87 Umeå, Sweden
+
+:::

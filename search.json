@@ -1,0 +1,457 @@
+[
+  {
+    "objectID": "Celiac.html",
+    "href": "Celiac.html",
+    "title": "Survival Analysis — Celiac disease & colorectal cancer",
+    "section": "",
+    "text": "Objective — Assess whether celiac disease is associated with a higher risk of future colorectal cancer (CRC).\nDesign — Matched cohort study using Swedish register data; each celiac patient matched to up to two non-celiac controls on age and sex.\nMethods — Survival / time-to-event analysis — Kaplan–Meier estimation and Cox proportional-hazards modelling.\nTools — R (survival, tidyverse)."
+  },
+  {
+    "objectID": "Celiac.html#description-celiac-patients-with-colorectal-cancer-crc",
+    "href": "Celiac.html#description-celiac-patients-with-colorectal-cancer-crc",
+    "title": "Survival Analysis — Celiac disease & colorectal cancer",
+    "section": "Description: Celiac patients with Colorectal Cancer (CRC)",
+    "text": "Description: Celiac patients with Colorectal Cancer (CRC)\nIn this project we investigate if patients with celiac disease are at a higher risk of future colorectal cancer (CRC) compared to controls. The start of CRC is defined as the day of the first ICD (International Classification of Diseases) code starting by C18, C19, or C20. End of follow-up of the study is 2019-12-31. The study design is a matched cohort study , where each celiac patient was matched to maximum 2 non-celiac persons on age and gender at start of follow-up."
+  },
+  {
+    "objectID": "Celiac.html#definitions",
+    "href": "Celiac.html#definitions",
+    "title": "Survival Analysis — Celiac disease & colorectal cancer",
+    "section": "Definitions",
+    "text": "Definitions\nThe International Classification of Diseases (ICD) codes used to identify colorectal cancer and celiac disease in patients are as follows:\n\nICD-10 Codes:\nC18: Malignant neoplasm of colon\nC19: Malignant neoplasm of rectosigmoid junction\nC20: Malignant neoplasm of rectum\nC21: Malignant neoplasm of anus and anal canal\nData\n\nThe data comes in the following three files:\n\nceliac.txt\nnonceliac.txt\nICD.txt"
+  },
+  {
+    "objectID": "Celiac.html#variables",
+    "href": "Celiac.html#variables",
+    "title": "Survival Analysis — Celiac disease & colorectal cancer",
+    "section": "Variables",
+    "text": "Variables\nThe file named celiac.txt consists of even variables as follows:\n\nId.number: The number identifying the celiac patient\nStart.of.flwp: Start of follow-up\nGender: 1= Male, 2= Female\nAge: The person’s age\nBirthday: The person’s birthday\nDate.of.Death: The day the person died\nDate.of.Migration: The day the person migrated\n\nThe file named nonceliac.txt contains the following four variables:\n\nId.number: The number identifying the non-celiac person\nCeliac.number: The number identifying the celiac patient the person is matched to\nDate.of.Death: The day the person died\nDate.of.Migration: The day the person migrated.\n\nThe file named ICD.txt contains the following three variables:\n\nId.number: The number identifying the person\nICD.codes: The list of ICD codes assigned at a specific date.\nDate.of.ICD.codes: The date the ICD codes were assigned"
+  },
+  {
+    "objectID": "Celiac.html#tasks",
+    "href": "Celiac.html#tasks",
+    "title": "Survival Analysis — Celiac disease & colorectal cancer",
+    "section": "Tasks",
+    "text": "Tasks\nEstimate the following measures both for cases, i.e. celiac patients and controls, i.e., non-celiac patients\n\nNumber of persons per group (N)\nNumber of person years per group (PY)\nNumber of events per group (Events)\nIncidence rate per 1000 person-year 95% confidence intervals\nTheHazard ratios (HR) with 95% confidence intervals\na. without adjusting for Age and Gender variables\nb. adjusting for Age and Gender variables\nConsolidate the above results into a table\nData wrangling and cleaning\n\n\n\nShow the code\nlibrary(survival) \n#library(survminer)\n#library(simstudy) #the package for non-PH models\nlibrary(ggplot2)\nlibrary(dplyr)\nlibrary(tidyverse)\nlibrary(viridis)\nlibrary(ggrepel)\nlibrary(ggthemes)\nlibrary(lubridate) # to handle the dates data\nlibrary(anytime) #handles the dates data in any format\nlibrary(fmsb) # for 95% CI of incidence rate\nlibrary(gt)\n\n\n\nUpload the data files\n\n\n\nShow the code\nceliac &lt;- read.csv(\"~/Desktop/Celiac-main/celiac.txt\")\n\nnonceliac &lt;- read.csv(\"~/Desktop/Celiac-main/nonceliac.txt\")\n \nICD &lt;- read.csv(\"~/Desktop/Celiac-main/ICD.txt\")\n# peek into the data\nglimpse(celiac)\n\n\nRows: 12,350\nColumns: 7\n$ id.number         &lt;int&gt; 424, 881, 1739, 2462, 2652, 2785, 3136, 3192, 3888, …\n$ Start.of.flwp     &lt;int&gt; 20081106, 20070613, 20040609, 20000306, 20040712, 20…\n$ Gender            &lt;int&gt; 2, 1, 2, 2, 2, 1, 2, 2, 2, 1, 2, 1, 1, 2, 2, 1, 1, 2…\n$ Age               &lt;int&gt; 72, 21, 12, 19, 46, 17, 24, 31, 27, 17, 38, 7, 77, 7…\n$ Birthday          &lt;chr&gt; \"1936-05-15\", \"1986-02-15\", \"1991-12-15\", \"1980-09-1…\n$ Date.of.Death     &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …\n$ Date.of.Migration &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …\n\n\nShow the code\nglimpse(nonceliac)\n\n\nRows: 24,605\nColumns: 4\n$ id.number         &lt;int&gt; 7659518, 1038521, 9265189, 10658482, 8460019, 109809…\n$ Celiac.number     &lt;int&gt; 424, 424, 881, 881, 1739, 1739, 2462, 2462, 2652, 26…\n$ Date.of.Death     &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 20081016…\n$ Date.of.Migration &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …\n\n\nShow the code\nglimpse(ICD)\n\n\nRows: 47,407\nColumns: 3\n$ id.number         &lt;int&gt; 2855591, 2855591, 5552533, 9515567, 2112819, 9075074…\n$ ICD.codes         &lt;chr&gt; \"C402\", \"C402\", \"C787 C809 M069\", \"D489 C921\", \"Z489…\n$ Date.of.ICD.codes &lt;chr&gt; \"2003-03-04\", \"2002-12-25\", \"2010-05-25\", \"2001-09-2…\n\n\n\nDates columns need to be in one format\n\n\n\nShow the code\nceliac &lt;- celiac %&gt;% \n  mutate(across(c(5:7), as.character))%&gt;%\n  mutate(across(c(2,5,6,7),  anydate))\n\n\nWarning: There were 23370 warnings in `mutate()`.\nThe first warning was:\nℹ In argument: `across(c(2, 5, 6, 7), anydate)`.\nCaused by warning in `anytime_cpp()`:\n! Input conversion resulted in 'NA' results.\nℹ Run `dplyr::last_dplyr_warnings()` to see the 23369 remaining warnings.\n\n\nShow the code\nnonceliac &lt;- nonceliac %&gt;% \n mutate(across(c(3,4), as.character))%&gt;%\n  mutate(across(c(3,4), anydate))\n\n\nWarning: There were 46437 warnings in `mutate()`.\nThe first warning was:\nℹ In argument: `across(c(3, 4), anydate)`.\nCaused by warning in `anytime_cpp()`:\n! Input conversion resulted in 'NA' results.\nℹ Run `dplyr::last_dplyr_warnings()` to see the 46436 remaining warnings.\n\n\nShow the code\nICD &lt;-ICD%&gt;%\n  mutate(Date.of.ICD.codes= as.Date(Date.of.ICD.codes))\n\n#check the data sets\nglimpse(celiac)\n\n\nRows: 12,350\nColumns: 7\n$ id.number         &lt;int&gt; 424, 881, 1739, 2462, 2652, 2785, 3136, 3192, 3888, …\n$ Start.of.flwp     &lt;date&gt; 2008-11-06, 2007-06-13, 2004-06-09, 2000-03-06, 200…\n$ Gender            &lt;int&gt; 2, 1, 2, 2, 2, 1, 2, 2, 2, 1, 2, 1, 1, 2, 2, 1, 1, 2…\n$ Age               &lt;int&gt; 72, 21, 12, 19, 46, 17, 24, 31, 27, 17, 38, 7, 77, 7…\n$ Birthday          &lt;date&gt; 1936-05-15, 1986-02-15, 1991-12-15, 1980-09-15, 195…\n$ Date.of.Death     &lt;date&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…\n$ Date.of.Migration &lt;date&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…\n\n\nShow the code\nglimpse(nonceliac)\n\n\nRows: 24,605\nColumns: 4\n$ id.number         &lt;int&gt; 7659518, 1038521, 9265189, 10658482, 8460019, 109809…\n$ Celiac.number     &lt;int&gt; 424, 424, 881, 881, 1739, 1739, 2462, 2462, 2652, 26…\n$ Date.of.Death     &lt;date&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 2008-10…\n$ Date.of.Migration &lt;date&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…\n\n\nShow the code\nglimpse(ICD)\n\n\nRows: 47,407\nColumns: 3\n$ id.number         &lt;int&gt; 2855591, 2855591, 5552533, 9515567, 2112819, 9075074…\n$ ICD.codes         &lt;chr&gt; \"C402\", \"C402\", \"C787 C809 M069\", \"D489 C921\", \"Z489…\n$ Date.of.ICD.codes &lt;date&gt; 2003-03-04, 2002-12-25, 2010-05-25, 2001-09-20, 200…\n\n\n3. Extract CRC events data from the ICD file\n\n\nShow the code\n# Find out the CRC events from ICD file both for celiac and nonceliac \nICD_CRC_events &lt;- ICD %&gt;% \n  filter(grepl('C18', ICD.codes))%&gt;%\n  rbind(\n  ICD %&gt;% filter(grepl('C19', ICD.codes)) )%&gt;%\n  rbind(\n    ICD %&gt;% filter(grepl('C20', ICD.codes)) )%&gt;%\n  mutate(Date.of.ICD.codes= as.Date(Date.of.ICD.codes))\n\nhead(ICD_CRC_events)\n\n\n  id.number                     ICD.codes Date.of.ICD.codes\n1  10447614 C187 C787 C771 C722 I109 E119        2009-04-20\n2   3912733                          C187        2005-01-24\n3   2040543                          C189        2005-01-28\n4   4780187          C186 I109 E785 K900A        2010-08-25\n5    344621          C186 I489B I209 N390        2008-06-07\n6   7462794                     Z514 C183        2010-01-06\n\n\n4. Construct the data frame for celiac patients by following the instructions given in the project description\n\n\nShow the code\n#Find first CRC events both for celiac and nonceliac groups \nceliac_CRC &lt;- celiac%&gt;%\n  filter(id.number %in% unique(ICD_CRC_events$id.number) ) %&gt;%\n  merge(ICD_CRC_events%&gt;%\n          filter(id.number %in% unique(celiac$id.number))%&gt;%\n          group_by(id.number)%&gt;%  \n          summarise(Date.of.CRC.onset = min(Date.of.ICD.codes) ),\n        by.x = c(\"id.number\"), \n        by.y =c(\"id.number\"),\n        all.x = TRUE)%&gt;%\n  filter(Start.of.flwp &lt;= Date.of.CRC.onset)%&gt;% \n  # exclude the CRC cases before the follow-up\n  mutate(Date.of.flwp.end = do.call(pmin, c(select(., c(6:8)), \n                                    na.rm = TRUE)) )%&gt;% \n  mutate(person.time.years = \n           as.numeric(Date.of.CRC.onset-Start.of.flwp)/ 365.25)%&gt;%\n  # calculate person-years time\n  mutate(CRC.status= \"Yes\")  \n#mutate the variable for the CRC events\n  \n\nceliac_nonCRC &lt;- celiac %&gt;%\n  filter(id.number %in% setdiff(unique(celiac$id.number),unique(ICD_CRC_events$id.number) ))%&gt;%\n  mutate(Date.of.CRC.onset= as.Date(NA))%&gt;%\n  mutate(Date.of.flwp.end = as.Date(\"2019-12-31\") )%&gt;%\n  #filter(Start.of.flwp &lt;= Date.of.CRC.onset)%&gt;%\n  mutate(Date.of.flwp.end = do.call(pmin, c(select(., c(6:9)), \n                                    na.rm = TRUE)) )%&gt;%\n  #filter(Start.of.flwp&gt;Date.of.flwp.end)%&gt;%\n  mutate(person.time.years = \n           as.numeric(Date.of.flwp.end-Start.of.flwp)/ 365.25)%&gt;%\n  mutate(CRC.status= \"No\") \n#mutate the variable for the CRC events\n\nceliac_final_df &lt;- rbind(celiac_CRC, celiac_nonCRC)%&gt;%\n  filter(Start.of.flwp&lt;Date.of.flwp.end)%&gt;% \n  # filter out the events with negative follow-up time\n  mutate(CRC.status= as.factor(CRC.status))%&gt;%\n  mutate(exposure.status= \"1\") \n#mutate the variable for the exposure status (celiac~1, nonceliac~0)\n\ndim(celiac_CRC)\n\n\n[1] 113  11\n\n\nShow the code\ndim(celiac_nonCRC)\n\n\n[1] 12199    11\n\n\nShow the code\ndim(celiac_final_df)\n\n\n[1] 12310    12"
+  },
+  {
+    "objectID": "Celiac.html#table",
+    "href": "Celiac.html#table",
+    "title": "Survival Analysis — Celiac disease & colorectal cancer",
+    "section": "Table",
+    "text": "Table\nNow, construct the final table of the results\nTable 1 combines the completed tasks of the project.\n\n\nShow the code\n# Data preparation\n\nsummary_table &lt;- tibble(\n  Group = c(\"Celiac Patients\", \"Non-Celiac Controls\"),\n  `Number of Persons` = c(nrow(celiac_final_df), nrow(nonceliac_final_df)),\n  `Number of Person-Years` = c(person_time_celiac, person_time_nonceliac),\n  `Number of Events` = c(total_cases_celiac, total_cases_nonceliac),\n  `Incidence Rate per 1000 PY (95% CI)` = c(\n    paste0(round(Incidence_rate_celiac, 2), \" (\", round(CIL_95_celiac_IR, 2), \" - \", round(CIU_95_celiac_IR, 2), \")\"),\n    paste0(round(Incidence_rate_nonceliac, 2), \" (\", round(CIL_95_nonceliac_IR, 2), \" - \", round(CIL_95_nonceliac_IR, 2), \")\")\n  ),\n  `Unadjusted HR (95% CI)` = c(\n    paste0(round(summary(HR_CRC_Unadjusted)$coefficients[1, \"exp(coef)\"], 2), \" (\", round(summary(HR_CRC_Unadjusted)$conf.int[1, \"lower .95\"], 2), \" - \", round(summary(HR_CRC_Unadjusted)$conf.int[1, \"upper .95\"], 2), \")\"),\n    \"\"\n  ),\n  `Adjusted HR (95% CI)` = c(\n    paste0(round(summary(HR_CRC_AgeGender_adjusted)$coefficients[1, \"exp(coef)\"], 2), \" (\", round(summary(HR_CRC_AgeGender_adjusted)$conf.int[1, \"lower .95\"], 2), \" - \", round(summary(HR_CRC_AgeGender_adjusted)$conf.int[1, \"upper .95\"], 2), \")\"),\n    \"\"\n  )\n)\n\n# Create the table using gt\ngt_table &lt;- summary_table %&gt;%\n  gt() %&gt;%\n  tab_header(\n    title = \"Summary of Colorectal Cancer Risk among Celiac and Non-Celiac Patients\",\n    subtitle = \"Based on Survival Analysis\"\n  ) %&gt;%\n  cols_label(\n    `Number of Persons` = \"N\",\n    `Number of Person-Years` = \"PY\",\n    `Number of Events` = \"Events\",\n    `Incidence Rate per 1000 PY (95% CI)` = \"Incidence Rate / 1000 PY (95% CI)\",\n    `Unadjusted HR (95% CI)` = \"Unadjusted HR (95% CI)\",\n    `Adjusted HR (95% CI)` = \"Adjusted HR (95% CI)\"\n  ) %&gt;%\n  fmt_number(\n    columns = c(`Number of Person-Years`, `Number of Events`, `Unadjusted HR (95% CI)`, `Adjusted HR (95% CI)`),\n    decimals = 2\n  ) %&gt;%\n  cols_align(\n    align = \"center\",\n    columns = everything()\n  )\n\n# Display the table\ngt_table\n\n\n\n\nTable 1: Results\n\n\n\n\n\n\n\n\n\nSummary of Colorectal Cancer Risk among Celiac and Non-Celiac Patients\n\n\nBased on Survival Analysis\n\n\nGroup\nN\nPY\nEvents\nIncidence Rate / 1000 PY (95% CI)\nUnadjusted HR (95% CI)\nAdjusted HR (95% CI)\n\n\n\n\nCeliac Patients\n12310\n137,267.82\n113.00\n0.82 (0.82 - 0.83)\n1.16 (0.92 - 1.46)\n1.15 (0.91 - 1.44)\n\n\nNon-Celiac Controls\n24358\n272,313.71\n194.00\n0.71 (0.72 - 0.72)"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Zia Farooq, PhD",
+    "section": "",
+    "text": "Somewhere, something incredible is waiting to be known.— Carl Sagan\n  If I have seen further it is by standing on the shoulders of giants.— Isaac Newton\n  The important thing is not to stop questioning. Curiosity has its own reason for existing.— Albert Einstein"
+  },
+  {
+    "objectID": "index.html#words-that-inspire-me",
+    "href": "index.html#words-that-inspire-me",
+    "title": "Zia Farooq, PhD",
+    "section": "",
+    "text": "Somewhere, something incredible is waiting to be known.— Carl Sagan\n  If I have seen further it is by standing on the shoulders of giants.— Isaac Newton\n  The important thing is not to stop questioning. Curiosity has its own reason for existing.— Albert Einstein"
+  },
+  {
+    "objectID": "index.html#welcome",
+    "href": "index.html#welcome",
+    "title": "Zia Farooq, PhD",
+    "section": "Welcome",
+    "text": "Welcome\nI am a postdoctoral researcher at Umeå University, Sweden, working where data science, machine learning, and infectious-disease epidemiology meet. I build spatio-temporal and mechanistic models that forecast the outbreak and expansion risk of climate-sensitive diseases — West Nile virus, dengue, and chikungunya — from the interplay of climatic, ecological, socioeconomic, and human-mobility drivers.\nI develop the European West Nile virus risk indicator for the Lancet Countdown in Europe and contribute to the EU-funded IDAlert project, pairing explainable AI with mechanistic modelling to turn complex data into evidence for climate-resilient public health.\nResearch & Publications About Me Curriculum Vitae"
+  },
+  {
+    "objectID": "index.html#at-a-glance",
+    "href": "index.html#at-a-glance",
+    "title": "Zia Farooq, PhD",
+    "section": "At a glance",
+    "text": "At a glance\n\n  2,146Citations (Google Scholar)\n  11h-index\n  12i10-index\n  18Publications\n  9First-author papers\n  4Grants & awards secured"
+  },
+  {
+    "objectID": "index.html#featured-research",
+    "href": "index.html#featured-research",
+    "title": "Zia Farooq, PhD",
+    "section": "Featured research",
+    "text": "Featured research\n\n  \n    \n    The Lancet Planetary Health · 2025\n    \n      Northward expansion of Aedes albopictus-associated arbovirus transmission risk in Europe\n      First author. Quantifies the accelerating northward spread of the vector and the associated rise in arbovirus transmission risk.\n      Read the paper →\n    \n  \n  \n    \n    The Lancet Planetary Health · 2025\n    \n      Impact of climate and Aedes albopictus establishment on dengue and chikungunya outbreaks in Europe\n      First author. A time-to-event analysis: the interval from vector establishment to first outbreak fell from 25 years to under 5 (1990–2024).\n      Read the paper →\n    \n  \n  \n    \n    Preprint · 2026\n    \n      Spatial diffusion and climatic suitability shape West Nile virus invasion risk across Europe\n      First author. Couples a spatial-diffusion framework with time-to-event modelling across 18 European countries (2006–2024).\n      Read the preprint →\n    \n  \n  \n    \n    Scientific Reports · 2025\n    \n      Improving case fatality ratio estimates in ongoing pandemics through case-to-death time distribution analysis\n      First author. A distributed-delay method that estimates the case fatality ratio from routine case and death time series, reducing bias in early-outbreak estimates.\n      Read the paper →\n    \n  \n  \n    \n    One Health · 2023\n    \n      European projections of West Nile virus transmission under climate change scenarios\n      First author. Projects shifts in the geographical spread of West Nile virus across Europe under climate-change scenarios.\n      Read the paper →\n    \n  \n  \n    \n    The Lancet Regional Health – Europe · 2022\n    \n      Artificial intelligence to predict West Nile virus outbreaks with eco-climatic drivers\n      First author. A machine-learning model integrating environmental and climatic variables to forecast WNV transmission risk.\n      Read the paper →\n    \n  \n\nSee all publications"
+  },
+  {
+    "objectID": "index.html#published-in",
+    "href": "index.html#published-in",
+    "title": "Zia Farooq, PhD",
+    "section": "Published in",
+    "text": "Published in\n\n  The Lancet Planetary Health (2)\n  The Lancet Public Health (3)\n  The Lancet Regional Health – Europe (3)\n  Scientific Reports (1)\n  One Health (1)\n  International Journal of Epidemiology (1)\n  Eurosurveillance (1)\n  European Control Conference (IEEE) (1)\n  Journal of Space Technology (1)"
+  },
+  {
+    "objectID": "index.html#funding-awards-secured",
+    "href": "index.html#funding-awards-secured",
+    "title": "Zia Farooq, PhD",
+    "section": "Funding & awards secured",
+    "text": "Funding & awards secured\n\n  \n    Kempe Foundation Postdoctoral Scholarship\n    Two-year competitive fellowship · 2026–2028\n  \n  \n    MIRAI Japan–Sweden Mobility Grant\n    Long-term mobility grant for Early-Career Researchers · SEK 130,000\n  \n  \n    Medical Faculty Internationalization Grant\n    Umeå University · SEK 28,500\n  \n  \n    Research Visit Travel Grant\n    Awarded during PhD · SEK 18,500\n  \n\n\nApplications under review\n\n  \n    FORMAS Early-Career Researcher grant\n    Submitted 2026 · decision expected Oct 2026\n  \n  \n    FORMAS Climate & Health call (Sweden)\n    Application submitted · under review\n  \n  \n    Horizon Europe\n    Application submitted · under review\n  \n  \n    FORTE — abortion research project\n    Under review · decision expected Oct–Nov 2026"
+  },
+  {
+    "objectID": "index.html#recent-highlights",
+    "href": "index.html#recent-highlights",
+    "title": "Zia Farooq, PhD",
+    "section": "Recent highlights",
+    "text": "Recent highlights\n\n  2026Preparing a first-author study on human mobility and the transcontinental threat of dengue (to be submitted).\n  2026Released a preprint introducing a spatial-diffusion model of West Nile virus invasion across Europe.\n  2026Contributing author to the 2026 Europe report of the Lancet Countdown (The Lancet Public Health).\n  2025Published two first-author papers in The Lancet Planetary Health on the expansion of Aedes albopictus and arboviral outbreaks in Europe.\n  2025Research visit to the Applied Ecology Unit, Fondazione Edmund Mach, Trento, Italy.\n  2025Awarded the MIRAI Japan–Sweden long-term mobility grant for early-career researchers.\n  2024Completed PhD in Epidemiology and Public Health at Umeå University."
+  },
+  {
+    "objectID": "index.html#research-focus",
+    "href": "index.html#research-focus",
+    "title": "Zia Farooq, PhD",
+    "section": "Research focus",
+    "text": "Research focus\n\nPredictive modelling of vector-borne diseases — machine learning, explainable AI, and mechanistic models forecasting outbreak and expansion risk for West Nile virus, dengue, and chikungunya.\nClimate change and disease ecology — attributing the roles of climate, environment, and human mobility in the emergence and northward spread of arboviruses across Europe.\nSpatial epidemiology — disease risk mapping, ecological niche and species-distribution modelling, and spatial-diffusion frameworks for disease invasion.\nBiostatistics & methods — survival and time-to-event analysis, case-fatality and disease-severity estimation, and reproducible, data-driven workflows.\nIndicators for policy — European early-warning indicators for the Lancet Countdown and decision-support tools for climate-resilient health systems."
+  },
+  {
+    "objectID": "Subproject2.html",
+    "href": "Subproject2.html",
+    "title": "Regression Modelling",
+    "section": "",
+    "text": "Objective — Demonstrate reproducible regression-modelling workflows for epidemiological and ecological data.\nMethods — Exploratory analysis, linear and generalised regression, model diagnostics, and visualisation.\nTools — R (tidyverse, tidymodels, ggplot2).\nThis page is a methods demonstration and is being expanded."
+  },
+  {
+    "objectID": "Subproject2.html#data",
+    "href": "Subproject2.html#data",
+    "title": "Regression Modelling",
+    "section": "Data",
+    "text": "Data\nI start it with the penguins dataset from @palmerpenguins package [@corsi2021]\n\n\nRows: 344\nColumns: 8\n$ species           &lt;fct&gt; Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adel…\n$ island            &lt;fct&gt; Torgersen, Torgersen, Torgersen, Torgersen, Torgerse…\n$ bill_length_mm    &lt;dbl&gt; 39.1, 39.5, 40.3, NA, 36.7, 39.3, 38.9, 39.2, 34.1, …\n$ bill_depth_mm     &lt;dbl&gt; 18.7, 17.4, 18.0, NA, 19.3, 20.6, 17.8, 19.6, 18.1, …\n$ flipper_length_mm &lt;int&gt; 181, 186, 195, NA, 193, 190, 181, 195, 193, 190, 186…\n$ body_mass_g       &lt;int&gt; 3750, 3800, 3250, NA, 3450, 3650, 3625, 4675, 3475, …\n$ sex               &lt;fct&gt; male, female, female, NA, female, male, female, male…\n$ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007…"
+  },
+  {
+    "objectID": "Subproject2.html#species",
+    "href": "Subproject2.html#species",
+    "title": "Regression Modelling",
+    "section": "Species",
+    "text": "Species\nFigure 1 is a scatter plot of species of penguins\n\n\nShow the code\nggplot(penguins,\n       aes(x = bill_length_mm, y = bill_depth_mm,\n           color = species, shape = species)\n       )+\n  geom_point()+\n  theme_minimal()+\n  #scale_color_continuous()+\n  labs(x= \"Bill length (mm)\", y=\"Bill depth (mm)\")\n\n\nWarning: Removed 2 rows containing missing values or values outside the scale range\n(`geom_point()`).\n\n\n\n\n\n\n\n\nFigure 1: A scatter plot"
+  },
+  {
+    "objectID": "Subproject2.html#penguins",
+    "href": "Subproject2.html#penguins",
+    "title": "Regression Modelling",
+    "section": "Penguins",
+    "text": "Penguins\nTable 1 below shows first 10 penguins from the dataset.\n\n\nShow the code\npenguins|&gt;\n  slice_head(n=10)|&gt;\n  select(species, island, bill_length_mm, bill_depth_mm)|&gt; \n  gt()\n\n\n\n\nTable 1: First 10 penguins\n\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\n\n\n\n\nAdelie\nTorgersen\n39.1\n18.7\n\n\nAdelie\nTorgersen\n39.5\n17.4\n\n\nAdelie\nTorgersen\n40.3\n18.0\n\n\nAdelie\nTorgersen\nNA\nNA\n\n\nAdelie\nTorgersen\n36.7\n19.3\n\n\nAdelie\nTorgersen\n39.3\n20.6\n\n\nAdelie\nTorgersen\n38.9\n17.8\n\n\nAdelie\nTorgersen\n39.2\n19.6\n\n\nAdelie\nTorgersen\n34.1\n18.1\n\n\nAdelie\nTorgersen\n42.0\n20.2"
+  },
+  {
+    "objectID": "Subproject2.html#modelling",
+    "href": "Subproject2.html#modelling",
+    "title": "Regression Modelling",
+    "section": "modelling",
+    "text": "modelling"
+  },
+  {
+    "objectID": "Subproject2.html#references",
+    "href": "Subproject2.html#references",
+    "title": "Regression Modelling",
+    "section": "References",
+    "text": "References"
+  },
+  {
+    "objectID": "ResearchProjects.html",
+    "href": "ResearchProjects.html",
+    "title": "Research Projects & Publications",
+    "section": "",
+    "text": "My research applies data science, machine learning, and mechanistic modelling to predict the outbreak risk of infectious diseases, focusing on how climatic, ecological, socioeconomic, and mobility factors shape disease emergence and spread. Much of my recent work concerns the climate-driven expansion of vector-borne diseases across Europe — West Nile virus, dengue, and chikungunya — and the methods needed to forecast and monitor them."
+  },
+  {
+    "objectID": "ResearchProjects.html#featured-first-author-studies",
+    "href": "ResearchProjects.html#featured-first-author-studies",
+    "title": "Research Projects & Publications",
+    "section": "Featured first-author studies",
+    "text": "Featured first-author studies\n\n\n  \n    \n    The Lancet Planetary Health · 2025\n    \n      Northward expansion of Aedes albopictus-associated arbovirus transmission risk in Europe\n      Quantifies the accelerating northward spread of the vector and the associated rise in arbovirus transmission risk across Europe.\n      Read the paper →\n    \n  \n\n  \n    \n    The Lancet Planetary Health · 2025\n    \n      Impact of climate and Aedes albopictus establishment on dengue and chikungunya outbreaks in Europe\n      A time-to-event analysis: the establishment-to-outbreak interval fell from 25 years to under 5 (1990–2024), with a near five-fold projected increase by the 2060s.\n      Read the paper →\n    \n  \n\n  \n    \n    Preprint · 2026\n    \n      Spatial diffusion and climatic suitability shape West Nile virus invasion risk across Europe\n      Couples a spatial-diffusion framework with time-to-event modelling across 18 European countries (2006–2024) to explain why some regions are invaded while eco-climatically similar neighbours are not.\n      Read the preprint →\n    \n  \n\n  \n    \n    Scientific Reports · 2025\n    \n      Improving case fatality ratio estimates in ongoing pandemics through case-to-death time distribution analysis\n      A distributed-delay method that estimates the case fatality ratio from routine case and death time series, reducing bias in early-outbreak estimates.\n      Read the paper →\n    \n  \n\n  \n    \n    One Health · 2023\n    \n      European projections of West Nile virus transmission under climate change scenarios\n      Projects shifts in the geographical spread of West Nile virus across Europe under future climate-change scenarios.\n      Read the paper →\n    \n  \n\n  \n    \n    The Lancet Regional Health – Europe · 2022\n    \n      Artificial intelligence to predict West Nile virus outbreaks with eco-climatic drivers\n      A machine-learning model integrating environmental and climatic variables to forecast West Nile virus transmission risk.\n      Read the paper →\n    \n  \n\n  \n    In preparation · 2026\n    \n      To be submitted\n      Human mobility and climate change are escalating the transcontinental threat of dengue\n      Couples global human-mobility networks with climatic suitability to assess the transcontinental spread of dengue from endemic to non-endemic regions."
+  },
+  {
+    "objectID": "ResearchProjects.html#peer-reviewed-publications",
+    "href": "ResearchProjects.html#peer-reviewed-publications",
+    "title": "Research Projects & Publications",
+    "section": "Peer-reviewed publications",
+    "text": "Peer-reviewed publications\n\nThe 2026 Europe report of the Lancet Countdown on health and climate change: narrowing window for decisive health action. The Lancet Public Health, 11(6):e386–e407, 2026. Contributing author. Record on DiVA\nNorthward expansion of Aedes albopictus-associated arbovirus transmission risk in Europe. The Lancet Planetary Health, 9(12):101378, 2025. First author (Farooq, Rocklöv, Semenza). Characterises the accelerating northward spread of Aedes albopictus and the associated expansion of arbovirus transmission risk. DOI: 10.1016/S2542-5196(25)00256-6\nImpact of climate and Aedes albopictus establishment on dengue and chikungunya outbreaks in Europe: a time-to-event analysis. The Lancet Planetary Health, 9(5):e374–e383, 2025. First author. A time-to-event analysis showing that the interval from vector establishment to first outbreak fell from 25 years to under 5 years (1990–2024), with a projected near five-fold increase in outbreaks by the 2060s under SSP5–8.5. DOI: 10.1016/S2542-5196(25)00059-2 · Code on GitHub\nImproving case fatality ratio estimates in ongoing pandemics through case-to-death time distribution analysis. Scientific Reports, 15:5402, 2025. First author. A distributed-delay method that estimates the case fatality ratio from routine case and death time series, reducing bias in early-outbreak estimates. DOI: 10.1038/s41598-025-89441-y\nInput precision, output excellence: the importance of data quality control and method selection in disease risk mapping — authors’ reply. The Lancet Regional Health – Europe, 42:100947, 2024. DOI: 10.1016/j.lanepe.2024.100947\nThe 2024 Europe report of the Lancet Countdown on health and climate change: unprecedented warming demands unprecedented action. The Lancet Public Health, 9(7):e495–e522, 2024. Contributing author. DOI: 10.1016/S2468-2667(24)00055-0\nEuropean projections of West Nile virus transmission under climate change scenarios. One Health, 16:100509, 2023. First author. DOI: 10.1016/j.onehlt.2023.100509 · Lancet Countdown WNV indicator code\nDecision-support tools to build climate resilience against emerging infectious diseases in Europe and beyond. The Lancet Regional Health – Europe, 32:100701, 2023. DOI: 10.1016/j.lanepe.2023.100701\nArtificial intelligence to predict West Nile virus outbreaks with eco-climatic drivers. The Lancet Regional Health – Europe, 17:100370, 2022. First author. DOI: 10.1016/j.lanepe.2022.100370 · Code on GitHub\nThe 2022 Europe report of the Lancet Countdown on health and climate change: towards a climate resilient future. The Lancet Public Health, 7(11):e942–e965, 2022. Contributing author. DOI: 10.1016/S2468-2667(22)00197-9\nCOVID-19 healthcare demand and mortality in Sweden in response to non-pharmaceutical mitigation and suppression scenarios. International Journal of Epidemiology, 49(5):1443–1453, 2020. DOI: 10.1093/ije/dyaa126\nOnly strict quarantine measures can curb the coronavirus disease (COVID-19) outbreak in Italy, 2020. Eurosurveillance, 25(13):2000280, 2020. DOI: 10.2807/1560-7917.ES.2020.25.13.2000280\nInformation processing in unregulated and autoregulated gene expression. 2020 European Control Conference (ECC), 258–263, 2020. DOI: 10.23919/ECC51009.2020.9143952\nBifurcation analysis of heartbeat model. Journal of Space Technology, 2017. First author."
+  },
+  {
+    "objectID": "ResearchProjects.html#phd-thesis",
+    "href": "ResearchProjects.html#phd-thesis",
+    "title": "Research Projects & Publications",
+    "section": "PhD thesis",
+    "text": "PhD thesis\nNavigating epidemics by leveraging data science and data-driven modelling. Umeå University Medical Dissertations 2305, 2024. Record on DiVA\n\n  \n  Thesis cover — Navigating Epidemics: by leveraging data science and data-driven modelling, Umeå University, 2024.\n\nMy public defence (disputation) was held on 03 June 2024 at Umeå University, and the doctoral degree was conferred at the graduation ceremony on 24 May 2025.\n\n  \n    \n    Public defence · 03 June 2024\n  \n  \n    \n    Doctoral graduation ceremony · 24 May 2025"
+  },
+  {
+    "objectID": "ResearchProjects.html#manuscripts-under-review-in-preparation",
+    "href": "ResearchProjects.html#manuscripts-under-review-in-preparation",
+    "title": "Research Projects & Publications",
+    "section": "Manuscripts under review & in preparation",
+    "text": "Manuscripts under review & in preparation\n\nHuman mobility and climate change are escalating the transcontinental threat of dengue. First author (Farooq, Semenza, Rocklöv, Singh, Sjödin) — to be submitted, 2026. Couples global human-mobility networks with climatic suitability to assess the spread of dengue from endemic to non-endemic regions.\nComparing machine learning and process-based projections of West Nile virus transmission suitability under climate change scenarios in Europe. Heidecke, Kriit, Farooq, Dafka, Rocklöv — under review, PLOS Computational Biology, 2026.\nThe 2027 Europe report of the Lancet Countdown on health and climate change. Contributing author — forthcoming, 2027.\nClimate change attribution and projections of infectious diseases. Co-author — forthcoming, 2027.\nSocioeconomic vulnerability shapes the spatiotemporal distribution of malaria risk in Punjab, Pakistan. Asif M, Semenza JC, Farooq Z — senior author, supervising the first-author PhD student; in preparation, 2026."
+  },
+  {
+    "objectID": "ResearchProjects.html#selected-code-repositories",
+    "href": "ResearchProjects.html#selected-code-repositories",
+    "title": "Research Projects & Publications",
+    "section": "Selected code repositories",
+    "text": "Selected code repositories\n\nWNV_drivers_study — machine learning to identify eco-climatic drivers of West Nile virus outbreaks (R).\nLancetEurope_WNV — scripts reproducing the Lancet Countdown Europe West Nile virus indicator.\nTime2Event — time-to-event analysis of dengue and chikungunya outbreaks in Europe.\nmatlab-optimisation — ODE parameter optimisation using parallel and multistart methods."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "Zia Farooq\nI am a data scientist and holds a PhD in epidemiology and public health Umeå University, Sweden. I am currently working as a postdoctoral researcher at Umeå University, Sweden.My research focuses on a range of topics including applying advanced data analytics, artificial intelligence and mechanistic modelling in predictive spatio-temporal disease modelling and disease ecology. I apply AI algorithms for predicting disease outbreaks of complex zoonosis such as the West Nile virus and for projecting its expansion risk due to changing climate. I am also developing new mechanistic framework to identify the attribution of climate change and human mobility in the global expansion of dengue. Further, I am developing new methods that could improve the disease severity estimates. As part of the Lancet Countdown Europe team, I’ve developed West Nile virus indicator for Europe using machine learning. This is my university profile [University]( https://www.umu.se/en/staff/zia-farooq/ ), [Googlscholar]( https://scholar.google.com/citations?user=bz2GB_cAAAAJ&hl=en ), [twitter]( https://twitter.com/Ziafarooq86)\n\n\n\n\n Back to top"
+  },
+  {
+    "objectID": "Failures.html",
+    "href": "Failures.html",
+    "title": "Failures",
+    "section": "",
+    "text": "Most of what appears on a CV is a highlight reel — the papers that were accepted, the grants that were funded, the positions that were offered. It hides the far longer list of rejections and setbacks behind every success. Inspired by the idea of a “CV of failures,” this page keeps that longer list visible: the rejected manuscripts, the unfunded proposals, the missed opportunities, and what each one taught me."
+  },
+  {
+    "objectID": "Failures.html#rejected-manuscripts",
+    "href": "Failures.html#rejected-manuscripts",
+    "title": "Failures",
+    "section": "Rejected manuscripts",
+    "text": "Rejected manuscripts\nTo be added."
+  },
+  {
+    "objectID": "Failures.html#grants-and-fellowships-not-funded",
+    "href": "Failures.html#grants-and-fellowships-not-funded",
+    "title": "Failures",
+    "section": "Grants and fellowships not funded",
+    "text": "Grants and fellowships not funded\nTo be added."
+  },
+  {
+    "objectID": "Failures.html#positions-and-programmes-not-offered",
+    "href": "Failures.html#positions-and-programmes-not-offered",
+    "title": "Failures",
+    "section": "Positions and programmes not offered",
+    "text": "Positions and programmes not offered\nTo be added."
+  },
+  {
+    "objectID": "Failures.html#lessons-learned",
+    "href": "Failures.html#lessons-learned",
+    "title": "Failures",
+    "section": "Lessons learned",
+    "text": "Lessons learned\nTo be added."
+  },
+  {
+    "objectID": "Resume.html",
+    "href": "Resume.html",
+    "title": "Curriculum Vitae",
+    "section": "",
+    "text": "Download full CV (PDF)\n\n\n\n\n\n\n\n\n\nDates\nRole\n\n\n\n\n2024 – present\nPostdoctoral ResearcherUmeå University, Sweden · Department of Epidemiology and Global Health · EU-funded IDAlert project\n\n\n2020 – 2024\nDoctoral ResearcherUmeå University, Sweden · Department of Epidemiology and Global Health\n\n\n2018 – 2019\nEarly-Career ResearcherInstitute of Fundamental Technological Research, Polish Academy of Sciences · Warsaw, Poland\n\n\n\n\n\n\n\n\n\n\n\n\n\nYear\nDegree\n\n\n\n\n2024\nPhD, Epidemiology & Public HealthUmeå University, Sweden — Navigating epidemics by leveraging data science and data-driven modelling\n\n\n2017\nMSc, Applied MathematicsInstitute of Space Technology, Islamabad, Pakistan\n\n\n2009\nBSc, MathematicsUniversity of Gujrat, Pakistan\n\n\n\n\n\n\n\n\n\n\n\n\n\nYear\nAward\n\n\n\n\n2026–2028\nKempe Foundation Postdoctoral ScholarshipTwo-year competitive fellowship\n\n\n2025\nMIRAI Japan–Sweden Mobility GrantLong-term mobility grant for Early-Career Researchers · SEK 130,000\n\n\n2024\nMedical Faculty Grant for InternationalizationUmeå University · SEK 28,500\n\n\n2022\nTravel Grant for Research VisitAwarded during PhD · SEK 18,500\n\n\n\n\n\n\n\n\n\n\n\n\nYear\nApplication\n\n\n\n\n2026\nFORMAS Early-Career Researcher grantSubmitted · decision expected Oct 2026\n\n\n2026\nFORMAS Climate & Health call (Sweden)Application submitted\n\n\n2026\nHorizon EuropeApplication submitted\n\n\n2026\nFORTE — abortion research projectDecision expected Oct–Nov 2026\n\n\n\n\n\n\n\nA complete, continuously updated list is on my Google Scholar profile and the Research Projects & Publications page. Selected first-author and contributing work:\n\nFarooq Z, Rocklöv J, Semenza JC (2025). Northward expansion of Aedes albopictus-associated arbovirus transmission risk in Europe. The Lancet Planetary Health.\nFarooq Z, Segelmark L, Rocklöv J, et al. (2025). Impact of climate and Aedes albopictus establishment on dengue and chikungunya outbreaks in Europe. The Lancet Planetary Health.\nFarooq Z, Sjödin H, Rocklöv J, Brännström Å (2025). Improving case fatality ratio estimates in ongoing pandemics through case-to-death time distribution analysis. Scientific Reports.\nFarooq Z, Rocklöv J, Wallin J, et al. (2024). Input precision, output excellence: the importance of data quality control and method selection in disease risk mapping — authors’ reply. The Lancet Regional Health – Europe.\nFarooq Z, Sjödin H, Semenza JC, et al. (2023). European projections of West Nile virus transmission under climate change scenarios. One Health.\nFarooq Z, Rocklöv J, Wallin J, et al. (2022). Artificial intelligence to predict West Nile virus outbreaks with eco-climatic drivers. The Lancet Regional Health – Europe.\nvan Daalen KR, Tonne C, Semenza JC, …, Farooq Z, et al. (2024). The 2024 Europe report of the Lancet Countdown on health and climate change. The Lancet Public Health.\nvan Daalen KR, Romanello M, Rocklöv J, …, Farooq Z, et al. (2022). The 2022 Europe report of the Lancet Countdown on health and climate change. The Lancet Public Health.\nSjödin H, Johansson AF, Brännström Å, Farooq Z, et al. (2020). COVID-19 healthcare demand and mortality in Sweden. International Journal of Epidemiology.\nSjödin H, Wilder-Smith A, Osman S, Farooq Z, Rocklöv J (2020). Only strict quarantine measures can curb the COVID-19 outbreak in Italy, 2020. Eurosurveillance.\n\n\n\n\n\n\n\n\n\n\n\nYears\nActivity\n\n\n\n\n2022–2025\nTeaching (MSc level), Umeå UniversityModelling and Simulations; Epidemiology; Climate Change and Health\n\n\n2024 – present\nCo-supervisor of a PhD scholarUniversity of Management and Technology, Lahore, Pakistan\n\n\n2025\nSupervisor of a master’s studentUmeå University, Sweden\n\n\n\n\n\n\n\n\n\n\n\n\n\nYear\nPresentation\n\n\n\n\n2025\nNobel Petite Day — presenter · Umeå University, Sweden\n\n\n2025\nDealing with the polycrisis (UTRI) — session coordinator & presenter · Umeå University\n\n\n2025\nModelling dengue importations — research seminar · University of Trento, Italy\n\n\n2024\nDepartment Day, Umeå University — Young Researcher talk\n\n\n2023\nESCAIDE 2023 — poster · Barcelona, Spain\n\n\n2023\nConnecting Health and Climate Change — oral presentation · Stockholm, Sweden\n\n\n2023\nUrban spaces and mosquitoes on a changing planet — oral presentation · Barcelona, Spain\n\n\n2022\nPolish Scientific Network conference — oral presentation · Wrocław, Poland\n\n\n2022\nOne Health PACT modelling seminar — invited talk · Leiden University, Netherlands\n\n\n2022\nMathematical modelling and its applications — keynote · University of Gujrat, Pakistan\n\n\n\n\n\n\nReviewer (since 2021) for Environmental Health Perspectives, PLOS Climate, Scientific Reports, Vaccines, PLOS Computational Biology, and The Lancet Regional Health – Europe.\n\n\n\nFondazione Edmund Mach, Applied Ecology Unit, Trento, Italy — research collaboration and networking (May 2025).\n\n\n\n\nProgramming: R, MATLAB, Python, Stata, SPSS, shell scripting.\nMachine learning & AI: classification, regression, clustering, PCA, explainable AI, boosting/bagging, neural networks.\nBiostatistics: survival and time-to-event analysis, hypothesis testing, multivariate analysis.\nData science: data wrangling and feature engineering, web scraping and APIs, spatial data science, reproducible workflows with Git and Quarto.\nLanguages: English, Urdu, Punjabi.\n\n\n\n\n\nEmail — zia.farooq@umu.se\nGoogle Scholar — scholar.google.com\nGitHub — github.com/Ziaf021\nAddress — Department of Epidemiology and Global Health, Umeå University, 901 87 Umeå, Sweden"
+  },
+  {
+    "objectID": "Resume.html#positions",
+    "href": "Resume.html#positions",
+    "title": "Curriculum Vitae",
+    "section": "",
+    "text": "Dates\nRole\n\n\n\n\n2024 – present\nPostdoctoral ResearcherUmeå University, Sweden · Department of Epidemiology and Global Health · EU-funded IDAlert project\n\n\n2020 – 2024\nDoctoral ResearcherUmeå University, Sweden · Department of Epidemiology and Global Health\n\n\n2018 – 2019\nEarly-Career ResearcherInstitute of Fundamental Technological Research, Polish Academy of Sciences · Warsaw, Poland"
+  },
+  {
+    "objectID": "Resume.html#education",
+    "href": "Resume.html#education",
+    "title": "Curriculum Vitae",
+    "section": "",
+    "text": "Year\nDegree\n\n\n\n\n2024\nPhD, Epidemiology & Public HealthUmeå University, Sweden — Navigating epidemics by leveraging data science and data-driven modelling\n\n\n2017\nMSc, Applied MathematicsInstitute of Space Technology, Islamabad, Pakistan\n\n\n2009\nBSc, MathematicsUniversity of Gujrat, Pakistan"
+  },
+  {
+    "objectID": "Resume.html#grants-awards",
+    "href": "Resume.html#grants-awards",
+    "title": "Curriculum Vitae",
+    "section": "",
+    "text": "Year\nAward\n\n\n\n\n2026–2028\nKempe Foundation Postdoctoral ScholarshipTwo-year competitive fellowship\n\n\n2025\nMIRAI Japan–Sweden Mobility GrantLong-term mobility grant for Early-Career Researchers · SEK 130,000\n\n\n2024\nMedical Faculty Grant for InternationalizationUmeå University · SEK 28,500\n\n\n2022\nTravel Grant for Research VisitAwarded during PhD · SEK 18,500\n\n\n\n\n\n\n\n\n\n\n\n\nYear\nApplication\n\n\n\n\n2026\nFORMAS Early-Career Researcher grantSubmitted · decision expected Oct 2026\n\n\n2026\nFORMAS Climate & Health call (Sweden)Application submitted\n\n\n2026\nHorizon EuropeApplication submitted\n\n\n2026\nFORTE — abortion research projectDecision expected Oct–Nov 2026"
+  },
+  {
+    "objectID": "Resume.html#selected-publications",
+    "href": "Resume.html#selected-publications",
+    "title": "Curriculum Vitae",
+    "section": "",
+    "text": "A complete, continuously updated list is on my Google Scholar profile and the Research Projects & Publications page. Selected first-author and contributing work:\n\nFarooq Z, Rocklöv J, Semenza JC (2025). Northward expansion of Aedes albopictus-associated arbovirus transmission risk in Europe. The Lancet Planetary Health.\nFarooq Z, Segelmark L, Rocklöv J, et al. (2025). Impact of climate and Aedes albopictus establishment on dengue and chikungunya outbreaks in Europe. The Lancet Planetary Health.\nFarooq Z, Sjödin H, Rocklöv J, Brännström Å (2025). Improving case fatality ratio estimates in ongoing pandemics through case-to-death time distribution analysis. Scientific Reports.\nFarooq Z, Rocklöv J, Wallin J, et al. (2024). Input precision, output excellence: the importance of data quality control and method selection in disease risk mapping — authors’ reply. The Lancet Regional Health – Europe.\nFarooq Z, Sjödin H, Semenza JC, et al. (2023). European projections of West Nile virus transmission under climate change scenarios. One Health.\nFarooq Z, Rocklöv J, Wallin J, et al. (2022). Artificial intelligence to predict West Nile virus outbreaks with eco-climatic drivers. The Lancet Regional Health – Europe.\nvan Daalen KR, Tonne C, Semenza JC, …, Farooq Z, et al. (2024). The 2024 Europe report of the Lancet Countdown on health and climate change. The Lancet Public Health.\nvan Daalen KR, Romanello M, Rocklöv J, …, Farooq Z, et al. (2022). The 2022 Europe report of the Lancet Countdown on health and climate change. The Lancet Public Health.\nSjödin H, Johansson AF, Brännström Å, Farooq Z, et al. (2020). COVID-19 healthcare demand and mortality in Sweden. International Journal of Epidemiology.\nSjödin H, Wilder-Smith A, Osman S, Farooq Z, Rocklöv J (2020). Only strict quarantine measures can curb the COVID-19 outbreak in Italy, 2020. Eurosurveillance."
+  },
+  {
+    "objectID": "Resume.html#teaching-supervision",
+    "href": "Resume.html#teaching-supervision",
+    "title": "Curriculum Vitae",
+    "section": "",
+    "text": "Years\nActivity\n\n\n\n\n2022–2025\nTeaching (MSc level), Umeå UniversityModelling and Simulations; Epidemiology; Climate Change and Health\n\n\n2024 – present\nCo-supervisor of a PhD scholarUniversity of Management and Technology, Lahore, Pakistan\n\n\n2025\nSupervisor of a master’s studentUmeå University, Sweden"
+  },
+  {
+    "objectID": "Resume.html#conferences-seminars",
+    "href": "Resume.html#conferences-seminars",
+    "title": "Curriculum Vitae",
+    "section": "",
+    "text": "Year\nPresentation\n\n\n\n\n2025\nNobel Petite Day — presenter · Umeå University, Sweden\n\n\n2025\nDealing with the polycrisis (UTRI) — session coordinator & presenter · Umeå University\n\n\n2025\nModelling dengue importations — research seminar · University of Trento, Italy\n\n\n2024\nDepartment Day, Umeå University — Young Researcher talk\n\n\n2023\nESCAIDE 2023 — poster · Barcelona, Spain\n\n\n2023\nConnecting Health and Climate Change — oral presentation · Stockholm, Sweden\n\n\n2023\nUrban spaces and mosquitoes on a changing planet — oral presentation · Barcelona, Spain\n\n\n2022\nPolish Scientific Network conference — oral presentation · Wrocław, Poland\n\n\n2022\nOne Health PACT modelling seminar — invited talk · Leiden University, Netherlands\n\n\n2022\nMathematical modelling and its applications — keynote · University of Gujrat, Pakistan"
+  },
+  {
+    "objectID": "Resume.html#peer-review",
+    "href": "Resume.html#peer-review",
+    "title": "Curriculum Vitae",
+    "section": "",
+    "text": "Reviewer (since 2021) for Environmental Health Perspectives, PLOS Climate, Scientific Reports, Vaccines, PLOS Computational Biology, and The Lancet Regional Health – Europe."
+  },
+  {
+    "objectID": "Resume.html#research-visits",
+    "href": "Resume.html#research-visits",
+    "title": "Curriculum Vitae",
+    "section": "",
+    "text": "Fondazione Edmund Mach, Applied Ecology Unit, Trento, Italy — research collaboration and networking (May 2025)."
+  },
+  {
+    "objectID": "Resume.html#technical-skills",
+    "href": "Resume.html#technical-skills",
+    "title": "Curriculum Vitae",
+    "section": "",
+    "text": "Programming: R, MATLAB, Python, Stata, SPSS, shell scripting.\nMachine learning & AI: classification, regression, clustering, PCA, explainable AI, boosting/bagging, neural networks.\nBiostatistics: survival and time-to-event analysis, hypothesis testing, multivariate analysis.\nData science: data wrangling and feature engineering, web scraping and APIs, spatial data science, reproducible workflows with Git and Quarto.\nLanguages: English, Urdu, Punjabi."
+  },
+  {
+    "objectID": "Resume.html#contact",
+    "href": "Resume.html#contact",
+    "title": "Curriculum Vitae",
+    "section": "",
+    "text": "Email — zia.farooq@umu.se\nGoogle Scholar — scholar.google.com\nGitHub — github.com/Ziaf021\nAddress — Department of Epidemiology and Global Health, Umeå University, 901 87 Umeå, Sweden"
+  },
+  {
+    "objectID": "LeisureTime.html",
+    "href": "LeisureTime.html",
+    "title": "Leisure",
+    "section": "",
+    "text": "My life outside research has been shaped by the places I have called home — the cricket grounds of Pakistan, a brief but formative chapter in Poland, and the outdoor life of northern Sweden.\n\n   Pakistan — where it began\n   Poland — a formative chapter\n   Sweden — home today"
+  },
+  {
+    "objectID": "LeisureTime.html#a-journey-across-three-countries",
+    "href": "LeisureTime.html#a-journey-across-three-countries",
+    "title": "Leisure",
+    "section": "",
+    "text": "My life outside research has been shaped by the places I have called home — the cricket grounds of Pakistan, a brief but formative chapter in Poland, and the outdoor life of northern Sweden.\n\n   Pakistan — where it began\n   Poland — a formative chapter\n   Sweden — home today"
+  },
+  {
+    "objectID": "LeisureTime.html#following-arsenal",
+    "href": "LeisureTime.html#following-arsenal",
+    "title": "Leisure",
+    "section": "Following Arsenal",
+    "text": "Following Arsenal\nFootball found me late. Growing up in Pakistan, my sport was cricket — but after moving to Europe, my younger brother pulled me into the English game as a way to unwind from the pressures of PhD life. I followed him to Arsenal, and what began as a distraction has become one of my great weekend joys: the tension of a tight match, the rhythm of a season, and the shared highs and lows that come with supporting a club.\nThe wait for silverware taught its own kind of patience — and in 2025/26 it was finally rewarded.\n\n  🏆\n  \n    Arsenal — Premier League Champions 2025/26\n    The Gunners' first league title in 22 years, sealed with the meanest defence in the division. Up the Arsenal!"
+  },
+  {
+    "objectID": "LeisureTime.html#staying-active",
+    "href": "LeisureTime.html#staying-active",
+    "title": "Leisure",
+    "section": "Staying active",
+    "text": "Staying active\nOutside of football, I like to keep moving. I cycle around Umeå whenever the weather allows, spend regular time at the gym to stay fit and clear my head, and — above all — treasure time outdoors with my family and children. I have found that physical activity and time away from the screen are where my best research ideas quietly take shape.\n\n  🏏 Cricket\n  ⚽ Football (Arsenal)\n  🚴 Cycling\n  🏋️ Gym & fitness\n  🌲 Outdoors with family\n  🎬 Film & series"
+  },
+  {
+    "objectID": "LeisureTime.html#downtime",
+    "href": "LeisureTime.html#downtime",
+    "title": "Leisure",
+    "section": "Downtime",
+    "text": "Downtime\nWhen I do slow down, I enjoy a good film or series — from Bollywood to Hollywood — and the occasional long, unhurried conversation over coffee. Balance, I have learned, is not a distraction from research; it is part of doing it well."
+  },
+  {
+    "objectID": "About_Zia.html",
+    "href": "About_Zia.html",
+    "title": "About",
+    "section": "",
+    "text": "X / Twitter\n  \n  \n    \n     LinkedIn\n  \n  \n    \n     Github\n  \n  \n    \n     Scholar\n  \n  \n    \n     Umeå University"
+  },
+  {
+    "objectID": "About_Zia.html#introduction",
+    "href": "About_Zia.html#introduction",
+    "title": "About",
+    "section": "Introduction",
+    "text": "Introduction\nI am a data scientist and infectious-disease modeller at Umeå University, Sweden, where I work as a postdoctoral researcher. My work brings together data science, machine learning, and mathematical modelling to understand and anticipate how infectious diseases spread in a changing climate.\nWithin the EU-funded IDAlert project, I use machine learning and explainable AI to predict outbreaks of complex zoonoses such as West Nile virus and to project their expansion under climate change. My recent first-author work in The Lancet Planetary Health traces the northward expansion of Aedes albopictus and the accelerating risk of dengue and chikungunya in Europe, while my latest study couples spatial-diffusion and time-to-event modelling to explain West Nile virus invasion across the continent. I also develop frameworks that separate the roles of climate change and human mobility in the global spread of dengue, and methods that sharpen disease-severity and case-fatality estimates. As a member of the Lancet Countdown in Europe team, I develop the European risk indicator for West Nile virus."
+  },
+  {
+    "objectID": "About_Zia.html#academic-journey",
+    "href": "About_Zia.html#academic-journey",
+    "title": "About",
+    "section": "Academic journey",
+    "text": "Academic journey\nFrom mathematics in Pakistan to biological modelling in Poland and data-driven epidemiology in Sweden — the path that shaped my research.\n\n  \n  Academic and professional milestones, 2007–present."
+  },
+  {
+    "objectID": "About_Zia.html#research-interests",
+    "href": "About_Zia.html#research-interests",
+    "title": "About",
+    "section": "Research Interests",
+    "text": "Research Interests\nMy research interests and expertise include:\n\nPredictive modelling of vector-borne and emerging infectious diseases\nMachine learning, explainable AI, and mechanistic modelling\nSpatial epidemiology, disease risk mapping, and ecological niche modelling\nClimate change, human mobility, and the drivers of disease emergence\nSurvival and time-to-event analysis; disease-severity and case-fatality estimation\nEpidemiological data science and reproducible research workflows"
+  },
+  {
+    "objectID": "About_Zia.html#background",
+    "href": "About_Zia.html#background",
+    "title": "About",
+    "section": "Background",
+    "text": "Background\nBefore moving to Sweden in 2020, I spent around a year and a half in Warsaw, Poland, as a researcher at the Institute of Fundamental Technological Research, Polish Academy of Sciences. My earlier training in Pakistan was in mathematics and statistics, so relocating to Umeå marked both a geographical move and a deliberate shift in my research direction — from applied mathematics towards data-driven epidemiology.\nMost of the code I wrote during my PhD was in R and MATLAB, and I remain a firmly data-oriented researcher: I routinely collect data through web scraping and APIs, adapt quickly to new tools, and occasionally work on text analysis. I speak English, Urdu, and Punjabi, and work fluently in R (dplyr and the tidyverse) and Python.\n\n\n\nLoading my github calendar data."
+  },
+  {
+    "objectID": "About_Zia.html#contact",
+    "href": "About_Zia.html#contact",
+    "title": "About",
+    "section": "Contact",
+    "text": "Contact\n\n\n\n\n\n\nDrFarooq_writes\n\n\n\nziafarooq@fosstodon.org\n\n\n\nZiaf021\n\n\n\nzia.farooq@umu.se\n\n\n\n Department of Epidemiology and Global Health, Umeå University, Umeå 901 87,Sweden"
+  },
+  {
+    "objectID": "Subproject1.html",
+    "href": "Subproject1.html",
+    "title": "Disease Risk Mapping",
+    "section": "",
+    "text": "Objective — Demonstrate reproducible workflows for spatial disease risk mapping and geographic visualisation.\nMethods — Spatial data handling, choropleth and point mapping, and exploratory spatial visualisation.\nTools — R (tidyverse, ggplot2, sf).\nThis page is a methods demonstration and is being expanded."
+  },
+  {
+    "objectID": "Subproject1.html#data",
+    "href": "Subproject1.html#data",
+    "title": "Disease Risk Mapping",
+    "section": "Data",
+    "text": "Data\nI start it with the penguins dataset from @palmerpenguins package [@corsi2021]\n\n\nShow the code\nlibrary(tidyverse)\nlibrary(palmerpenguins)\nlibrary(gt)\nglimpse(penguins)\n\n\nRows: 344\nColumns: 8\n$ species           &lt;fct&gt; Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adel…\n$ island            &lt;fct&gt; Torgersen, Torgersen, Torgersen, Torgersen, Torgerse…\n$ bill_length_mm    &lt;dbl&gt; 39.1, 39.5, 40.3, NA, 36.7, 39.3, 38.9, 39.2, 34.1, …\n$ bill_depth_mm     &lt;dbl&gt; 18.7, 17.4, 18.0, NA, 19.3, 20.6, 17.8, 19.6, 18.1, …\n$ flipper_length_mm &lt;int&gt; 181, 186, 195, NA, 193, 190, 181, 195, 193, 190, 186…\n$ body_mass_g       &lt;int&gt; 3750, 3800, 3250, NA, 3450, 3650, 3625, 4675, 3475, …\n$ sex               &lt;fct&gt; male, female, female, NA, female, male, female, male…\n$ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007…"
+  },
+  {
+    "objectID": "Subproject1.html#species",
+    "href": "Subproject1.html#species",
+    "title": "Disease Risk Mapping",
+    "section": "Species",
+    "text": "Species\nFigure 1 is a scatter plot of species of penguins\n\n\nShow the code\nggplot(penguins,\n       aes(x = bill_length_mm, y = bill_depth_mm,\n           color = species, shape = species)\n       )+\n  geom_point()+\n  theme_minimal()+\n  #scale_color_continuous()+\n  labs(x= \"Bill length (mm)\", y=\"Bill depth (mm)\")\n\n\nWarning: Removed 2 rows containing missing values or values outside the scale range\n(`geom_point()`).\n\n\n\n\n\n\n\n\nFigure 1: A scatter plot"
+  },
+  {
+    "objectID": "Subproject1.html#penguins",
+    "href": "Subproject1.html#penguins",
+    "title": "Disease Risk Mapping",
+    "section": "Penguins",
+    "text": "Penguins\nTable 1 below shows first 10 penguins from the dataset.\n\n\nShow the code\npenguins|&gt;\n  slice_head(n=10)|&gt;\n  select(species, island, bill_length_mm, bill_depth_mm)|&gt; \n  gt()\n\n\n\n\nTable 1: First 10 penguins\n\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\n\n\n\n\nAdelie\nTorgersen\n39.1\n18.7\n\n\nAdelie\nTorgersen\n39.5\n17.4\n\n\nAdelie\nTorgersen\n40.3\n18.0\n\n\nAdelie\nTorgersen\nNA\nNA\n\n\nAdelie\nTorgersen\n36.7\n19.3\n\n\nAdelie\nTorgersen\n39.3\n20.6\n\n\nAdelie\nTorgersen\n38.9\n17.8\n\n\nAdelie\nTorgersen\n39.2\n19.6\n\n\nAdelie\nTorgersen\n34.1\n18.1\n\n\nAdelie\nTorgersen\n42.0\n20.2"
+  },
+  {
+    "objectID": "Subproject1.html#modelling",
+    "href": "Subproject1.html#modelling",
+    "title": "Disease Risk Mapping",
+    "section": "modelling",
+    "text": "modelling"
+  },
+  {
+    "objectID": "Subproject1.html#references",
+    "href": "Subproject1.html#references",
+    "title": "Disease Risk Mapping",
+    "section": "References",
+    "text": "References"
+  },
+  {
+    "objectID": "Subproject3.html",
+    "href": "Subproject3.html",
+    "title": "Classification Modelling",
+    "section": "",
+    "text": "Objective — Compare machine-learning classifiers on a clinical classification task (breast cancer recurrence).\nMethods — Logistic regression, random forest, SVM, XGBoost, and a neural network via a tidymodels workflow — with cross-validation, feature-importance, partial-dependence, and ROC/AUC evaluation.\nData — UCI Machine Learning Repository breast cancer dataset.\nTools — R (tidymodels, randomForest, xgboost, kernlab, nnet)."
+  },
+  {
+    "objectID": "Subproject3.html#data",
+    "href": "Subproject3.html#data",
+    "title": "Classification Modelling",
+    "section": "Data",
+    "text": "Data\nThe dataset consists of the following features with categorical and integer data types:\n\nClass: Target variable with binary categories (no-recurrence-events, recurrence-events)\nAge: Categorical, representing age groups (10-19, 20-29, etc.)\nMenopause: Categorical, representing menopausal status (lt40, ge40, premeno).\nTumor-size: Categorical, representing tumor size ranges (0-4, 5-9, etc.)\nInv-nodes: Categorical, representing involved nodes (0-2, 3-5, etc.).\nNode-caps: Binary categorical (yes, no).\nDeg-malig: Integer, representing the degree of malignancy (1, 2, 3).\nBreast: Binary categorical (left, right).\nBreast-squad: Categorical, representing the quadrant of the breast (left-up, left-low, etc.).\nIrradiat: Binary categorical (yes, no).\n\nLet’s start it here"
+  },
+  {
+    "objectID": "Subproject3.html#install-packages",
+    "href": "Subproject3.html#install-packages",
+    "title": "Classification Modelling",
+    "section": "Install packages",
+    "text": "Install packages\n\n\nShow the code\n# Install necessary packages if you haven't already\n\n#install.packages(c(\"tidymodels\", \"xgboost\", \"kernlab\", #\"randomForest\", \"nnet\", \"readxl\", \"tidyverse\", \"recipes\"))\n\n# Load the necessary libraries\nlibrary(tidymodels)\nlibrary(xgboost)\nlibrary(kernlab)\nlibrary(randomForest)\nlibrary(nnet)\nlibrary(ggplot2)\nlibrary(readxl)\nlibrary(tidyverse)\nlibrary(recipes)\nlibrary(pdp)"
+  },
+  {
+    "objectID": "Subproject3.html#import-data",
+    "href": "Subproject3.html#import-data",
+    "title": "Classification Modelling",
+    "section": "Import data",
+    "text": "Import data\n\n\nShow the code\n# Import the dataset\ndata &lt;- read_excel(\"DataSets/BreastCancer_Classification/BreastCancer_1988_Classification.xlsx\")\n\n# View the first few rows of the dataset to understand its structure\nglimpse(data)\n\n\nRows: 286\nColumns: 10\n$ Class          &lt;chr&gt; \"no-recurrence-events\", \"no-recurrence-events\", \"no-rec…\n$ Age            &lt;chr&gt; \"30-39\", \"40-49\", \"40-49\", \"60-69\", \"40-49\", \"60-69\", \"…\n$ menopause      &lt;chr&gt; \"premeno\", \"premeno\", \"premeno\", \"ge40\", \"premeno\", \"ge…\n$ `tumor-size`   &lt;chr&gt; \"30-34\", \"20-24\", \"20-24\", \"15-19\", \"0-4\", \"15-19\", \"25…\n$ `inv-nodes`    &lt;chr&gt; \"0-2\", \"0-2\", \"0-2\", \"0-2\", \"0-2\", \"0-2\", \"0-2\", \"0-2\",…\n$ `node-caps`    &lt;chr&gt; \"no\", \"no\", \"no\", \"no\", \"no\", \"no\", \"no\", \"no\", \"no\", \"…\n$ `deg-malig`    &lt;dbl&gt; 3, 2, 2, 2, 2, 2, 2, 1, 2, 2, 3, 2, 1, 3, 3, 1, 2, 3, 3…\n$ breast         &lt;chr&gt; \"left\", \"right\", \"left\", \"right\", \"right\", \"left\", \"lef…\n$ `breast-squad` &lt;chr&gt; \"left_low\", \"right_up\", \"left_low\", \"left_up\", \"right_l…\n$ irradiat       &lt;chr&gt; \"no\", \"no\", \"no\", \"no\", \"no\", \"no\", \"no\", \"no\", \"no\", \"…\n\n\nData Wrangling Steps\n1.  **Convert Binary Text Features to Binary Numeric**:\n\n•   Convert node-caps, breast, and irradiat into binary numeric form (e.g., yes/no to 1/0).\n\n2.  **Encode Categorical Variables**:\n\n•   Convert categorical variables (Age, menopause, tumor-size, inv-nodes, breast-squad) into numeric form using one-hot encoding for models that do not handle categorical variables (e.g., XGBoost).\n•   For models that can handle categorical data (e.g., Random Forest, Logistic Regression), ensure the data is properly labeled.\n\n3.  **Ensure Numeric Representation**:\n\n•   Ensure all numeric features (e.g., deg-malig) are in numeric format.\nThe handling of features like tumor-size, menopause, Age, breast, and breast-quad by different algorithms in R depends on whether the algorithm can natively handle categorical data or if it requires numeric input. Here’s how these features are typically processed:\n1. Tumor-Size, Menopause, Age, Breast-Quad (Categorical Features)\n•   **Categorical features** like tumor-size, menopause, Age, and breast-quad are initially in a non-numeric format, which needs to be converted for most algorithms.\nHandling by Different Algorithms:\n•   **XGBoost**:\n\n•   XGBoost cannot handle categorical data directly, so these features need to be **one-hot encoded**. This process converts each categorical feature into multiple binary (0/1) columns, each representing a category.\n\n•   **Support Vector Machine (SVM)**:\n\n•   Like XGBoost, SVM requires numeric inputs. Hence, these features should be **one-hot encoded**.\n\n•   **Random Forest**:\n\n•   Random Forest can handle categorical features if they are provided as factors in R. However, it's common to **one-hot encode** them to ensure compatibility across all algorithms.\n\n•   **Neural Networks**:\n\n•   Neural Networks typically expect numeric input, so these features should be **one-hot encoded**.\n\n•   **Logistic Regression**:\n\n•   Logistic Regression requires numeric input. If you use a library like glm, you can handle categorical variables either by **one-hot encoding** or by converting them into factor variables in R.\n2. Breast (Binary Feature)\n•   **Breast** is already a binary feature (left or right), but it needs to be converted into numeric form (0 and 1).\nHandling by Different Algorithms:\n•   **XGBoost, SVM, Random Forest, Neural Networks, Logistic Regression**:\n\n•   All these algorithms will work with breast after it has been converted to numeric form (0/1).\nSummary of Transformation:\n•   **One-Hot Encoding**: Required for categorical variables like tumor-size, menopause, Age, and breast-quad in algorithms like XGBoost, SVM, Neural Networks, and Logistic Regression.\n\n•   **Binary Encoding**: Convert binary features like breast from text (left, right) to numeric (0, 1).\n\n•   **Factors**: For Random Forest, categorical features can remain as factors in R, but one-hot encoding is also a common practice to maintain uniformity across different algorithms.\n\n\nShow the code\n# Apply label encoding to the target variable 'Class'\ndata &lt;- data %&gt;%\n  mutate(Class = ifelse(Class == \"no-recurrence-events\", 0, 1))%&gt;%\n  mutate(Class=as.factor(Class))\n\n# One-Hot Encoding for categorical variables\ndata &lt;- recipe(Class ~ ., data = data) %&gt;%\n  step_dummy(all_nominal_predictors(), -all_outcomes()) %&gt;%\n  prep() %&gt;%\n  bake(new_data = NULL)\n\n# Ensure all integer features are in the correct format\ndata &lt;- data %&gt;%\n  mutate(`deg-malig` = as.integer(`deg-malig`))\n\n# View the transformed data\nhead(data)\n\n\n# A tibble: 6 × 34\n  `deg-malig` Class Age_X30.39 Age_X40.49 Age_X50.59 Age_X60.69 Age_X70.79\n        &lt;int&gt; &lt;fct&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;\n1           3 0              1          0          0          0          0\n2           2 0              0          1          0          0          0\n3           2 0              0          1          0          0          0\n4           2 0              0          0          0          1          0\n5           2 0              0          1          0          0          0\n6           2 0              0          0          0          1          0\n# ℹ 27 more variables: menopause_lt40 &lt;dbl&gt;, menopause_premeno &lt;dbl&gt;,\n#   `tumor-size_X10.14` &lt;dbl&gt;, `tumor-size_X15.19` &lt;dbl&gt;,\n#   `tumor-size_X20.24` &lt;dbl&gt;, `tumor-size_X25.29` &lt;dbl&gt;,\n#   `tumor-size_X30.34` &lt;dbl&gt;, `tumor-size_X35.39` &lt;dbl&gt;,\n#   `tumor-size_X40.44` &lt;dbl&gt;, `tumor-size_X45.49` &lt;dbl&gt;,\n#   `tumor-size_X5.9` &lt;dbl&gt;, `tumor-size_X50.54` &lt;dbl&gt;,\n#   `inv-nodes_X12.14` &lt;dbl&gt;, `inv-nodes_X15.17` &lt;dbl&gt;, …\n\n\n3. Split the Data into Training and Testing Sets\n\n\nShow the code\n# Split data into training and testing sets\nset.seed(123)\ndata_split &lt;- initial_split(data, prop = 0.75)\ntrain_data &lt;- training(data_split)\ntest_data &lt;- testing(data_split)\n\n\n4. Create a Recipe for Data Preprocessing\n\n\nShow the code\n# Create a recipe for preprocessing\ndata_recipe &lt;- recipe(Class ~ ., data = train_data) %&gt;%\n  step_dummy(all_nominal_predictors()) %&gt;%\n  step_zv(all_predictors()) %&gt;% # remove zero variance predictors\n  step_normalize(all_predictors())\n\n\n5. Define Models\n\n\nShow the code\n# Logistic Regression\nlog_reg_model &lt;- logistic_reg() %&gt;% \n  set_engine(\"glm\")\n\n# Random Forest\nrf_model &lt;- rand_forest(mtry = 3, trees = 1000) %&gt;% \n  set_engine(\"randomForest\") %&gt;% \n  set_mode(\"classification\")\n\n# Support Vector Machine\nsvm_model &lt;- svm_rbf(cost = 1) %&gt;% \n  set_engine(\"kernlab\") %&gt;% \n  set_mode(\"classification\")\n\n# XGBoost\nxgb_model &lt;- boost_tree(trees = 1000, tree_depth = 3, min_n = 2) %&gt;% \n  set_engine(\"xgboost\") %&gt;% \n  set_mode(\"classification\")\n\n# Neural Network\nnn_model &lt;- mlp(hidden_units = 5, penalty = 0.1, epochs = 100) %&gt;% \n  set_engine(\"nnet\") %&gt;% \n  set_mode(\"classification\")\n\n\n6. Create Workflows\n\n\nShow the code\n# Create workflows for each model\nlog_reg_workflow &lt;- workflow() %&gt;% \n  add_model(log_reg_model) %&gt;% \n  add_recipe(data_recipe)\n\nrf_workflow &lt;- workflow() %&gt;% \n  add_model(rf_model) %&gt;% \n  add_recipe(data_recipe)\n\nsvm_workflow &lt;- workflow() %&gt;% \n  add_model(svm_model) %&gt;% \n  add_recipe(data_recipe)\n\nxgb_workflow &lt;- workflow() %&gt;% \n  add_model(xgb_model) %&gt;% \n  add_recipe(data_recipe)\n\nnn_workflow &lt;- workflow() %&gt;% \n  add_model(nn_model) %&gt;% \n  add_recipe(data_recipe)\n\n\n7. Fit the Models\n\n\nShow the code\n# Fit the models\nlog_reg_fit &lt;- fit(log_reg_workflow, data = train_data)\nrf_fit &lt;- fit(rf_workflow, data = train_data)\nsvm_fit &lt;- fit(svm_workflow, data = train_data)\nxgb_fit &lt;- fit(xgb_workflow, data = train_data)\nnn_fit &lt;- fit(nn_workflow, data = train_data)\n\n\n8. Evaluate the Models\n\n\nShow the code\n# Evaluate the models on the test set\nlog_reg_results &lt;- predict(log_reg_fit, test_data) %&gt;% \n  bind_cols(test_data) %&gt;% \n  metrics(truth = Class, estimate = .pred_class)\n\nrf_results &lt;- predict(rf_fit, test_data) %&gt;% \n  bind_cols(test_data) %&gt;% \n  metrics(truth = Class, estimate = .pred_class)\n\nsvm_results &lt;- predict(svm_fit, test_data) %&gt;% \n  bind_cols(test_data) %&gt;% \n  metrics(truth = Class, estimate = .pred_class)\n\nxgb_results &lt;- predict(xgb_fit, test_data) %&gt;% \n  bind_cols(test_data) %&gt;% \n  metrics(truth = Class, estimate = .pred_class)\n\nnn_results &lt;- predict(nn_fit, test_data) %&gt;% \n  bind_cols(test_data) %&gt;% \n  metrics(truth = Class, estimate = .pred_class)\n\n\n9. Collect the Results for Comparison\n\n\nShow the code\n# Collect all metrics\nmodel_results &lt;- bind_rows(\n  log_reg_results %&gt;% mutate(Model = \"Logistic Regression\"),\n  rf_results %&gt;% mutate(Model = \"Random Forest\"),\n  svm_results %&gt;% mutate(Model = \"SVM\"),\n  xgb_results %&gt;% mutate(Model = \"XGBoost\"),\n  nn_results %&gt;% mutate(Model = \"Neural Network\")\n)\n\n# Filter for Accuracy and Precision metrics\nmodel_results_filtered &lt;- model_results %&gt;%\n  filter(.metric %in% c(\"accuracy\", \"precision\"))\n\n# Summarize the mean and variation\nmodel_summary &lt;- model_results_filtered %&gt;%\n  group_by(Model, .metric) %&gt;%\n  summarize(\n    mean_value = mean(.estimate),\n    sd_value = sd(.estimate),\n    .groups = \"drop\"\n  )\n\n\n7. Visualize the results\n\n\nShow the code\n# Create bar graphs with mean performance and variations\nggplot(model_summary, aes(x = Model, y = mean_value, fill = .metric)) +\n  geom_bar(stat = \"identity\", position = position_dodge()) +\n  geom_errorbar(aes(ymin = mean_value - sd_value, ymax = mean_value + sd_value),\n                width = 0.2, position = position_dodge(.9)) +\n  geom_point(position = position_dodge(.9)) +\n  labs(title = \"Model Performance Comparison\",\n       x = \"Models\",\n       y = \"Metric Scores\",\n       fill = \"Metrics\") +\n  theme_minimal() +\n  coord_flip()\n\n\n\n\n\n\n\n\nFigure 1: A scatter plot\n\n\n\n\n\n\n\nShow the code\nlibrary(ggplot2)\n\n# Assume 'model_summary' is your data frame that contains the following columns:\n# - Model: The name of the model (e.g., \"XGBoost\", \"SVM\", etc.)\n# - mean_value: The mean score of the metric (accuracy or precision)\n# - sd_value: The standard deviation of the score\n# - .metric: The name of the metric (\"accuracy\" or \"precision\")\n\n# Create a two-panel plot using point range plots\nggplot(model_summary, aes(x = Model, y = mean_value, color = .metric)) +\n  geom_pointrange(aes(ymin = mean_value - sd_value, ymax = mean_value + sd_value),\n                  position = position_dodge(0.5)) +\n  facet_wrap(~ .metric, scales = \"free_y\") +\n  labs(title = \"Model Performance Comparison\",\n       x = \"Models\",\n       y = \"Metric Scores\",\n       color = \"Metrics\") +\n  theme_minimal() +\n  coord_flip()\n\n\nWarning: Removed 5 rows containing missing values or values outside the scale range\n(`geom_segment()`).\n\n\n\n\n\n\n\n\n\nShow the code\n# Extract feature importance from Random Forest\n\nrf_fit_extract &lt;- extract_fit_parsnip(rf_fit)\n\nimportance_df &lt;- importance(rf_fit_extract$fit)\n\nimportance_df &lt;- data.frame(\n\n  Feature = rownames(importance_df),\n\n  Importance = importance_df[,1]\n\n)\n\nimportance_df &lt;- importance_df %&gt;%\n\n  arrange(desc(Importance))\n\n\nggplot(\n  importance_df[1:15, ],\n  aes(\n    x = reorder(Feature, Importance),\n    y = Importance\n  )\n) +\n  geom_col(fill = \"steelblue\") +\n  coord_flip() +\n  labs(\n    title = \"Top Feature Importance — Random Forest\",\n    x = \"Features\",\n    y = \"Importance\"\n  ) +\n  theme_minimal()\n\n\n\n\n\n\n\n\n\nShow the code\n# install.packages(\"pdp\")\nlibrary(pdp)\n\n# A randomForest fit inside a tidymodels workflow does not retain its training\n# data, so pdp::partial() cannot recover it automatically. Supply the exact\n# processed predictors the forest was trained on via the recipe's mold.\nrf_train &lt;- extract_mold(rf_fit)$predictors\n\npartial(\n  rf_fit_extract$fit,\n  pred.var = \"deg-malig\",\n  train = rf_train\n) %&gt;%\n  autoplot()\n\n\n\n\n\n\n\n\n\nShow the code\nrf_probs &lt;- predict(\n\n  rf_fit,\n\n  test_data,\n\n  type = \"prob\"\n\n) %&gt;%\n\n  bind_cols(test_data)\n\nlibrary(pROC)\n\n\nType 'citation(\"pROC\")' for a citation.\n\n\n\nAttaching package: 'pROC'\n\n\nThe following objects are masked from 'package:stats':\n\n    cov, smooth, var\n\n\nShow the code\nroc_obj &lt;- roc(\n\n  rf_probs$Class,\n\n  rf_probs$.pred_1\n\n)\n\n\nSetting levels: control = 0, case = 1\n\n\nSetting direction: controls &lt; cases\n\n\nShow the code\nplot(\n\n  roc_obj,\n\n  col = \"blue\",\n\n  main = \"ROC Curve — Random Forest\"\n\n)\n\n\n\n\n\n\n\n\n\nShow the code\nauc(roc_obj)\n\n\nArea under the curve: 0.7209"
+  }
+]

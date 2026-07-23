@@ -1,0 +1,12 @@
+<svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Stylized cannon emblem in Arsenal colours">
+  <path d="M8 8 H92 V66 C92 94 68 108 50 116 C32 108 8 94 8 66 Z" fill="#EF0107" stroke="#ffffff" stroke-width="3"/>
+  <g fill="#ffffff">
+    <g transform="rotate(-16 50 58)">
+      <rect x="26" y="50" width="48" height="12" rx="6"/>
+      <rect x="70" y="46" width="8" height="20" rx="2"/>
+    </g>
+    <circle cx="34" cy="78" r="12"/>
+  </g>
+  <circle cx="34" cy="78" r="5.5" fill="#EF0107"/>
+  <text x="50" y="104" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#ffffff">AFC</text>
+</svg>

@@ -172,7 +172,7 @@
     "href": "ResearchProjects.html#phd-thesis",
     "title": "Research Projects & Publications",
     "section": "PhD thesis",
-    "text": "PhD thesis\nNavigating epidemics by leveraging data science and data-driven modelling. Umeå University Medical Dissertations 2305, 2024. Record on DiVA\n\n  \n  Thesis cover — Navigating Epidemics: by leveraging data science and data-driven modelling, Umeå University, 2024.\n\nMy public defence (disputation) was held on 03 June 2024 at Umeå University, and the doctoral degree was conferred at the graduation ceremony on 24 May 2025.\n\n  \n    \n    Public defence · 03 June 2024\n  \n  \n    \n    Doctoral graduation ceremony · 24 May 2025"
+    "text": "PhD thesis\nNavigating epidemics by leveraging data science and data-driven modelling. Umeå University Medical Dissertations 2305, 2024. Record on DiVA\n\n  \n  Thesis cover — Navigating Epidemics: by leveraging data science and data-driven modelling, Umeå University, 2024.\n\nMy public defence (disputation) was held on 03 June 2024 at Umeå University, and the doctoral degree was conferred at the graduation ceremony on 17 May 2025.\n\n  \n    \n    Public defence · 03 June 2024\n  \n  \n    \n    Doctoral graduation ceremony · 17 May 2025"
   },
   {
     "objectID": "ResearchProjects.html#manuscripts-under-review-in-preparation",
@@ -187,6 +187,13 @@
     "title": "Research Projects & Publications",
     "section": "Selected code repositories",
     "text": "Selected code repositories\n\nWNV_drivers_study — machine learning to identify eco-climatic drivers of West Nile virus outbreaks (R).\nLancetEurope_WNV — scripts reproducing the Lancet Countdown Europe West Nile virus indicator.\nTime2Event — time-to-event analysis of dengue and chikungunya outbreaks in Europe.\nmatlab-optimisation — ODE parameter optimisation using parallel and multistart methods."
+  },
+  {
+    "objectID": "DataScience.html",
+    "href": "DataScience.html",
+    "title": "Data Science Lab",
+    "section": "",
+    "text": "Beyond my published research, this is where I keep hands-on data-science work — end-to-end analyses that show how the methods behind my papers actually work. Each project walks through the full pipeline: data cleaning and feature engineering, modelling, evaluation, and clearly communicated results, with reproducible R code throughout. The focus is health and epidemiology, but the techniques — survival analysis, spatial modelling, regression, and classification — transfer to almost any domain.\n\n  \n    Survival Analysis\n    Time-to-event modelling of colorectal cancer risk in a matched cohort of celiac patients — Kaplan–Meier and Cox proportional hazards.\n    View project →\n  \n  \n    Disease Risk Mapping\n    Spatial data science for visualising disease risk — choropleths, point maps, and exploratory spatial analysis.\n    View project →\n  \n  \n    Regression Modelling\n    Regression workflows for epidemiological data — from exploratory analysis to model diagnostics and interpretation.\n    View project →\n  \n  \n    Classification Modelling\n    Comparing machine-learning classifiers (random forest, XGBoost, SVM, neural nets) on a clinical dataset with a tidymodels workflow.\n    View project →\n  \n\nInterested in applying these methods to your own data? Get in touch\n\n\n\n Back to top"
   },
   {
     "objectID": "blog/posts/welcome/index.html",
@@ -343,6 +350,13 @@
     "text": "Occasional writing on the methods and ideas behind my research — from machine learning and spatial epidemiology to reflections on climate change and public health. New posts are listed below.\n\n\n\n\n\n\n\n\n\nWhy climate-sensitive infectious diseases demand a data-driven response\n\n\n\n\n\n\nclimate & health\n\n\nmodelling\n\n\nepidemiology\n\n\n\nA short introduction to this blog — and to the questions that drive my research on the changing geography of disease.\n\n\n\n\n\nJul 23, 2026\n\n\n2 min\n\n\n\n\n\n\nNo matching items\n\n Back to top"
   },
   {
+    "objectID": "Contact.html",
+    "href": "Contact.html",
+    "title": "Contact",
+    "section": "",
+    "text": "I am happy to hear from you — whether it is about research, potential collaborations, data-science consulting, or just to connect. Use the form below and I will get back to you as soon as I can.\n\n  Name\n  \n\n  Email\n  \n\n  Message\n  \n\n  Send\n\nPrefer email? Reach me directly at zia.farooq@umu.se, or connect on LinkedIn and X.\n\n\n\n Back to top"
+  },
+  {
     "objectID": "LeisureTime.html",
     "href": "LeisureTime.html",
     "title": "Leisure",
@@ -357,18 +371,18 @@
     "text": "My life outside research has been shaped by the places I have called home — the cricket grounds of Pakistan, a brief but formative chapter in Poland, and the outdoor life of northern Sweden.\n\n   Pakistan — where it began\n   Poland — a formative chapter\n   Sweden — home today"
   },
   {
-    "objectID": "LeisureTime.html#following-arsenal",
-    "href": "LeisureTime.html#following-arsenal",
+    "objectID": "LeisureTime.html#following-arsenal-fc",
+    "href": "LeisureTime.html#following-arsenal-fc",
     "title": "Leisure",
-    "section": "Following Arsenal",
-    "text": "Following Arsenal\nFootball found me late. Growing up in Pakistan, my sport was cricket — but after moving to Europe, my younger brother pulled me into the English game as a way to unwind from the pressures of PhD life. I followed him to Arsenal, and what began as a distraction has become one of my great weekend joys: the tension of a tight match, the rhythm of a season, and the shared highs and lows that come with supporting a club.\nThe wait for silverware taught its own kind of patience — and in 2025/26 it was finally rewarded.\n\n  🏆\n  \n    Arsenal — Premier League Champions 2025/26\n    The Gunners' first league title in 22 years, sealed with the meanest defence in the division. Up the Arsenal!"
+    "section": "Following Arsenal FC",
+    "text": "Following Arsenal FC\nFootball found me late. Growing up in Pakistan, my sport was cricket — but after moving to Europe, my younger brother pulled me into the English game as a way to unwind from the pressures of PhD life. I followed him to Arsenal Football Club, and what began as a distraction has become one of my great weekend joys: the tension of a tight match, the rhythm of a season, and the shared highs and lows that come with supporting a club.\nThe wait for silverware taught its own kind of patience — and in 2025/26 it was finally rewarded.\n\n  \n  \n    Arsenal FC — Premier League Champions 2025/26\n    Arsenal Football Club's first league title in 22 years, sealed with the meanest defence in the division."
   },
   {
     "objectID": "LeisureTime.html#staying-active",
     "href": "LeisureTime.html#staying-active",
     "title": "Leisure",
     "section": "Staying active",
-    "text": "Staying active\nOutside of football, I like to keep moving. I cycle around Umeå whenever the weather allows, spend regular time at the gym to stay fit and clear my head, and — above all — treasure time outdoors with my family and children. I have found that physical activity and time away from the screen are where my best research ideas quietly take shape.\n\n  🏏 Cricket\n  ⚽ Football (Arsenal)\n  🚴 Cycling\n  🏋️ Gym & fitness\n  🌲 Outdoors with family\n  🎬 Film & series"
+    "text": "Staying active\nOutside of football, I like to keep moving. I cycle around Umeå whenever the weather allows, spend regular time at the gym to stay fit and clear my head, and — above all — treasure time outdoors with my family and children. I have found that physical activity and time away from the screen are where my best research ideas quietly take shape.\n\n  🏏 Cricket\n  ⚽ Arsenal FC\n  🚴 Cycling\n  🏋️ Gym & fitness\n  🌲 Outdoors with family\n  🎬 Film & series"
   },
   {
     "objectID": "LeisureTime.html#downtime",

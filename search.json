@@ -189,6 +189,34 @@
     "text": "Selected code repositories\n\nWNV_drivers_study — machine learning to identify eco-climatic drivers of West Nile virus outbreaks (R).\nLancetEurope_WNV — scripts reproducing the Lancet Countdown Europe West Nile virus indicator.\nTime2Event — time-to-event analysis of dengue and chikungunya outbreaks in Europe.\nmatlab-optimisation — ODE parameter optimisation using parallel and multistart methods."
   },
   {
+    "objectID": "blog/posts/welcome/index.html",
+    "href": "blog/posts/welcome/index.html",
+    "title": "Why climate-sensitive infectious diseases demand a data-driven response",
+    "section": "",
+    "text": "Welcome to my blog. Alongside the papers listed under Research, I wanted a place for the ideas around the work — the methods, the intuitions, and the open questions that rarely fit into a manuscript. This first post explains why I find this field so compelling."
+  },
+  {
+    "objectID": "blog/posts/welcome/index.html#the-map-of-disease-is-being-redrawn",
+    "href": "blog/posts/welcome/index.html#the-map-of-disease-is-being-redrawn",
+    "title": "Why climate-sensitive infectious diseases demand a data-driven response",
+    "section": "The map of disease is being redrawn",
+    "text": "The map of disease is being redrawn\nFor most of the twentieth century, the geography of many infectious diseases felt fixed: dengue was tropical, West Nile virus was a concern for warmer latitudes, and temperate Europe was largely spared. That assumption no longer holds. Warming temperatures, changing rainfall, expanding vector habitats, and the sheer volume of human mobility are pushing pathogens into places that were previously unsuitable — and doing so faster than historical intuition would predict.\nIn our recent work, the interval between the establishment of Aedes albopictus in a European region and its first local outbreak of dengue or chikungunya fell from around 25 years to under five over the last three decades. That is not a gradual drift; it is an acceleration."
+  },
+  {
+    "objectID": "blog/posts/welcome/index.html#why-data-science-and-not-just-epidemiology",
+    "href": "blog/posts/welcome/index.html#why-data-science-and-not-just-epidemiology",
+    "title": "Why climate-sensitive infectious diseases demand a data-driven response",
+    "section": "Why data science, and not just epidemiology",
+    "text": "Why data science, and not just epidemiology\nUnderstanding this shift requires more than surveillance. It requires models that can absorb heterogeneous data — climate reanalysis, land cover, socioeconomic indicators, mobility networks — and separate signal from noise across space and time. Three ideas guide how I approach it:\n\nPrediction with explanation. A model that forecasts outbreaks is useful; a model that also tells us why a region is at risk is actionable. Explainable AI lets us do both.\nMechanism where it matters. Machine learning captures complex patterns, but process-based models encode what we know about transmission. The most trustworthy answers usually come from combining the two.\nSpatial diffusion, not just suitability. Eco-climatic suitability explains where a disease could spread; diffusion dynamics explain why some suitable places are invaded and others are not. Both are needed."
+  },
+  {
+    "objectID": "blog/posts/welcome/index.html#what-ill-write-about-here",
+    "href": "blog/posts/welcome/index.html#what-ill-write-about-here",
+    "title": "Why climate-sensitive infectious diseases demand a data-driven response",
+    "section": "What I’ll write about here",
+    "text": "What I’ll write about here\nExpect posts on the methods I use and the reasoning behind them — survival and time-to-event analysis, ecological niche modelling, the pitfalls of disease risk mapping — as well as broader reflections on climate, health, and the craft of turning messy data into decisions. Some will be technical; some will be short notes.\nIf any of this connects with your own work, or you’d like to discuss a collaboration, get in touch."
+  },
+  {
     "objectID": "about.html",
     "href": "about.html",
     "title": "About",
@@ -306,6 +334,13 @@
     "title": "Curriculum Vitae",
     "section": "",
     "text": "Email — zia.farooq@umu.se\nGoogle Scholar — scholar.google.com\nGitHub — github.com/Ziaf021\nAddress — Department of Epidemiology and Global Health, Umeå University, 901 87 Umeå, Sweden"
+  },
+  {
+    "objectID": "blog/index.html",
+    "href": "blog/index.html",
+    "title": "Blog",
+    "section": "",
+    "text": "Occasional writing on the methods and ideas behind my research — from machine learning and spatial epidemiology to reflections on climate change and public health. New posts are listed below.\n\n\n\n\n\n\n\n\n\nWhy climate-sensitive infectious diseases demand a data-driven response\n\n\n\n\n\n\nclimate & health\n\n\nmodelling\n\n\nepidemiology\n\n\n\nA short introduction to this blog — and to the questions that drive my research on the changing geography of disease.\n\n\n\n\n\nJul 23, 2026\n\n\n2 min\n\n\n\n\n\n\nNo matching items\n\n Back to top"
   },
   {
     "objectID": "LeisureTime.html",

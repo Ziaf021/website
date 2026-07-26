@@ -196,11 +196,88 @@
     "text": "Beyond my published research, this is where I keep hands-on data-science work — end-to-end analyses that show how the methods behind my papers actually work. Each project walks through the full pipeline: data cleaning and feature engineering, modelling, evaluation, and clearly communicated results, with reproducible R code throughout. The focus is health and epidemiology, but the techniques — survival analysis, spatial modelling, regression, and classification — transfer to almost any domain.\n\n  \n    Survival Analysis\n    Time-to-event modelling of colorectal cancer risk in a matched cohort of celiac patients — Kaplan–Meier and Cox proportional hazards.\n    View project →\n  \n  \n    Disease Risk Mapping\n    Spatial data science for visualising disease risk — choropleths, point maps, and exploratory spatial analysis.\n    View project →\n  \n  \n    Regression Modelling\n    Regression workflows for epidemiological data — from exploratory analysis to model diagnostics and interpretation.\n    View project →\n  \n  \n    Classification Modelling\n    Comparing machine-learning classifiers (random forest, XGBoost, SVM, neural nets) on a clinical dataset with a tidymodels workflow.\n    View project →\n  \n\nInterested in applying these methods to your own data? Get in touch\n\n\n\n Back to top"
   },
   {
-    "objectID": "blog/index.html",
-    "href": "blog/index.html",
-    "title": "Blog",
+    "objectID": "thankyou.html",
+    "href": "thankyou.html",
+    "title": "Thank you",
     "section": "",
-    "text": "Occasional writing on the methods and ideas behind my research — from machine learning and spatial epidemiology to reflections on climate change and public health. New posts are listed below.\n\n\n\n\n\n\n\n\n\nWhy climate-sensitive infectious diseases demand a data-driven response\n\n\n\n\n\n\nclimate & health\n\n\nmodelling\n\n\nepidemiology\n\n\n\nA short introduction to this blog — and to the questions that drive my research on the changing geography of disease.\n\n\n\n\n\nJul 23, 2026\n\n\n2 min\n\n\n\n\n\n\nNo matching items\n\n Back to top"
+    "text": "Thank you very much for reaching out. I’ll soon be in touch with you.\nBest regards, Dr. Zia Farooq\n\nBack to home Research & Publications"
+  },
+  {
+    "objectID": "thankyou.html#message-received",
+    "href": "thankyou.html#message-received",
+    "title": "Thank you",
+    "section": "",
+    "text": "Thank you very much for reaching out. I’ll soon be in touch with you.\nBest regards, Dr. Zia Farooq\n\nBack to home Research & Publications"
+  },
+  {
+    "objectID": "blog/posts/welcome/index.html",
+    "href": "blog/posts/welcome/index.html",
+    "title": "Why climate-sensitive infectious diseases demand a data-driven response",
+    "section": "",
+    "text": "Welcome to my blog. Alongside the papers listed under Research, I wanted a place for the ideas around the work — the methods, the intuitions, and the open questions that rarely fit into a manuscript. This first post explains why I find this field so compelling."
+  },
+  {
+    "objectID": "blog/posts/welcome/index.html#the-map-of-disease-is-being-redrawn",
+    "href": "blog/posts/welcome/index.html#the-map-of-disease-is-being-redrawn",
+    "title": "Why climate-sensitive infectious diseases demand a data-driven response",
+    "section": "The map of disease is being redrawn",
+    "text": "The map of disease is being redrawn\nFor most of the twentieth century, the geography of many infectious diseases felt fixed: dengue was tropical, West Nile virus was a concern for warmer latitudes, and temperate Europe was largely spared. That assumption no longer holds. Warming temperatures, changing rainfall, expanding vector habitats, and the sheer volume of human mobility are pushing pathogens into places that were previously unsuitable — and doing so faster than historical intuition would predict.\nIn our recent work, the interval between the establishment of Aedes albopictus in a European region and its first local outbreak of dengue or chikungunya fell from around 25 years to under five over the last three decades. That is not a gradual drift; it is an acceleration."
+  },
+  {
+    "objectID": "blog/posts/welcome/index.html#why-data-science-and-not-just-epidemiology",
+    "href": "blog/posts/welcome/index.html#why-data-science-and-not-just-epidemiology",
+    "title": "Why climate-sensitive infectious diseases demand a data-driven response",
+    "section": "Why data science, and not just epidemiology",
+    "text": "Why data science, and not just epidemiology\nUnderstanding this shift requires more than surveillance. It requires models that can absorb heterogeneous data — climate reanalysis, land cover, socioeconomic indicators, mobility networks — and separate signal from noise across space and time. Three ideas guide how I approach it:\n\nPrediction with explanation. A model that forecasts outbreaks is useful; a model that also tells us why a region is at risk is actionable. Explainable AI lets us do both.\nMechanism where it matters. Machine learning captures complex patterns, but process-based models encode what we know about transmission. The most trustworthy answers usually come from combining the two.\nSpatial diffusion, not just suitability. Eco-climatic suitability explains where a disease could spread; diffusion dynamics explain why some suitable places are invaded and others are not. Both are needed."
+  },
+  {
+    "objectID": "blog/posts/welcome/index.html#what-ill-write-about-here",
+    "href": "blog/posts/welcome/index.html#what-ill-write-about-here",
+    "title": "Why climate-sensitive infectious diseases demand a data-driven response",
+    "section": "What I’ll write about here",
+    "text": "What I’ll write about here\nExpect posts on the methods I use and the reasoning behind them — survival and time-to-event analysis, ecological niche modelling, the pitfalls of disease risk mapping — as well as broader reflections on climate, health, and the craft of turning messy data into decisions. Some will be technical; some will be short notes.\nIf any of this connects with your own work, or you’d like to discuss a collaboration, get in touch."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "Zia Farooq\nI am a data scientist and holds a PhD in epidemiology and public health Umeå University, Sweden. I am currently working as a postdoctoral researcher at Umeå University, Sweden.My research focuses on a range of topics including applying advanced data analytics, artificial intelligence and mechanistic modelling in predictive spatio-temporal disease modelling and disease ecology. I apply AI algorithms for predicting disease outbreaks of complex zoonosis such as the West Nile virus and for projecting its expansion risk due to changing climate. I am also developing new mechanistic framework to identify the attribution of climate change and human mobility in the global expansion of dengue. Further, I am developing new methods that could improve the disease severity estimates. As part of the Lancet Countdown Europe team, I’ve developed West Nile virus indicator for Europe using machine learning. This is my university profile [University]( https://www.umu.se/en/staff/zia-farooq/ ), [Googlscholar]( https://scholar.google.com/citations?user=bz2GB_cAAAAJ&hl=en ), [twitter]( https://twitter.com/Ziafarooq86)\n\n\n\n\n Back to top"
+  },
+  {
+    "objectID": "Failures.html",
+    "href": "Failures.html",
+    "title": "Failures",
+    "section": "",
+    "text": "Most of what appears on a CV is a highlight reel — the papers that were accepted, the grants that were funded, the positions that were offered. It hides the far longer list of rejections and setbacks behind every success. Inspired by the idea of a “CV of failures,” this page keeps that longer list visible: the rejected manuscripts, the unfunded proposals, the missed opportunities, and what each one taught me."
+  },
+  {
+    "objectID": "Failures.html#rejected-manuscripts",
+    "href": "Failures.html#rejected-manuscripts",
+    "title": "Failures",
+    "section": "Rejected manuscripts",
+    "text": "Rejected manuscripts\nTo be added."
+  },
+  {
+    "objectID": "Failures.html#grants-and-fellowships-not-funded",
+    "href": "Failures.html#grants-and-fellowships-not-funded",
+    "title": "Failures",
+    "section": "Grants and fellowships not funded",
+    "text": "Grants and fellowships not funded\nTo be added."
+  },
+  {
+    "objectID": "Failures.html#positions-and-programmes-not-offered",
+    "href": "Failures.html#positions-and-programmes-not-offered",
+    "title": "Failures",
+    "section": "Positions and programmes not offered",
+    "text": "Positions and programmes not offered\nTo be added."
+  },
+  {
+    "objectID": "Failures.html#lessons-learned",
+    "href": "Failures.html#lessons-learned",
+    "title": "Failures",
+    "section": "Lessons learned",
+    "text": "Lessons learned\nTo be added."
   },
   {
     "objectID": "Resume.html",
@@ -280,81 +357,18 @@
     "text": "Email — zia.farooq@umu.se\nGoogle Scholar — scholar.google.com\nGitHub — github.com/Ziaf021\nAddress — Department of Epidemiology and Global Health, Umeå University, 901 87 Umeå, Sweden"
   },
   {
-    "objectID": "Failures.html",
-    "href": "Failures.html",
-    "title": "Failures",
+    "objectID": "blog/index.html",
+    "href": "blog/index.html",
+    "title": "Blog",
     "section": "",
-    "text": "Most of what appears on a CV is a highlight reel — the papers that were accepted, the grants that were funded, the positions that were offered. It hides the far longer list of rejections and setbacks behind every success. Inspired by the idea of a “CV of failures,” this page keeps that longer list visible: the rejected manuscripts, the unfunded proposals, the missed opportunities, and what each one taught me."
-  },
-  {
-    "objectID": "Failures.html#rejected-manuscripts",
-    "href": "Failures.html#rejected-manuscripts",
-    "title": "Failures",
-    "section": "Rejected manuscripts",
-    "text": "Rejected manuscripts\nTo be added."
-  },
-  {
-    "objectID": "Failures.html#grants-and-fellowships-not-funded",
-    "href": "Failures.html#grants-and-fellowships-not-funded",
-    "title": "Failures",
-    "section": "Grants and fellowships not funded",
-    "text": "Grants and fellowships not funded\nTo be added."
-  },
-  {
-    "objectID": "Failures.html#positions-and-programmes-not-offered",
-    "href": "Failures.html#positions-and-programmes-not-offered",
-    "title": "Failures",
-    "section": "Positions and programmes not offered",
-    "text": "Positions and programmes not offered\nTo be added."
-  },
-  {
-    "objectID": "Failures.html#lessons-learned",
-    "href": "Failures.html#lessons-learned",
-    "title": "Failures",
-    "section": "Lessons learned",
-    "text": "Lessons learned\nTo be added."
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "Zia Farooq\nI am a data scientist and holds a PhD in epidemiology and public health Umeå University, Sweden. I am currently working as a postdoctoral researcher at Umeå University, Sweden.My research focuses on a range of topics including applying advanced data analytics, artificial intelligence and mechanistic modelling in predictive spatio-temporal disease modelling and disease ecology. I apply AI algorithms for predicting disease outbreaks of complex zoonosis such as the West Nile virus and for projecting its expansion risk due to changing climate. I am also developing new mechanistic framework to identify the attribution of climate change and human mobility in the global expansion of dengue. Further, I am developing new methods that could improve the disease severity estimates. As part of the Lancet Countdown Europe team, I’ve developed West Nile virus indicator for Europe using machine learning. This is my university profile [University]( https://www.umu.se/en/staff/zia-farooq/ ), [Googlscholar]( https://scholar.google.com/citations?user=bz2GB_cAAAAJ&hl=en ), [twitter]( https://twitter.com/Ziafarooq86)\n\n\n\n\n Back to top"
-  },
-  {
-    "objectID": "blog/posts/welcome/index.html",
-    "href": "blog/posts/welcome/index.html",
-    "title": "Why climate-sensitive infectious diseases demand a data-driven response",
-    "section": "",
-    "text": "Welcome to my blog. Alongside the papers listed under Research, I wanted a place for the ideas around the work — the methods, the intuitions, and the open questions that rarely fit into a manuscript. This first post explains why I find this field so compelling."
-  },
-  {
-    "objectID": "blog/posts/welcome/index.html#the-map-of-disease-is-being-redrawn",
-    "href": "blog/posts/welcome/index.html#the-map-of-disease-is-being-redrawn",
-    "title": "Why climate-sensitive infectious diseases demand a data-driven response",
-    "section": "The map of disease is being redrawn",
-    "text": "The map of disease is being redrawn\nFor most of the twentieth century, the geography of many infectious diseases felt fixed: dengue was tropical, West Nile virus was a concern for warmer latitudes, and temperate Europe was largely spared. That assumption no longer holds. Warming temperatures, changing rainfall, expanding vector habitats, and the sheer volume of human mobility are pushing pathogens into places that were previously unsuitable — and doing so faster than historical intuition would predict.\nIn our recent work, the interval between the establishment of Aedes albopictus in a European region and its first local outbreak of dengue or chikungunya fell from around 25 years to under five over the last three decades. That is not a gradual drift; it is an acceleration."
-  },
-  {
-    "objectID": "blog/posts/welcome/index.html#why-data-science-and-not-just-epidemiology",
-    "href": "blog/posts/welcome/index.html#why-data-science-and-not-just-epidemiology",
-    "title": "Why climate-sensitive infectious diseases demand a data-driven response",
-    "section": "Why data science, and not just epidemiology",
-    "text": "Why data science, and not just epidemiology\nUnderstanding this shift requires more than surveillance. It requires models that can absorb heterogeneous data — climate reanalysis, land cover, socioeconomic indicators, mobility networks — and separate signal from noise across space and time. Three ideas guide how I approach it:\n\nPrediction with explanation. A model that forecasts outbreaks is useful; a model that also tells us why a region is at risk is actionable. Explainable AI lets us do both.\nMechanism where it matters. Machine learning captures complex patterns, but process-based models encode what we know about transmission. The most trustworthy answers usually come from combining the two.\nSpatial diffusion, not just suitability. Eco-climatic suitability explains where a disease could spread; diffusion dynamics explain why some suitable places are invaded and others are not. Both are needed."
-  },
-  {
-    "objectID": "blog/posts/welcome/index.html#what-ill-write-about-here",
-    "href": "blog/posts/welcome/index.html#what-ill-write-about-here",
-    "title": "Why climate-sensitive infectious diseases demand a data-driven response",
-    "section": "What I’ll write about here",
-    "text": "What I’ll write about here\nExpect posts on the methods I use and the reasoning behind them — survival and time-to-event analysis, ecological niche modelling, the pitfalls of disease risk mapping — as well as broader reflections on climate, health, and the craft of turning messy data into decisions. Some will be technical; some will be short notes.\nIf any of this connects with your own work, or you’d like to discuss a collaboration, get in touch."
+    "text": "Occasional writing on the methods and ideas behind my research — from machine learning and spatial epidemiology to reflections on climate change and public health. New posts are listed below.\n\n\n\n\n\n\n\n\n\nWhy climate-sensitive infectious diseases demand a data-driven response\n\n\n\n\n\n\nclimate & health\n\n\nmodelling\n\n\nepidemiology\n\n\n\nA short introduction to this blog — and to the questions that drive my research on the changing geography of disease.\n\n\n\n\n\nJul 23, 2026\n\n\n2 min\n\n\n\n\n\n\nNo matching items\n\n Back to top"
   },
   {
     "objectID": "Contact.html",
     "href": "Contact.html",
     "title": "Contact",
     "section": "",
-    "text": "I am happy to hear from you — whether it is about research, potential collaborations, data-science consulting, or just to connect. Use the form below and I will get back to you as soon as I can.\n\n  \n  \n  \n  \n\n  Name\n  \n\n  Email\n  \n\n  Message\n  \n\n  Send\n\n\n\n\n\n\n\nOne-time activation for the form\n\n\n\n\n\nThe first time someone submits this form, FormSubmit sends a confirmation email to zia.farooq@umu.se. Click the link in that email once to activate — after that, every submission is delivered straight to your inbox. No account or password is needed.\n\n\n\nPrefer email? Reach me directly at zia.farooq@umu.se, or connect on LinkedIn and X.\n\n\n\n Back to top"
+    "text": "I am happy to hear from you — whether it is about research, potential collaborations, data-science consulting, or just to connect. Use the form below and I will get back to you as soon as I can.\n\n  \n  \n  \n  \n  \n\n  Name\n  \n\n  Email\n  \n\n  Message\n  \n\n  Send\n\nPrefer email? Reach me directly at zia.farooq@umu.se, or connect on LinkedIn and X.\n\n\n\n Back to top"
   },
   {
     "objectID": "LeisureTime.html",

@@ -20,7 +20,49 @@ climate-sensitive infectious disease modelling.
 <width>144</width>
 </image>
 <generator>quarto-1.5.56</generator>
-<lastBuildDate>Wed, 22 Jul 2026 22:00:00 GMT</lastBuildDate>
+<lastBuildDate>Tue, 04 Aug 2026 22:00:00 GMT</lastBuildDate>
+<item>
+  <title>Is West Nile virus moving towards urban Europe?</title>
+  <dc:creator>Zia Farooq</dc:creator>
+  <link>https://ziaf021.github.io/website/blog/posts/wnv-urban/</link>
+  <description><![CDATA[ 
+
+
+
+
+<p>West Nile virus lives mostly in birds. Mosquitoes carry it between them, and now and then to people or horses. We are a dead end for it, since we do not pass it on, but it can still cause serious illness, including meningitis and encephalitis. In Europe the usual carrier is the Culex mosquito, which breeds in still water and grows more active in warm weather. Hot summers, the timing of bird migration, and the right wet habitat shape where it appears. For years it was mainly a rural problem, around farmland and wetlands, though it has lately been reaching fresh regions and pushing north.</p>
+<p>Cities are not off-limits to it. When the virus first reached the United States it surfaced in New York in 1999, spread by a city-dwelling Culex that breeds in drains and gutters. So it is fair to ask whether Europe is drifting the same way.</p>
+<p>We sorted the regions where the virus caused its first human cases into three kinds, following a standard European scheme: urban, semi-urban, and rural. Then we followed how the pattern changed over four periods from 2006 to 2024.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://ziaf021.github.io/website/blog/posts/wnv-urban/fig-s8.png" class="img-fluid figure-img"></p>
+<figcaption>The make-up of newly invaded regions by period. The urban and semi-urban share grows towards 2020–2024, while the rural share falls.</figcaption>
+</figure>
+</div>
+<p>The make-up of newly affected regions changed over time. Early on, rural and semi-urban regions dominated and urban regions were a small slice. By 2020–2024, urban and semi-urban regions together made up most of the new invasions, and the rural share had shrunk.</p>
+<p>A raw share can mislead, because once a region is affected it leaves the pool still open to invasion. So we also measured a fair rate: first invasions per year among the regions of each kind still at risk.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://ziaf021.github.io/website/blog/posts/wnv-urban/fig-s9.png" class="img-fluid figure-img"></p>
+<figcaption>First-invasion rate for each kind of region, by period, on a log scale. Urban regions move from the lowest rate to the highest by 2020–2024.</figcaption>
+</figure>
+</div>
+<p>The fair rate tells the sharper story. In 2006–2010, rural regions had the highest first-invasion rate and urban the lowest. By 2020–2024 the order had flipped, with urban highest and rural about where it began. Semi-urban regions rose alongside urban. The shift is statistically clear, and it holds after correcting for the shrinking pool.</p>
+<p>Two things temper it. The change sits entirely in the last five-year window; from 2007 to 2019 the three kinds of region were reached at steady rates. And those recent years overlap the COVID-19 pandemic, when testing and surveillance were disrupted and, in many places, concentrated in cities.</p>
+<p>It is worth being clear about what that second point does and does not undo. If testing had simply increased everywhere after the pandemic, it would lift the numbers across the board without tilting them toward cities. For the balance to move toward urban and semi-urban regions, either the virus is genuinely reaching them more, or we are now detecting there what we used to miss. Both fit these data. Either way, that is where the confirmed cases now sit, and that is where preparedness has to follow.</p>
+<p>So the honest answer to the question in the title is a qualified yes. West Nile virus is turning up more in urban and semi-urban Europe in recent years, whether because it is truly moving in or because we are watching cities more closely. The response is the same in both cases: steady, well-resourced surveillance in towns and cities, so a real move toward dense populations is caught early rather than argued about after the fact.</p>
+<p><a href="https://doi.org/10.21203/rs.3.rs-10383062/v1">Read the preprint</a></p>
+
+
+
+<a onclick="window.scrollTo(0, 0); return false;" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a> ]]></description>
+  <category>West Nile virus</category>
+  <category>spatial epidemiology</category>
+  <category>climate &amp; health</category>
+  <guid>https://ziaf021.github.io/website/blog/posts/wnv-urban/</guid>
+  <pubDate>Tue, 04 Aug 2026 22:00:00 GMT</pubDate>
+  <media:content url="https://ziaf021.github.io/website/blog/posts/wnv-urban/thumbnail.png" medium="image" type="image/png" height="90" width="144"/>
+</item>
 <item>
   <title>Why climate-sensitive infectious diseases demand a data-driven response</title>
   <dc:creator>Zia Farooq</dc:creator>

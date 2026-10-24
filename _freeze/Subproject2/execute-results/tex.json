@@ -1,0 +1,21 @@
+{
+  "hash": "2f5e72a8f5d6c44f264c283dddfb8e65",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Regression Modelling\"\nsubtitle: \"Regression workflows for epidemiological data\"\ntitle-block-banner: \"#143A5A\"\ntitle-block-banner-color: \"white\"\nformat:\n  html: default\n  pdf: default\ncss: assets/about.css\neditor: visual\nexecute:\n    echo: true\n---\n\n\n\n\n\n\n::: project-summary\n**Objective —** Demonstrate reproducible regression-modelling workflows for epidemiological and ecological data.\n\n**Methods —** Exploratory analysis, linear and generalised regression, model diagnostics, and visualisation.\n\n**Tools —** R (tidyverse, tidymodels, ggplot2).\n\n*This page is a methods demonstration and is being expanded.*\n:::\n\n# Introduction\n\n## Data {.larger style=\"font:bold\"}\n\nI start it with the penguins dataset from @palmerpenguins package [@corsi2021]\n\n\n\n\n\n\n::: {.cell}\n::: {.cell-output .cell-output-stdout}\n\n```\nRows: 344\nColumns: 8\n$ species           <fct> Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adel~\n$ island            <fct> Torgersen, Torgersen, Torgersen, Torgersen, Torgerse~\n$ bill_length_mm    <dbl> 39.1, 39.5, 40.3, NA, 36.7, 39.3, 38.9, 39.2, 34.1, ~\n$ bill_depth_mm     <dbl> 18.7, 17.4, 18.0, NA, 19.3, 20.6, 17.8, 19.6, 18.1, ~\n$ flipper_length_mm <int> 181, 186, 195, NA, 193, 190, 181, 195, 193, 190, 186~\n$ body_mass_g       <int> 3750, 3800, 3250, NA, 3450, 3650, 3625, 4675, 3475, ~\n$ sex               <fct> male, female, female, NA, female, male, female, male~\n$ year              <int> 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007~\n```\n\n\n:::\n:::\n\n\n\n\n\n\n## Species\n\n@fig-bill-dims-species is a scatter plot of species of penguins\n\n\n\n\n\n\n::: {.cell output-location='slide' code-copy='true'}\n\n```{.r .cell-code .code-overflow-scroll}\nggplot(penguins,\n       aes(x = bill_length_mm, y = bill_depth_mm,\n           color = species, shape = species)\n       )+\n  geom_point()+\n  theme_minimal()+\n  #scale_color_continuous()+\n  labs(x= \"Bill length (mm)\", y=\"Bill depth (mm)\")\n```\n\n::: {.cell-output .cell-output-stderr}\n\n```\nWarning: Removed 2 rows containing missing values or values outside the scale range\n(`geom_point()`).\n```\n\n\n:::\n\n::: {.cell-output-display}\n![A scatter plot\n](Subproject2_files/figure-pdf/fig-bill-dims-species-1.pdf){#fig-bill-dims-species fig-pos='H' fig-alt='A scatter plot\n'}\n:::\n:::\n\n\n\n\n\n\n## Penguins\n\n@tbl-penguins-top10 below shows first 10 penguins from the dataset.\n\n\n\n\n\n\n::: {#tbl-penguins-top10 .cell tbl-cap='First 10 penguins'}\n\n```{.r .cell-code}\npenguins|>\n  slice_head(n=10)|>\n  select(species, island, bill_length_mm, bill_depth_mm)|> \n  gt()\n```\n\n::: {.cell-output-display}\n\\begin{table}\n\\fontsize{12.0pt}{14.0pt}\\selectfont\n\\begin{tabular*}{\\linewidth}{@{\\extracolsep{\\fill}}ccrr}\n\\toprule\nspecies & island & bill\\_length\\_mm & bill\\_depth\\_mm \\\\ \n\\midrule\\addlinespace[2.5pt]\nAdelie & Torgersen & 39.1 & 18.7 \\\\ \nAdelie & Torgersen & 39.5 & 17.4 \\\\ \nAdelie & Torgersen & 40.3 & 18.0 \\\\ \nAdelie & Torgersen & NA & NA \\\\ \nAdelie & Torgersen & 36.7 & 19.3 \\\\ \nAdelie & Torgersen & 39.3 & 20.6 \\\\ \nAdelie & Torgersen & 38.9 & 17.8 \\\\ \nAdelie & Torgersen & 39.2 & 19.6 \\\\ \nAdelie & Torgersen & 34.1 & 18.1 \\\\ \nAdelie & Torgersen & 42.0 & 20.2 \\\\ \n\\bottomrule\n\\end{tabular*}\n\\end{table}\n\n:::\n:::\n\n\n\n\n\n\n# Analysis\n\n## modelling\n\n## References\n",
+    "supporting": [
+      "Subproject2_files/figure-pdf"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {
+      "include-in-header": [
+        "\\usepackage{booktabs}\n\\usepackage{caption}\n\\usepackage{longtable}\n\\usepackage{colortbl}\n\\usepackage{array}\n\\usepackage{anyfontsize}\n\\usepackage{multirow}\n"
+      ]
+    },
+    "engineDependencies": {},
+    "preserve": null,
+    "postProcess": false
+  }
+}

@@ -1,0 +1,42 @@
+---
+title: "Data Science Lab"
+subtitle: "Turning messy, real-world data into models, maps, and decisions"
+title-block-banner: "#143A5A"
+title-block-banner-color: "white"
+---
+
+Beyond my published research, this is where I keep hands-on data-science work —
+end-to-end analyses that show *how* the methods behind my papers actually work.
+Each project walks through the full pipeline: data cleaning and feature
+engineering, modelling, evaluation, and clearly communicated results, with
+reproducible R code throughout. The focus is health and epidemiology, but the
+techniques — survival analysis, spatial modelling, regression, and classification —
+transfer to almost any domain.
+
+```{=html}
+<div class="ds-cards">
+  <a class="ds-card" href="Celiac.html">
+    <div class="ds-title">Survival Analysis</div>
+    <div class="ds-desc">Time-to-event modelling of colorectal cancer risk in a matched cohort of celiac patients — Kaplan–Meier and Cox proportional hazards.</div>
+    <div class="ds-more">View project →</div>
+  </a>
+  <a class="ds-card" href="Subproject1.html">
+    <div class="ds-title">Disease Risk Mapping</div>
+    <div class="ds-desc">Spatial data science for visualising disease risk — choropleths, point maps, and exploratory spatial analysis.</div>
+    <div class="ds-more">View project →</div>
+  </a>
+  <a class="ds-card" href="Subproject2.html">
+    <div class="ds-title">Regression Modelling</div>
+    <div class="ds-desc">Regression workflows for epidemiological data — from exploratory analysis to model diagnostics and interpretation.</div>
+    <div class="ds-more">View project →</div>
+  </a>
+  <a class="ds-card" href="Subproject3.html">
+    <div class="ds-title">Classification Modelling</div>
+    <div class="ds-desc">Comparing machine-learning classifiers (random forest, XGBoost, SVM, neural nets) on a clinical dataset with a tidymodels workflow.</div>
+    <div class="ds-more">View project →</div>
+  </a>
+</div>
+```
+
+Interested in applying these methods to your own data?
+[Get in touch](Contact.qmd){.btn .btn-primary role="button"}

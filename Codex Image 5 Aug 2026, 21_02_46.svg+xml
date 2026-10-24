@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">West Nile virus movement toward urban Europe</title>
+  <desc id="desc">Editorial infographic showing West Nile virus first invasions shifting from rural Europe in 2006 to 2010 toward urban and semi-urban Europe in 2020 to 2024.</desc>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f4f8f7"/><stop offset="1" stop-color="#dcebe9"/></linearGradient>
+    <linearGradient id="flow" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#5f747b"/><stop offset="1" stop-color="#009e9a"/></linearGradient>
+    <filter id="soft"><feGaussianBlur stdDeviation="11"/></filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#009e9a"/></marker>
+    <style>
+      .sans{font-family:Arial,Helvetica,sans-serif}.headline{font-size:46px;letter-spacing:-1px;font-weight:700;fill:#092f42}.label{font-size:24px;letter-spacing:2.5px;font-weight:700;fill:#092f42}.small{font-size:18px;letter-spacing:2px;fill:#45636d}.rule{stroke:#9db8bd;stroke-width:2}.fine{stroke:#55757b;stroke-width:2;fill:none}.warm{fill:#009e9a}.sage{fill:#55757b}.ink{fill:#092f42}
+    </style>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#sky)"/>
+  <circle cx="240" cy="326" r="176" fill="#c7dce0" opacity=".54" filter="url(#soft)"/>
+  <circle cx="1335" cy="727" r="250" fill="#bfe4df" opacity=".60" filter="url(#soft)"/>
+  <text x="100" y="92" class="sans small">WEST NILE VIRUS · EUROPE · 2006—2024</text>
+  <text x="100" y="148" class="sans headline">Is West Nile virus moving towards urban Europe?</text>
+  <line x1="100" y1="184" x2="1500" y2="184" class="rule"/>
+
+  <!-- left: rural ecology -->
+  <text x="170" y="255" class="sans label">2006—2010</text>
+  <text x="170" y="291" class="sans small">RURAL + WETLANDS</text>
+  <!-- cultivated fields -->
+  <path d="M130 693 L308 579 L527 649 L590 752 L130 752Z" fill="#b9d4a9" opacity=".78"/>
+  <path d="M130 693 L308 579 L527 649 M184 752 L344 601 M287 752 L434 621 M395 752 L516 662" stroke="#f8f5ef" stroke-width="8" opacity=".9"/>
+  <path d="M132 755 C223 697 305 704 380 752 C446 794 522 786 594 721" stroke="#4f7765" stroke-width="50" fill="none" stroke-linecap="round" opacity=".35"/>
+  <path d="M132 755 C223 697 305 704 380 752 C446 794 522 786 594 721" class="fine" stroke-width="3"/>
+  <!-- barn -->
+  <path d="M318 528 L388 472 L458 528 V622 H318Z" fill="#55757b"/>
+  <path d="M301 530 L388 454 L475 530Z" fill="#21343a"/>
+  <rect x="365" y="558" width="46" height="64" rx="2" fill="#f8f5ef"/>
+  <path d="M388 558 V622" stroke="#55757b" stroke-width="4"/>
+  <rect x="330" y="550" width="19" height="19" fill="#f8f5ef"/><rect x="427" y="550" width="19" height="19" fill="#f8f5ef"/>
+  <!-- reedbed / still water -->
+  <path d="M170 620 C197 604 228 604 256 620 C229 638 197 638 170 620Z" fill="#6ea8b2" opacity=".85"/>
+  <path d="M190 617 V569 M207 618 V556 M225 618 V572 M190 582 L178 568 M207 568 L220 553 M225 583 L238 568" stroke="#4f7765" stroke-width="4" stroke-linecap="round"/>
+  <!-- bird -->
+  <path d="M268 416 C294 386 326 387 351 415 C329 409 308 418 294 438 C284 430 276 423 268 416Z" class="ink"/>
+  <path d="M351 415 C370 401 383 399 396 406 L374 418Z" fill="#009e9a"/>
+  <!-- mosquito -->
+  <g transform="translate(448 406)" stroke="#26363b" stroke-width="4" stroke-linecap="round" fill="none"><ellipse cx="0" cy="0" rx="10" ry="21" fill="#26363b"/><path d="M-7-9 L-45-31 M7-9 L45-31 M-8 8 L-48 20 M8 8 L48 20 M-6 16 L-38 49 M6 16 L38 49 M0-21 L0-48"/><ellipse cx="-30" cy="-19" rx="22" ry="9" transform="rotate(25 -30 -19)"/><ellipse cx="30" cy="-19" rx="22" ry="9" transform="rotate(-25 30 -19)"/></g>
+  <text x="170" y="806" class="sans small">FARMLAND · WETLAND · CULEX</text>
+  <rect x="170" y="834" width="256" height="14" rx="7" fill="#55757b"/>
+  <text x="170" y="888" class="sans label">RURAL FIRST-INVASION RATE →</text>
+
+  <!-- transition -->
+  <path d="M638 537 C738 437 860 437 958 537" stroke="url(#flow)" stroke-width="8" fill="none" marker-end="url(#arrow)"/>
+  <text x="708" y="504" class="sans small">SHIFT IN NEWLY AFFECTED REGIONS</text>
+
+  <!-- right: urban ecology -->
+  <text x="1010" y="255" class="sans label">2020—2024</text>
+  <text x="1010" y="291" class="sans small">URBAN + SEMI-URBAN</text>
+  <g fill="#26363b">
+    <rect x="1012" y="606" width="100" height="154" rx="3"/><rect x="1122" y="526" width="128" height="234" rx="3"/><rect x="1260" y="578" width="89" height="182" rx="3"/><rect x="1359" y="472" width="120" height="288" rx="3"/>
+  </g>
+  <g fill="#f5f1e9" opacity=".95">
+    <g id="windows"><rect x="1030" y="628" width="13" height="16"/><rect x="1062" y="628" width="13" height="16"/><rect x="1094" y="628" width="13" height="16"/><rect x="1030" y="668" width="13" height="16"/><rect x="1062" y="668" width="13" height="16"/><rect x="1094" y="668" width="13" height="16"/><rect x="1030" y="708" width="13" height="16"/><rect x="1062" y="708" width="13" height="16"/></g>
+    <g transform="translate(120  -80)"><use href="#windows"/></g><g transform="translate(250 -28)"><use href="#windows"/></g><g transform="translate(350 -134)"><use href="#windows"/></g>
+  </g>
+  <circle cx="1185" cy="468" r="74" fill="#009e9a" opacity=".16"/><circle cx="1185" cy="468" r="45" fill="#009e9a" opacity=".30"/><circle cx="1185" cy="468" r="15" class="warm"/>
+  <path d="M1096 419 C1127 386 1160 388 1185 416 C1162 411 1143 419 1127 439 C1117 431 1106 425 1096 419Z" class="ink"/>
+  <g transform="translate(1296 405) scale(.85)" stroke="#26363b" stroke-width="4" stroke-linecap="round" fill="none"><ellipse cx="0" cy="0" rx="10" ry="21" fill="#26363b"/><path d="M-7-9 L-45-31 M7-9 L45-31 M-8 8 L-48 20 M8 8 L48 20 M-6 16 L-38 49 M6 16 L38 49 M0-21 L0-48"/><ellipse cx="-30" cy="-19" rx="22" ry="9" transform="rotate(25 -30 -19)"/><ellipse cx="30" cy="-19" rx="22" ry="9" transform="rotate(-25 30 -19)"/></g>
+  <text x="1010" y="806" class="sans small">CONFIRMED FIRST INVASIONS</text>
+  <rect x="1010" y="834" width="422" height="14" rx="7" fill="#009e9a"/>
+  <text x="1010" y="888" class="sans label">URBAN FIRST-INVASION RATE ↑</text>
+  <text x="100" y="950" class="sans small">QUALIFIED SIGNAL: MORE URBAN DETECTION OR MORE URBAN SPREAD</text>
+  <text x="1500" y="950" text-anchor="end" class="sans small">DR. ZIA FAROOQ · ziaf021.github.io/website</text>
+</svg>

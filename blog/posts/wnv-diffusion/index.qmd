@@ -1,0 +1,56 @@
+---
+title: "West Nile virus is moving north — and climate alone can't explain it"
+description: "Why eco-climatic suitability tells only half the story of how a mosquito-borne virus invades new regions of Europe."
+author: "Zia Farooq"
+date: "2026-07-28"
+categories: [West Nile virus, spatial epidemiology, modelling]
+image: thumbnail.png
+image-alt: "Map of West Nile virus transmission risk across Europe"
+draft: true
+toc: true
+---
+
+> **Draft** — this is a scaffold with the argument mapped out. Expand each section,
+> add a figure or two from the paper, and set `draft: true` to `false` to publish.
+
+## The puzzle
+
+If you overlay a map of where West Nile virus (WNV) *could* circulate — based on
+temperature, rainfall, and mosquito habitat — onto a map of where it *actually*
+has, the two don't match. Some eco-climatically suitable regions stay disease-free
+for years, while neighbouring regions with near-identical conditions are invaded.
+Suitability, it turns out, is necessary but not sufficient.
+
+## What suitability misses
+
+*(Expand: eco-climatic models answer "where is transmission possible?" but not
+"why here and not there, and why now?" Introduce the idea that invasion is a
+**process** unfolding across space and time, not a static risk surface.)*
+
+## Adding spatial diffusion
+
+In recent work I coupled a **spatial-diffusion framework** with **time-to-event
+modelling** across fine-scale administrative regions of 18 European countries
+(2006–2024). The question: once you account for climatic suitability, how much of
+WNV emergence is explained by *where the virus already is*?
+
+Three factors stood out:
+
+- **Distance to invasion foci** — proximity to already-affected areas.
+- **Neighbourhood invasion pressure** — how many neighbouring regions are affected.
+- **Transmission intensity** — the local force of infection once established.
+
+*(Expand each with a sentence and, ideally, the relevant figure.)*
+
+## Why it matters for public health
+
+*(Expand: diffusion-aware models improve early warning — they flag the regions
+next in line, not just the climatically suitable ones. Tie to surveillance and
+resource allocation.)*
+
+## Read more
+
+The full study is available as a preprint —
+[Spatial diffusion and climatic suitability shape West Nile virus invasion risk
+across Europe](https://doi.org/10.21203/rs.3.rs-10383062/v1). Questions or ideas?
+[Get in touch](../../../Contact.qmd).

@@ -1,6 +1,6 @@
 ---
 title: "Zia Farooq, PhD"
-subtitle: "Data scientist & infectious-disease modeller — machine learning, spatial epidemiology & climate–health · Umeå University, Sweden"
+subtitle: "Data scientist & infectious-disease modeller · Umeå University, Sweden — machine learning, spatial epidemiology & climate–health"
 image: images/ZiaFarooq.jpg
 image-alt: "Portrait of Dr. Zia Farooq"
 about:
@@ -38,6 +38,7 @@ format:
 
 ```{=html}
 <div class="quotes">
+  <div class="quote"><div class="q-text">If the path before you is clear, you're probably on someone else's.</div><div class="q-author">— Carl Jung</div></div>
   <div class="quote"><div class="q-text">Somewhere, something incredible is waiting to be known.</div><div class="q-author">— Carl Sagan</div></div>
   <div class="quote"><div class="q-text">If I have seen further it is by standing on the shoulders of giants.</div><div class="q-author">— Isaac Newton</div></div>
   <div class="quote"><div class="q-text">The important thing is not to stop questioning. Curiosity has its own reason for existing.</div><div class="q-author">— Albert Einstein</div></div>
@@ -108,7 +109,7 @@ climate-resilient public health.
 
   <div class="pub-card">
     <img class="pub-img" src="images/figures/spatial_diffusion.png" alt="Spatial diffusion and climatic suitability of West Nile virus invasion across Europe">
-    <div class="pub-top">Preprint · 2026</div>
+    <div class="pub-top">In revision · The Lancet Regional Health – Europe · 2026</div>
     <div class="pub-body">
       <div class="pub-title">Spatial diffusion and climatic suitability shape West Nile virus invasion risk across Europe</div>
       <div class="pub-meta">First author. Couples a spatial-diffusion framework with time-to-event modelling across 18 European countries (2006–2024).</div>
@@ -171,6 +172,26 @@ climate-resilient public health.
 :::
 
 ::: home-section
+## From the blog
+
+```{=html}
+<div class="pub-cards">
+  <div class="pub-card">
+    <a href="blog/posts/wnv-urban/"><img class="pub-img" src="blog/posts/wnv-urban/thumbnail.png" alt="Urbanisation make-up of newly invaded West Nile virus regions by period"></a>
+    <div class="pub-top">Blog · 2026</div>
+    <div class="pub-body">
+      <div class="pub-title">Is West Nile virus moving towards urban Europe?</div>
+      <div class="pub-meta">A once-rural virus is turning up more in Europe's urban and semi-urban regions. What the data show, and what they can't yet settle.</div>
+      <a class="pub-link" href="blog/posts/wnv-urban/">Read the post →</a>
+    </div>
+  </div>
+</div>
+```
+
+[Visit the blog](blog/index.qmd){.btn .btn-outline-primary role="button"}
+:::
+
+::: home-section
 ## Funding & awards secured
 
 ```{=html}
@@ -199,20 +220,8 @@ climate-resilient public health.
 ```{=html}
 <div class="funding">
   <div class="fund-item pending">
-    <div class="fund-name">FORMAS Early-Career Researcher grant</div>
-    <div class="fund-detail">Submitted 2026 · decision expected Oct 2026</div>
-  </div>
-  <div class="fund-item pending">
-    <div class="fund-name">FORMAS Climate &amp; Health call (Sweden)</div>
-    <div class="fund-detail">Application submitted · under review</div>
-  </div>
-  <div class="fund-item pending">
-    <div class="fund-name">Horizon Europe</div>
-    <div class="fund-detail">Application submitted · under review</div>
-  </div>
-  <div class="fund-item pending">
     <div class="fund-name">FORTE — abortion research project</div>
-    <div class="fund-detail">Under review · decision expected Oct–Nov 2026</div>
+    <div class="fund-detail">Under review · decision expected late 2026</div>
   </div>
 </div>
 ```
@@ -223,8 +232,9 @@ climate-resilient public health.
 
 ```{=html}
 <div class="timeline">
-  <div class="t-item"><span class="t-year">2026</span><span class="t-text">Preparing a first-author study on human mobility and the transcontinental threat of dengue (to be submitted).</span></div>
-  <div class="t-item"><span class="t-year">2026</span><span class="t-text">Released a preprint introducing a spatial-diffusion model of West Nile virus invasion across Europe.</span></div>
+  <div class="t-item"><span class="t-year">2026</span><span class="t-text">Spatial-diffusion study of West Nile virus invasion across Europe in revision at <em>The Lancet Regional Health – Europe</em>.</span></div>
+  <div class="t-item"><span class="t-year">2026</span><span class="t-text">New blog post: <a href="blog/posts/wnv-urban/">Is West Nile virus moving towards urban Europe?</a></span></div>
+  <div class="t-item"><span class="t-year">2026</span><span class="t-text">Submitted a study on socioeconomic vulnerability and malaria risk in Punjab, Pakistan (senior author).</span></div>
   <div class="t-item"><span class="t-year">2026</span><span class="t-text">Contributing author to the 2026 Europe report of the Lancet Countdown (<em>The Lancet Public Health</em>).</span></div>
   <div class="t-item"><span class="t-year">2025</span><span class="t-text">Published two first-author papers in <em>The Lancet Planetary Health</em> on the expansion of <em>Aedes albopictus</em> and arboviral outbreaks in Europe.</span></div>
   <div class="t-item"><span class="t-year">2025</span><span class="t-text">Research visit to the Applied Ecology Unit, Fondazione Edmund Mach, Trento, Italy.</span></div>

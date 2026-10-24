@@ -1,0 +1,22 @@
+---
+title: "Thank you"
+title-block-banner: "#143A5A"
+title-block-banner-color: "white"
+page-layout: article
+---
+
+::: {.text-center style="max-width: 620px; margin: 2rem auto;"}
+
+## Message received ✓
+
+Thank you very much for reaching out. I'll soon be in touch with you.
+
+Best regards,
+**Dr. Zia Farooq**
+
+<br>
+
+[Back to home](index.qmd){.btn .btn-primary role="button"}
+[Research & Publications](ResearchProjects.qmd){.btn .btn-outline-primary role="button"}
+
+:::

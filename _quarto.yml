@@ -2,7 +2,13 @@ project:
   type: website
   render:
     - "*.qmd"
+    - "blog/**/*.qmd"
     - "!SurvivalAnalysis_Celiac.Rmd"
+
+# Cache R results so GitHub Actions can rebuild without installing R.
+# R chunks run locally when you `quarto render`; results are stored in _freeze/.
+execute:
+  freeze: auto
 
 website:
   sidebar:
@@ -10,11 +16,12 @@ website:
     location: navbar
     type: overlay
   title: "Zia Farooq"
-  site-url: https://ziafarooq.org
+  site-url: https://ziaf021.github.io/website
   favicon: images/ZF_Avatar1.jpeg
   description: |
-    Zia Farooq's website mainly features about
-    statistics, data science,infectious disease modelling, R and academia.
+    Dr Zia Farooq — postdoctoral researcher and data scientist at Umeå University,
+    Sweden, specialising in machine learning, spatial epidemiology, and
+    climate-sensitive infectious disease modelling.
  # body-header: |
  #   **Welcome to My Website!**  
  #   *Here is a brief introduction or a standard message that will appear on every page.*  
@@ -24,15 +31,14 @@ website:
   back-to-top-navigation: true     # Provide a ‘back to top’ navigation button
   bread-crumbs: true               # Show navigation breadcrumbs for pages more than 1 level deep
   # Image for social sharing (Twitter/Open Graph)
-  image: images/ZF_Avatar1.jpeg
-  image-alt: "Portrait of Dr. Zia Farooq"
+  image: images/social-card.png
+  image-alt: "Zia Farooq, PhD — data scientist & infectious-disease modeller, Umeå University"
 
   # Social sharing metadata
   open-graph: true
   twitter-card: true
 
   # Page features
-  google-analytics: "G-07SZXPNSJZ"
   search: true
   navbar:
     background: primary
@@ -60,24 +66,32 @@ website:
       - text: Research Projects
         href: ResearchProjects.qmd
         aria-label: "See my projects"
-      - text: Data science
+      - text: Data Science Lab
+        href: DataScience.qmd
+        aria-label: "Applied data-science projects"
         menu:
+          - text: Overview
+            href: DataScience.qmd
           - text: Survival Analysis
             href: Celiac.qmd
-          - text: Risk Mapping 
+          - text: Risk Mapping
             href: Subproject1.qmd
-          #  icon: file-code
-            aria-label: "Go to Subproject 1"
           - text: Regression
             href: Subproject2.qmd
-            aria-label: "Go to Subproject 2"
           - text: Classification
             href: Subproject3.qmd
-            aria-label: "Go to Subproject 3"
+      - text: Blog
+        href: blog/index.qmd
+        icon: pencil-square
+        aria-label: "Blog"
       - text: Resume
         href: Resume.qmd
       - text: Leisure Time
         href: LeisureTime.qmd
+      - text: Contact
+        href: Contact.qmd
+        icon: envelope
+        aria-label: "Contact me"
     right:
       - icon: google
         href: https://scholar.google.com/citations?user=bz2GB_cAAAAJ&hl=en
@@ -126,13 +140,22 @@ format:
     css: styles.css
     include-in-header:
       text: |
+        <meta name="author" content="Zia Farooq">
+        <meta name="keywords" content="Zia Farooq, Dr Zia Farooq, epidemiology, data science, machine learning, spatial epidemiology, infectious disease modelling, West Nile virus, climate and health, Umeå University">
+        <!-- Google Search Console: replace the content value below with YOUR token
+             (Search Console → Add property → HTML tag method → copy the content="..."), then re-publish and click Verify. -->
+        <meta name="google-site-verification" content="lSo2HAikr5gIEVOC9cG8-5KRgAG-TS1tOTGsCX7ikoc">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+        <!-- Cloudflare Web Analytics (cookieless, no consent banner needed).
+             Replace YOUR_CLOUDFLARE_TOKEN below with the token from
+             Cloudflare dashboard → Web Analytics → Add a site → JS snippet. -->
+        <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "1d99a1ad208241c786311c9633047faa"}'></script>
     include-after: |
-      <link rel="stylesheet" href="/assets/syntax-highlight.css">
-      <link rel="stylesheet" href="/assets/fontawesome-free-6.1.1-web/css/all.min.css">
-      <script src="/assets/fontawesome-free-6.1.1-web/js/all.min.js"></script>
+      <link rel="stylesheet" href="assets/syntax-highlight.css">
+      <link rel="stylesheet" href="assets/fontawesome-free-6.1.1-web/css/all.min.css">
+      <script src="assets/fontawesome-free-6.1.1-web/js/all.min.js"></script>
     toc: true
 editor: visual
 

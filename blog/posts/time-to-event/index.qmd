@@ -1,0 +1,51 @@
+---
+title: "Reading survival curves: what time-to-event analysis reveals about outbreaks"
+description: "A gentle introduction to time-to-event methods — and how they show that dengue and chikungunya are arriving in Europe faster than ever."
+author: "Zia Farooq"
+date: "2026-08-04"
+categories: [methods, biostatistics, climate & health]
+image: thumbnail.png
+image-alt: "Time-to-event analysis of dengue and chikungunya outbreaks in Europe"
+draft: true
+toc: true
+---
+
+> **Draft** — scaffold with the structure and key points in place. Expand the
+> examples, add a survival-curve figure, and flip `draft: true` to `false`.
+
+## Not "how many" but "how long until"
+
+Most epidemiological headlines count cases. But some of the most important
+questions are about *timing*: how long until a newly established mosquito
+population produces its first local outbreak? How long until a region crosses a
+risk threshold? **Time-to-event analysis** (a.k.a. survival analysis) is built
+exactly for these "how long until" questions — including cases where the event
+hasn't happened yet (censoring).
+
+## The core ideas, briefly
+
+- **The event and the clock.** Define the event (e.g. first local outbreak) and
+  when the clock starts (e.g. vector establishment).
+- **Censoring.** Regions that haven't had an outbreak by the end of follow-up still
+  carry information — survival methods use it instead of discarding it.
+- **The survival curve.** Kaplan–Meier curves show the probability of remaining
+  event-free over time; hazard models (e.g. Cox) quantify what speeds the clock up.
+
+*(Expand each with one plain-language sentence.)*
+
+## What it revealed for Europe
+
+Applying these methods to dengue and chikungunya, the interval between
+*Aedes albopictus* establishing in a European region and its first local outbreak
+**fell from around 25 years to under five** over 1990–2024 — with a projected
+near five-fold increase in outbreaks by the 2060s under a high-emissions scenario.
+
+*(Expand: what drivers shortened the interval, and what that means for
+preparedness.)*
+
+## Try it yourself
+
+The same tools underpin my [Survival Analysis project](../../../Celiac.html), which
+walks through Kaplan–Meier and Cox models in R on a clinical dataset. The full
+outbreak study is in
+[*The Lancet Planetary Health*](https://doi.org/10.1016/S2542-5196(25)00059-2).

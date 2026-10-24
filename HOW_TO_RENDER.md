@@ -46,13 +46,18 @@ quarto render
 
 ## 5. Publish
 
-Publish to Quarto Pub (matches your existing `_publish.yml`):
+The site is hosted on **GitHub Pages**. To publish an update:
 
 ```bash
-quarto publish quarto-pub
+quarto publish gh-pages
 ```
 
-- [ ] Confirm the target account/site when prompted.
+- [ ] Confirm when prompted; it renders and deploys to `gh-pages`.
+- [ ] Live at <https://ziaf021.github.io/website/>.
+
+> The old Quarto Pub site (`faruk-xia.quarto.pub`) is no longer used. If it's still
+> live, sign in at <https://quartopub.com> and delete it so it doesn't compete in
+> search results.
 
 ## Custom domain (ziafarooq.org)
 

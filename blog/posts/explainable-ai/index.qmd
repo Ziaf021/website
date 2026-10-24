@@ -1,0 +1,58 @@
+---
+title: "Explainable AI in epidemiology: prediction you can actually act on"
+description: "A model that forecasts outbreaks is useful. A model that also tells you why is actionable. How explainable AI bridges the gap."
+author: "Zia Farooq"
+date: "2026-08-11"
+categories: [machine learning, explainable AI, epidemiology]
+image: thumbnail.png
+image-alt: "Machine-learning eco-climatic driver maps for West Nile virus"
+draft: true
+toc: true
+---
+
+> **Draft** — argument and structure ready. Expand the examples, add a
+> feature-importance or partial-dependence figure, then set `draft: true` to `false`.
+
+## The black-box problem
+
+Machine-learning models can predict disease outbreaks with impressive accuracy —
+but accuracy alone rarely convinces a public-health decision-maker. If a model says
+"high risk here next season" without saying *why*, it's hard to trust and harder to
+act on. In applied epidemiology, **interpretability is not a nice-to-have; it's part
+of the deliverable.**
+
+## What explainable AI adds
+
+Explainability turns a prediction into an explanation:
+
+- **Which drivers matter** — feature-importance ranks the environmental,
+  climatic, and socioeconomic variables shaping risk.
+- **How they matter** — partial-dependence and related tools show the *shape* of
+  each relationship (e.g. the temperature window where risk rises sharply).
+- **Where and when** — mapping the drivers spatially turns a model into a
+  decision-support tool, not just a score.
+
+*(Expand each with a concrete example from the WNV work.)*
+
+## A worked example: West Nile virus
+
+In our West Nile virus work, machine-learning models integrating eco-climatic
+drivers didn't just forecast where outbreaks were likely — they identified *which*
+conditions were pushing risk up, and where. That is what makes the output usable by
+surveillance teams and the [Lancet Countdown](https://www.lancetcountdown.org/)
+indicators alike.
+
+*(Expand: name a few of the most influential drivers and what they imply.)*
+
+## Prediction with a mechanism
+
+Explainable ML pairs naturally with process-based models: the machine-learning side
+captures complex patterns, the mechanistic side encodes what we know about
+transmission. *(Expand: why the combination is more trustworthy than either alone.)*
+
+## Read more
+
+See the [Artificial intelligence to predict West Nile virus outbreaks](https://doi.org/10.1016/j.lanepe.2022.100370)
+paper, and my [Classification Modelling project](../../../Subproject3.html) for a
+hands-on tidymodels workflow. Working on something similar?
+[Let's talk](../../../Contact.qmd).

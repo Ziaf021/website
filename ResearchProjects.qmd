@@ -46,7 +46,7 @@ and the methods needed to forecast and monitor them.
 
   <div class="pub-card">
     <img class="pub-img" src="images/figures/spatial_diffusion.png" alt="Spatial diffusion and climatic suitability of West Nile virus invasion across Europe">
-    <div class="pub-top">Preprint · 2026</div>
+    <div class="pub-top">In revision · The Lancet Regional Health – Europe · 2026</div>
     <div class="pub-body">
       <div class="pub-title">Spatial diffusion and climatic suitability shape West Nile virus invasion risk across Europe</div>
       <div class="pub-meta">Couples a spatial-diffusion framework with time-to-event modelling across 18 European countries (2006–2024) to explain why some regions are invaded while eco-climatically similar neighbours are not.</div>
@@ -187,7 +187,7 @@ Umeå University Medical Dissertations 2305, 2024.
 ```
 
 My public defence (disputation) was held on **03 June 2024** at Umeå University, and
-the doctoral degree was conferred at the graduation ceremony on **24 May 2025**.
+the doctoral degree was conferred at the graduation ceremony on **17 May 2025**.
 
 ```{=html}
 <div class="pub-cards">
@@ -197,7 +197,7 @@ the doctoral degree was conferred at the graduation ceremony on **24 May 2025**.
   </div>
   <div class="pub-card">
     <img class="pub-img" src="images/thesis/defense_ceremony.jpg" alt="Photographs from the PhD degree award ceremony" style="height:auto;">
-    <div class="pub-top">Doctoral graduation ceremony · 24 May 2025</div>
+    <div class="pub-top">Doctoral graduation ceremony · 17 May 2025</div>
   </div>
 </div>
 ```
@@ -222,7 +222,7 @@ the doctoral degree was conferred at the graduation ceremony on **24 May 2025**.
 
 - **Socioeconomic vulnerability shapes the spatiotemporal distribution of malaria
   risk in Punjab, Pakistan.** Asif M, Semenza JC, **Farooq Z** — senior author,
-  supervising the first-author PhD student; in preparation, 2026.
+  supervising the first-author PhD student; submitted, 2026.
 
 ## Selected code repositories
 

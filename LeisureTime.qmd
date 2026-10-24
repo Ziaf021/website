@@ -22,24 +22,24 @@ outdoor life of northern Sweden.
 </div>
 ```
 
-## Following Arsenal
+## Following Arsenal FC
 
 Football found me late. Growing up in Pakistan, my sport was **cricket** — but
 after moving to Europe, my younger brother pulled me into the English game as a
-way to unwind from the pressures of PhD life. I followed him to **Arsenal**, and
-what began as a distraction has become one of my great weekend joys: the tension
-of a tight match, the rhythm of a season, and the shared highs and lows that come
-with supporting a club.
+way to unwind from the pressures of PhD life. I followed him to **Arsenal Football
+Club**, and what began as a distraction has become one of my great weekend joys:
+the tension of a tight match, the rhythm of a season, and the shared highs and lows
+that come with supporting a club.
 
 The wait for silverware taught its own kind of patience — and in 2025/26 it was
 finally rewarded.
 
 ```{=html}
 <div class="arsenal-band">
-  <span class="cup">🏆</span>
+  <img class="crest" src="images/arsenal_emblem.svg" alt="Stylized cannon emblem in Arsenal FC colours">
   <div>
-    <div class="a-title">Arsenal — Premier League Champions 2025/26</div>
-    <div class="a-sub">The Gunners' first league title in 22 years, sealed with the meanest defence in the division. Up the Arsenal!</div>
+    <div class="a-title">Arsenal FC — Premier League Champions 2025/26</div>
+    <div class="a-sub">Arsenal Football Club's first league title in 22 years, sealed with the meanest defence in the division.</div>
   </div>
 </div>
 ```
@@ -55,7 +55,7 @@ ideas quietly take shape.
 ```{=html}
 <div class="chip-row">
   <span class="chip">🏏 Cricket</span>
-  <span class="chip">⚽ Football (Arsenal)</span>
+  <span class="chip">⚽ Arsenal FC</span>
   <span class="chip">🚴 Cycling</span>
   <span class="chip">🏋️ Gym &amp; fitness</span>
   <span class="chip">🌲 Outdoors with family</span>

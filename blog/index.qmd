@@ -1,0 +1,20 @@
+---
+title: "Blog"
+subtitle: "Notes on data science, modelling, and climate-sensitive infectious disease"
+title-block-banner: "#143A5A"
+title-block-banner-color: "white"
+listing:
+  contents: posts
+  sort: "date desc"
+  type: default
+  categories: true
+  sort-ui: false
+  filter-ui: false
+  fields: [date, title, description, categories, reading-time]
+  feed: true
+page-layout: full
+---
+
+Occasional writing on the methods and ideas behind my research — from machine
+learning and spatial epidemiology to reflections on climate change and public
+health. New posts are listed below.
